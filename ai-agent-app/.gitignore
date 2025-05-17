@@ -1,0 +1,12 @@
+# Node
+node_modules
+.env
+
+# Vite / React build
+dist
+
+# Logs
+*.log
+
+# Mac / OS files
+.DS_Store
