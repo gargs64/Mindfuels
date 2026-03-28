@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <title>MindFuels_Demo</title>
+  <meta name="description"
+    content="Bring home the latest in kids fashion, made from natural fabrics that are light on the skin, non-irritable & good for your kids and the planet.">
+  <link rel="icon" href="photos/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Lato:wght@300;400;700;900&family=Playfair+Display:wght@400;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header-inner">
+      <a href="/" class="logo">
+        <img src="photos/logo.png" alt="Mind fuels Logo" style="height: 36px; width: auto; display: block;">
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="products.html">Products</a>
+        <a href="#">Class <span class="nav-arrow">▾</span></a>
+        <a href="#">Age Group <span class="nav-arrow">▾</span></a>
+        <a href="#">Subject <span class="nav-arrow">▾</span></a>
+      </nav>
+
+      <div class="header-icons">
+        <button aria-label="Search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.3-4.3" />
+          </svg>
+        </button>
+        <a href="login.html" aria-label="Account">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+        </a>
+        <a href="#" aria-label="Wishlist">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21.3l7.8-7.8 1-1.1a5.5 5.5 0 0 0 0-7.8z" />
+          </svg>
+        </a>
+        <a href="#" class="cart-icon" aria-label="Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1" />
+            <circle cx="20" cy="21" r="1" />
+            <path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6" />
+          </svg>
+          <span class="cart-badge">0</span>
+        </a>
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Image -->
+  <section class="hero" id="heroCarousel">
+    <div class="hero-track" id="heroTrack">
+      <div class="hero-slide">
+        <a href="#">
+          <img src="https://i.postimg.cc/cJgWYMjg/Whats_App_Image_2026_03_25_at_5_25_58_PM.jpg" alt="first"
+            loading="eager">
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Bar -->
+  <div class="trust-bar">
+    <div class="trust-bar-inner">
+      <span class="trust-item">20+ Years of Trust</span>
+      <span class="trust-icon">❤</span>
+
+      <span class="trust-item">School-Trusted Store</span>
+      <span class="trust-icon">❤</span>
+
+      <span class="trust-item">Quality You Can Trust</span>
+      <span class="trust-icon">❤</span>
+
+      <span class="trust-item">Young Readers Collection</span>
+    </div>
+  </div>
+
+  <!-- Parents & Teachers Products Section -->
+  <section class="bestsellers-section section fade-up">
+    <div class="container">
+      <!-- Header Row: title left, tabs right -->
+      <div class="bestsellers-header">
+        <div class="bestsellers-title-group">
+          <h2 class="bestsellers-title">Trusted Favorites</h2>
+          <p class="bestsellers-subtitle">Loved by Parents and Teachers</p>
+        </div>
+        <div class="bestsellers-tabs">
+          <button class="bs-tab active" id="tabParents" onclick="switchTab('parents')">Parents' First Choice</button>
+          <button class="bs-tab" id="tabTeachers" onclick="switchTab('teachers')">Teacher's Recommendation</button>
+        </div>
+      </div>
+
+      <!-- Parents Carousel -->
+      <div id="parentsProducts" class="tab-content">
+        <div class="bs-scroll-wrapper">
+          <button class="bs-arrow bs-arrow-left" onclick="scrollProducts('parentsScroll',-1)">&#8249;</button>
+          <div class="bs-track" id="parentsScroll">
+
+            <a href="products.html" class="bs-card">
+              <div class="bs-img-wrap"><img src="https://i.postimg.cc/02sccbs2/2.png" alt="Mind-Quest Level 1"></div>
+              <div class="bs-name">Mind-Quest Level 1</div>
+              <div class="bs-pricing"><span class="bs-sale">₹399</span> <span class="bs-mrp">₹799</span> <span
+                  class="bs-off">(50% OFF)</span></div>
+            </a>
+
+            <a href="products.html" class="bs-card">
+              <div class="bs-img-wrap"><img src="https://i.postimg.cc/jSTmwM5N/Untitled-design.png"
+                  alt="Creative Storybook"></div>
+              <div class="bs-name">Creative Storybook</div>
+              <div class="bs-pricing"><span class="bs-sale">₹279</span> <span class="bs-mrp">₹499</span> <span
+                  class="bs-off">(44% OFF)</span></div>
+            </a>
+
+            <a href="products.html" class="bs-card">
+              <div class="bs-img-wrap"><img
+                  src="https://i.postimg.cc/3NJWxXGQ/Gemini-Generated-Image-xnyqdjxnyqdjxnyq.png"
+                  alt="Activity Workbook"></div>
+              <div class="bs-name">Activity Workbook</div>
+              <div class="bs-pricing"><span class="bs-sale">₹499</span> <span class="bs-mrp">₹899</span> <span
+                  class="bs-off">(44% OFF)</span></div>
+            </a>
+
+            <a href="products.html" class="bs-card">
+              <div class="bs-img-wrap"><img
+                  src="https://i.postimg.cc/QCyNNRs0/Gemini-Generated-Image-2qbskp2qbskp2qbs.png" alt="Fun Learner Set">
+              </div>
+              <div class="bs-name">Fun Learner Set</div>
+              <div class="bs-pricing"><span class="bs-sale">₹699</span> <span class="bs-mrp">₹1199</span> <span
+                  class="bs-off">(42% OFF)</span></div>
+            </a>
+
+            <a href="products.html" class="bs-card">
+              <div class="bs-img-wrap"><img
+                  src="https://i.postimg.cc/5y61rnvt/Gemini-Generated-Image-q0h9myq0h9myq0h9.png"
+                  alt="Puzzle Maths Kit"></div>
+              <div class="bs-name">Puzzle Maths Kit</div>
+              <div class="bs-pricing"><span class="bs-sale">₹349</span> <span class="bs-mrp">₹599</span> <span
+                  class="bs-off">(42% OFF)</span></div>
+            </a>
+
+            <a href="products.html" class="bs-card">
+              <div class="bs-img-wrap"><img
+                  src="https://i.postimg.cc/PJpsyNsw/Gemini-Generated-Image-o62zfco62zfco62z.png"
+                  alt="Science Explorer"></div>
+              <div class="bs-name">Science Explorer</div>
+              <div class="bs-pricing"><span class="bs-sale">₹449</span> <span class="bs-mrp">₹799</span> <span
+                  class="bs-off">(44% OFF)</span></div>
+            </a>
+
+            <a href="products.html" class="bs-card">
+              <div class="bs-img-wrap"><img src="https://i.postimg.cc/02sccbs2/2.png" alt="Reading Booster"></div>
+              <div class="bs-name">Reading Booster Pack</div>
+              <div class="bs-pricing"><span class="bs-sale">₹299</span> <span class="bs-mrp">₹549</span> <span
+                  class="bs-off">(46% OFF)</span></div>
+            </a>
+
+            <a href="products.html" class="bs-card">
+              <div class="bs-img-wrap"><img src="https://i.postimg.cc/jSTmwM5N/Untitled-design.png"
+                  alt="World of Words"></div>
+              <div class="bs-name">World of Words</div>
+              <div class="bs-pricing"><span class="bs-sale">₹199</span> <span class="bs-mrp">₹399</span> <span
+                  class="bs-off">(50% OFF)</span></div>
+            </a>
+
+            <a href="products.html" class="bs-card">
+              <div class="bs-img-wrap"><img
+                  src="https://i.postimg.cc/3NJWxXGQ/Gemini-Generated-Image-xnyqdjxnyqdjxnyq.png"
+                  alt="Comprehension Cards"></div>
+              <div class="bs-name">Comprehension Cards</div>
+              <div class="bs-pricing"><span class="bs-sale">₹249</span> <span class="bs-mrp">₹449</span> <span
+                  class="bs-off">(44% OFF)</span></div>
+            </a>
+
+            <a href="products.html" class="bs-card">
+              <div class="bs-img-wrap"><img
+                  src="https://i.postimg.cc/QCyNNRs0/Gemini-Generated-Image-2qbskp2qbskp2qbs.png" alt="Draw & Learn">
+              </div>
+              <div class="bs-name">Draw & Learn Journal</div>
+              <div class="bs-pricing"><span class="bs-sale">₹319</span> <span class="bs-mrp">₹599</span> <span
+                  class="bs-off">(47% OFF)</span></div>
+            </a>
+
+          </div>
+          <button class="bs-arrow bs-arrow-right" onclick="scrollProducts('parentsScroll',1)">&#8250;</button>
+        </div>
+      </div>
+
+      <!-- Teachers Carousel -->
+      <div id="teachersProducts" class="tab-content" style="display:none;">
+        <div class="bs-scroll-wrapper">
+          <button class="bs-arrow bs-arrow-left" onclick="scrollProducts('teachersScroll',-1)">&#8249;</button>
+          <div class="bs-track" id="teachersScroll">
+
+            <a href="products.html" class="bs-card">
+              <div class="bs-img-wrap"><img
+                  src="https://i.postimg.cc/QCyNNRs0/Gemini-Generated-Image-2qbskp2qbskp2qbs.png"
+                  alt="Teacher's Guide A"></div>
+              <div class="bs-name">Teacher's Guide A</div>
+              <div class="bs-pricing"><span class="bs-sale">₹399</span> <span class="bs-mrp">₹699</span> <span
+                  class="bs-off">(43% OFF)</span></div>
+            </a>
+
+            <a href="products.html" class="bs-card">
+              <div class="bs-img-wrap"><img
+                  src="https://i.postimg.cc/5y61rnvt/Gemini-Generated-Image-q0h9myq0h9myq0h9.png"
+                  alt="Math Practice Level 2"></div>
+              <div class="bs-name">Math Practice Level 2</div>
+              <div class="bs-pricing"><span class="bs-sale">₹249</span> <span class="bs-mrp">₹449</span> <span
+                  class="bs-off">(44% OFF)</span></div>
+            </a>
+
+            <a href="products.html" class="bs-card">
+              <div class="bs-img-wrap"><img
+                  src="https://i.postimg.cc/PJpsyNsw/Gemini-Generated-Image-o62zfco62zfco62z.png"
+                  alt="Advanced Worksheets"></div>
+              <div class="bs-name">Advanced Worksheets</div>
+              <div class="bs-pricing"><span class="bs-sale">₹299</span> <span class="bs-mrp">₹549</span> <span
+                  class="bs-off">(46% OFF)</span></div>
+            </a>
+
+            <a href="products.html" class="bs-card">
+              <div class="bs-img-wrap"><img src="https://i.postimg.cc/02sccbs2/2.png" alt="Science Grade 2"></div>
+              <div class="bs-name">Science Guide - Grade 2</div>
+              <div class="bs-pricing"><span class="bs-sale">₹349</span> <span class="bs-mrp">₹599</span> <span
+                  class="bs-off">(42% OFF)</span></div>
+            </a>
+
+            <a href="products.html" class="bs-card">
+              <div class="bs-img-wrap"><img src="https://i.postimg.cc/jSTmwM5N/Untitled-design.png" alt="Classroom Kit">
+              </div>
+              <div class="bs-name">Classroom Activity Kit</div>
+              <div class="bs-pricing"><span class="bs-sale">₹649</span> <span class="bs-mrp">₹1099</span> <span
+                  class="bs-off">(41% OFF)</span></div>
+            </a>
+
+            <a href="products.html" class="bs-card">
+              <div class="bs-img-wrap"><img
+                  src="https://i.postimg.cc/3NJWxXGQ/Gemini-Generated-Image-xnyqdjxnyqdjxnyq.png" alt="English Reader">
+              </div>
+              <div class="bs-name">English Reader Graded</div>
+              <div class="bs-pricing"><span class="bs-sale">₹199</span> <span class="bs-mrp">₹349</span> <span
+                  class="bs-off">(43% OFF)</span></div>
+            </a>
+
+            <a href="products.html" class="bs-card">
+              <div class="bs-img-wrap"><img
+                  src="https://i.postimg.cc/QCyNNRs0/Gemini-Generated-Image-2qbskp2qbskp2qbs.png" alt="Phonics Booster">
+              </div>
+              <div class="bs-name">Phonics Booster Kit</div>
+              <div class="bs-pricing"><span class="bs-sale">₹449</span> <span class="bs-mrp">₹799</span> <span
+                  class="bs-off">(44% OFF)</span></div>
+            </a>
+
+            <a href="products.html" class="bs-card">
+              <div class="bs-img-wrap"><img
+                  src="https://i.postimg.cc/5y61rnvt/Gemini-Generated-Image-q0h9myq0h9myq0h9.png" alt="Mental Maths">
+              </div>
+              <div class="bs-name">Mental Maths Workbook</div>
+              <div class="bs-pricing"><span class="bs-sale">₹279</span> <span class="bs-mrp">₹499</span> <span
+                  class="bs-off">(44% OFF)</span></div>
+            </a>
+
+            <a href="products.html" class="bs-card">
+              <div class="bs-img-wrap"><img
+                  src="https://i.postimg.cc/PJpsyNsw/Gemini-Generated-Image-o62zfco62zfco62z.png" alt="EVS Explorer">
+              </div>
+              <div class="bs-name">EVS Explorer Book</div>
+              <div class="bs-pricing"><span class="bs-sale">₹319</span> <span class="bs-mrp">₹549</span> <span
+                  class="bs-off">(42% OFF)</span></div>
+            </a>
+
+            <a href="products.html" class="bs-card">
+              <div class="bs-img-wrap"><img src="https://i.postimg.cc/02sccbs2/2.png" alt="Spell It Right"></div>
+              <div class="bs-name">Spell It Right Grade 3</div>
+              <div class="bs-pricing"><span class="bs-sale">₹229</span> <span class="bs-mrp">₹399</span> <span
+                  class="bs-off">(43% OFF)</span></div>
+            </a>
+
+          </div>
+          <button class="bs-arrow bs-arrow-right" onclick="scrollProducts('teachersScroll',1)">&#8250;</button>
+        </div>
+      </div>
+
+      <!-- Shop All button -->
+      <div style="text-align:center; margin-top: 36px;">
+        <a href="products.html" class="shop-all-btn">Shop All</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Shop by Age Section -->
+  <section class="age-section section fade-up">
+
+    <!-- Title — pulled to the very top -->
+    <div class="age-header">
+      <h2 class="age-title">Shop by Age</h2>
+      <p class="age-subtitle">Find the perfect learning companion for every stage</p>
+    </div>
+
+    <!-- Corner groups -->
+    <div class="age-sides">
+
+      <!-- Top-left pair -->
+      <div class="age-group">
+        <a href="products.html" class="age-card">
+          <div class="age-circle">
+            <img src="photos/3-5 kid.jpg" alt="2-4 Years">
+          </div>
+          <div class="age-label">2–4 YRS</div>
+        </a>
+        <a href="products.html" class="age-card">
+          <div class="age-circle">
+            <img src="photos/6-8 kid.jpg" alt="5-7 Years">
+          </div>
+          <div class="age-label">5–7 YRS</div>
+        </a>
+      </div>
+
+      <!-- Top-right pair -->
+      <div class="age-group">
+        <a href="products.html" class="age-card">
+          <div class="age-circle">
+            <img src="photos/9-10 kid.jpg" alt="8-10 Years">
+          </div>
+          <div class="age-label">8–10 YRS</div>
+        </a>
+        <a href="products.html" class="age-card">
+          <div class="age-circle">
+            <img src="photos/11-12 kid.jpg" alt="11-13 Years">
+          </div>
+          <div class="age-label">11–13 YRS</div>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- Feedback / Testimonial Section -->
+  <section class="feedback-section section fade-up">
+    <div class="feedback-container">
+      <div class="feedback-left">
+        <div class="feedback-content">
+          <p class="feedback-subtitle">Join our everyday</p>
+          <h2 class="feedback-title">Mind-Quests</h2>
+          <p class="feedback-text">
+            Start your everyday Mind-Quests. Watch them grow, one page at a time.
+            Share your <strong>#MindfuelsKids</strong> and <strong>#LittleReaders</strong> moments with us.<br>
+            Tag <strong>@Mindfuels</strong> for a chance to be featured.
+          </p>
+        </div>
+        <!-- Decorative Icons -->
+        <span class="fb-icon fb-star1">✦</span>
+        <span class="fb-icon fb-star2">✦</span>
+        <span class="fb-icon fb-hash">#</span>
+        <div class="fb-rocket">
+          <img src="photos/rocket.png" alt="Rocket"
+            style="width: 400px; height: auto; display: block; filter: drop-shadow(5px 10px 15px rgba(0,0,0,0.1));">
+        </div>
+      </div>
+
+      <div class="feedback-right">
+        <div class="products-scroll-wrapper" style="position:relative; width: 100%; height: 100%;">
+          <div class="testimonial-track" id="testimonialTrack">
+            <!-- Cards populated via JS -->
+          </div>
+          <button class="scroll-btn right" onclick="scrollTestimonials(1)"
+            style="right: 15px; z-index: 10; width: 48px; height: 48px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">&#8250;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Grid Section -->
+  <section class="cat-row-section section fade-up">
+    <div class="container">
+      <div class="cat-carousel-outer">
+
+        <!-- Scroll arrows -->
+        <button class="cat-arrow cat-arrow-left" onclick="scrollCat(-1)">&#8249;</button>
+        <button class="cat-arrow cat-arrow-right" onclick="scrollCat(1)">&#8250;</button>
+
+        <!-- Scrollable track -->
+        <div class="cat-track" id="catTrack">
+
+          <div class="cat-wrap cat-wrap--yellow">
+            <a href="products.html" class="cat-card">
+              <img src="https://i.postimg.cc/02sccbs2/2.png" alt="Story Books" loading="lazy">
+              <div class="cat-card-label">
+                <span>Story Books</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </div>
+            </a>
+          </div>
+
+          <div class="cat-wrap cat-wrap--mint">
+            <a href="products.html" class="cat-card">
+              <img src="https://i.postimg.cc/jSTmwM5N/Untitled-design.png" alt="Activity Books" loading="lazy">
+              <div class="cat-card-label">
+                <span>Activity Books</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </div>
+            </a>
+          </div>
+
+          <div class="cat-wrap cat-wrap--pink">
+            <a href="products.html" class="cat-card">
+              <img src="https://i.postimg.cc/3NJWxXGQ/Gemini-Generated-Image-xnyqdjxnyqdjxnyq.png" alt="Subject Books"
+                loading="lazy">
+              <div class="cat-card-label">
+                <span>Subject Books</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </div>
+            </a>
+          </div>
+
+          <div class="cat-wrap cat-wrap--yellow">
+            <a href="products.html" class="cat-card">
+              <img src="https://i.postimg.cc/QCyNNRs0/Gemini-Generated-Image-2qbskp2qbskp2qbs.png" alt="Worksheets"
+                loading="lazy">
+              <div class="cat-card-label">
+                <span>Worksheets</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </div>
+            </a>
+          </div>
+
+          <div class="cat-wrap cat-wrap--mint">
+            <a href="products.html" class="cat-card">
+              <img src="https://i.postimg.cc/5y61rnvt/Gemini-Generated-Image-q0h9myq0h9myq0h9.png" alt="Coloring Books"
+                loading="lazy">
+              <div class="cat-card-label">
+                <span>Coloring Books</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </div>
+            </a>
+          </div>
+
+          <div class="cat-wrap cat-wrap--pink">
+            <a href="products.html" class="cat-card">
+              <img src="https://i.postimg.cc/PJpsyNsw/Gemini-Generated-Image-o62zfco62zfco62z.png" alt="Practice Kits"
+                loading="lazy">
+              <div class="cat-card-label">
+                <span>Practice Kits</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </div>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+
+  <footer class="footer fade-up">
+    <div class="container">
+      <div class="footer-main">
+        <!-- Left Column: Logo + Newsletter + Social -->
+        <div class="footer-left">
+          <a href="/" class="footer-logo">
+            <img src="photos/logo.png" alt="Mind fuels Logo" style="height: 60px; width: auto; display: block;">
+          </a>
+
+          <h3 class="footer-newsletter-title">Join the community and discover our creative universe.</h3>
+
+          <div class="newsletter-form">
+            <input type="email" placeholder="Email" aria-label="Email address">
+            <button type="button">Subscribe</button>
+          </div>
+
+          <p class="newsletter-consent">
+            I accept the Mind-Fuels <a href="#">Privacy Policy</a> and consent to the sharing of my personal data with
+            Mind-Fuels for purpose of receiving updates, promotions, other relevant information and personalized
+            services
+          </p>
+
+          <div class="footer-follow">
+            <p class="follow-label">Follow us on</p>
+            <div class="footer-social">
+              <a href="https://www.facebook.com/edamamma" aria-label="Facebook" target="_blank">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                </svg>
+              </a>
+              <a href="https://www.instagram.com/edamamma" aria-label="Instagram" target="_blank">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                </svg>
+              </a>
+              <a href="https://www.youtube.com/@Edamamma" aria-label="YouTube" target="_blank">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M22.5 6.4a2.8 2.8 0 0 0-2-2C18.9 4 12 4 12 4s-6.9 0-8.5.5a2.8 2.8 0 0 0-2 2A29.3 29.3 0 0 0 1 12a29.3 29.3 0 0 0 .5 5.6 2.8 2.8 0 0 0 2 2c1.6.4 8.5.4 8.5.4s6.9 0 8.5-.5a2.8 2.8 0 0 0 2-2A29.3 29.3 0 0 0 23 12a29.3 29.3 0 0 0-.5-5.6zM9.8 15.5V8.5l5.6 3.5-5.6 3.5z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Columns: Links -->
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>About</h4>
+            <ul>
+              <li><a href="#">About us</a></li>
+              <li><a href="#">Impact</a></li>
+              <li><a href="#">Community</a></li>
+              <li><a href="#">School Uniform</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Collection</h4>
+            <ul>
+              <li><a href="#">Babies (0–3 yrs)</a></li>
+              <li><a href="#">Kids (2–10 yrs)</a></li>
+              <li><a href="#">Maternity</a></li>
+              <li><a href="#">Toys & more</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Support</h4>
+            <ul>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">Returns & Exchanges</a></li>
+              <li><a href="#">Track My Order</a></li>
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">Nearest Store</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Legal</h4>
+            <ul>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Terms & Conditions</a></li>
+              <li><a href="#">Offer & Terms</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        &copy; 2002, Mindfuels Pulishers and Distributors.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Product Modal Overlay -->
+  <div class="product-modal-overlay" id="productModal" onclick="closeModal(event)">
+    <div class="product-modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()">×</button>
+
+      <div class="modal-left">
+        <div class="modal-carousel">
+          <img id="modalMainImage" src="" alt="Product">
+          <button class="carousel-arrow right-arrow" onclick="nextModalImage()">&#8250;</button>
+          <button class="product-wishlist modal-wishlist" aria-label="Wishlist"
+            onclick="toggleModalWishlist(this)">♡</button>
+        </div>
+        <div class="modal-thumbnails" id="modalThumbnails">
+          <!-- Thumbnails generated by JS -->
+        </div>
+      </div>
+
+      <div class="modal-right">
+        <h2 class="modal-product-name" id="modalProductName">Product Name</h2>
+        <div class="modal-price-box">
+          <span class="modal-price-current" id="modalPrice">₹0</span>
+          <span class="modal-price-original" id="modalOriginalPrice">₹0</span>
+          <span class="modal-price-discount" id="modalDiscount">0% OFF</span>
+        </div>
+        <div class="modal-description" id="modalDesc">
+          Product description goes here. This product is amazing and perfect for your kid's educational development.
+        </div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
