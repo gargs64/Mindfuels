@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!--
+  =============================================================================
+  MINDFUELS — HOME PAGE  (index.html)
+  =============================================================================
+
+  PAGE STRUCTURE  (in order of appearance)
+  -----------------------------------------
+   1. <head>          Meta, fonts, stylesheet
+   2. <header>        Sticky nav — logo, nav links, icon bar, hamburger
+   3. <main>
+      3.1  Hero       Full-width image carousel
+      3.2  Trust Bar  Scrolling trust badges
+      3.3  Bestsellers  Tabbed product carousels (Parents / Teachers)
+      3.4  Testimonials  Video review cards + Mind-Quests CTA
+      3.5  Shop by Age  Age-group circles
+      3.6  Categories  Horizontally-scrollable category cards
+   4. <footer>         Links, social, copyright
+   5. Modals / Overlays
+      5.1  Product detail modal
+   6. <scripts>       script.js, Auth0, auth.js
+  =============================================================================
+-->
+
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+  1. HEAD
+     Charset, viewport, title, description, favicon, fonts, stylesheet.
+════════════════════════════════════════════════════════════════════════════ -->
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>MindFuels_Demo</title>
+  <meta name="description"
+    content="Bring home the latest in kids fashion, made from natural fabrics that are light on the skin, non-irritable & good for your kids and the planet.">
+
+  <link rel="icon" href="photos/favicon.png" type="image/png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+  2. HEADER
+     Sticky top bar containing:
+       - Logo (left)
+       - Main navigation links (centre)
+       - Icon bar: Search, Account (with dropdown), Wishlist, Cart, Hamburger (right)
+════════════════════════════════════════════════════════════════════════════ -->
+  <header class="header" id="header">
+    <div class="header-inner">
+
+      <!-- Logo -->
+      <a href="index.html" class="logo">
+        <img src="photos/logo.png" alt="Mind fuels Logo" style="height:36px; width:auto; display:block;">
+      </a>
+
+      <!-- Primary navigation -->
+      <nav class="main-nav" id="mainNav">
+        <a href="products.html">All Products</a>
+        <a href="#">Class <span class="nav-arrow">▾</span></a>
+        <a href="#">Age Group <span class="nav-arrow">▾</span></a>
+        <a href="#">Subject <span class="nav-arrow">▾</span></a>
+      </nav>
+
+      <!-- Icon bar -->
+      <div class="header-icons">
+
+        <!-- Search -->
+        <button aria-label="Search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.3-4.3" />
+          </svg>
+        </button>
+
+        <!-- Account -->
+        <div class="account-wrapper" id="accountWrapper">
+          <a href="login.html" id="accountBtn" aria-label="Account">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+          </a>
+          <div id="accountDropdown" class="account-dropdown"></div>
+        </div>
+
+        <!-- Wishlist -->
+        <div class="account-wrapper" id="wishlistWrapper">
+          <a href="javascript:void(0)" id="wishlistBtn" aria-label="Wishlist" style="position: relative;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21.3l7.8-7.8 1-1.1a5.5 5.5 0 0 0 0-7.8z" />
+            </svg>
+            <span class="cart-badge" id="wishlistBadge" style="display:none; right:-8px; top:-5px;">0</span>
+          </a>
+          <div id="wishlistDropdown" class="account-dropdown" style="width: 320px; max-height: 480px; overflow-y: auto;">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+        <!-- Cart -->
+        <a href="cart.html" class="cart-icon" aria-label="Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1" />
+            <circle cx="20" cy="21" r="1" />
+            <path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6" />
+          </svg>
+          <span class="cart-badge">0</span>
+        </a>
+
+        <!-- Hamburger (mobile menu toggle) -->
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+          <span></span><span></span><span></span>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+  3. MAIN CONTENT
+════════════════════════════════════════════════════════════════════════════ -->
+  <main>
+
+    <!-- ─────────────────────────────────────────────────────────────────────
+    3.1  HERO CAROUSEL
+         Full-width image slider. JS handles auto-play, dots, and swipe.
+         Add more .hero-slide items here to extend the carousel.
+  ──────────────────────────────────────────────────────────────────────── -->
+    <section class="hero" id="heroCarousel">
+      <div class="hero-track" id="heroTrack">
+
+        <div class="hero-slide">
+          <a href="#">
+            <img src="photos/hero-image.png" alt="Hero Image" loading="eager">
+          </a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ─────────────────────────────────────────────────────────────────────
+    3.2  TRUST BAR
+         Horizontal strip of brand trust badges.
+  ──────────────────────────────────────────────────────────────────────── -->
+    <div class="trust-bar">
+      <div class="trust-bar-inner">
+        <span class="trust-item">20+ Years of Trust</span>
+        <span class="trust-icon">❤</span>
+        <span class="trust-item">School-Trusted Store</span>
+        <span class="trust-icon">❤</span>
+        <span class="trust-item">Quality You Can Trust</span>
+        <span class="trust-icon">❤</span>
+        <span class="trust-item">Young Readers Collection</span>
+      </div>
+    </div>
+
+
+    <!-- ─────────────────────────────────────────────────────────────────────
+    3.3  BESTSELLERS — TABBED PRODUCT CAROUSELS
+         Two tabs: "Parents' First Choice" and "Teacher's Recommendation".
+         Each tab contains a horizontally scrollable row of product cards.
+         switchTab() and scrollProducts() are defined in script.js.
+  ──────────────────────────────────────────────────────────────────────── -->
+    <section class="bestsellers-section section fade-up">
+      <div class="container">
+
+        <!-- Section header -->
+        <div class="bestsellers-header">
+          <div class="bestsellers-title-group">
+            <h2 class="bestsellers-title">Trusted Favorites</h2>
+            <p class="bestsellers-subtitle">Loved by Parents and Teachers</p>
+          </div>
+          <div class="bestsellers-tabs">
+            <button class="bs-tab active" id="tabParents" onclick="switchTab('parents')">Parents' First Choice</button>
+            <button class="bs-tab" id="tabTeachers" onclick="switchTab('teachers')">Teacher's Recommendation</button>
+          </div>
+        </div>
+
+        <!-- TAB: Parents' First Choice -->
+        <div id="parentsProducts" class="tab-content">
+          <div class="bs-scroll-wrapper">
+            <button class="bs-arrow bs-arrow-left" onclick="scrollProducts('parentsScroll', -1)">&#8249;</button>
+            <div class="bs-track" id="parentsScroll">
+              <!-- Dynamically populated by script.js -->
+            </div>
+            <button class="bs-arrow bs-arrow-right" onclick="scrollProducts('parentsScroll', 1)">&#8250;</button>
+          </div>
+        </div><!-- /#parentsProducts -->
+
+        <!-- TAB: Teacher's Recommendation (hidden by default) -->
+        <div id="teachersProducts" class="tab-content" style="display:none;">
+          <div class="bs-scroll-wrapper">
+            <button class="bs-arrow bs-arrow-left" onclick="scrollProducts('teachersScroll', -1)">&#8249;</button>
+            <div class="bs-track" id="teachersScroll">
+              <!-- Dynamically populated by script.js -->
+            </div>
+            <button class="bs-arrow bs-arrow-right" onclick="scrollProducts('teachersScroll', 1)">&#8250;</button>
+          </div>
+        </div><!-- /#teachersProducts -->
+
+        <!-- Shop All CTA -->
+        <div style="text-align:center; margin-top:36px;">
+          <a href="products.html" class="shop-all-btn">Shop All</a>
+        </div>
+
+      </div><!-- /.container -->
+    </section>
+
+
+    <!-- ─────────────────────────────────────────────────────────────────────
+    3.4  TESTIMONIALS / MIND-QUESTS
+         Left: brand CTA copy + decorative icons.
+         Right: horizontally auto-scrolling video testimonial cards.
+         Cards and scroll logic are handled by script.js.
+  ──────────────────────────────────────────────────────────────────────── -->
+    <section class="feedback-section section fade-up">
+      <div class="feedback-container">
+
+        <!-- Left: copy + decorative elements -->
+        <div class="feedback-left">
+          <img src="photos/VoicesOfMindfuels.png" alt="Voices of Mindfuels" class="voices-image">
+          <div class="feedback-content">
+            <p class="feedback-text">
+              Share your <strong>#MindfuelsKids</strong> and <strong>#LittleReaders</strong> moments with us and tag
+              <strong>@Mindfuels</strong> for a chance to be featured.
+            </p>
+          </div>
+        </div>
+
+        <!-- Right: testimonial card track (populated by script.js) -->
+        <div class="feedback-right">
+          <div class="products-scroll-wrapper" style="position:relative; width:100%; height:100%;">
+            <div class="testimonial-track" id="testimonialTrack">
+              <!-- Cards injected by JS -->
+            </div>
+            <button class="scroll-btn right" onclick="scrollTestimonials(1)"
+              style="right:15px; z-index:10; width:48px; height:48px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+              &#8250;
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ─────────────────────────────────────────────────────────────────────
+    3.5  SHOP BY AGE
+         Four circular age-group thumbnails arranged in pairs.
+         Each links to the products page.
+  ──────────────────────────────────────────────────────────────────────── -->
+    <section class="age-section section fade-up">
+      <!-- Decorative icons -->
+      <img src="photos/paper-plane.png" class="age-plane-icon" alt="">
+      <img src="photos/cloud-sky-floating-kawaii.png" class="age-cloud-icon" alt="">
+
+      <div class="age-header">
+        <h2 class="age-title">Shop by Age</h2>
+        <p class="age-subtitle">Find the perfect learning companion for every stage</p>
+      </div>
+
+      <div class="age-sides">
+        <a href="products.html" class="age-card">
+          <div class="age-circle"><img src="photos/3-5 kid.jpg" alt="2-4 Years"></div>
+          <div class="age-label">2–4 YRS</div>
+        </a>
+        <a href="products.html" class="age-card">
+          <div class="age-circle"><img src="photos/6-8 kid.jpg" alt="5-7 Years"></div>
+          <div class="age-label">5–7 YRS</div>
+        </a>
+        <a href="products.html" class="age-card">
+          <div class="age-circle"><img src="photos/9-10 kid.jpg" alt="8-10 Years"></div>
+          <div class="age-label">8–10 YRS</div>
+        </a>
+        <a href="products.html" class="age-card">
+          <div class="age-circle"><img src="photos/11-12 kid.jpg" alt="11-13 Years"></div>
+          <div class="age-label">11–13 YRS</div>
+        </a>
+      </div>
+    </section>
+
+
+    <!-- ─────────────────────────────────────────────────────────────────────
+    3.6  CATEGORY CAROUSEL
+         Horizontally scrollable row of category cards.
+         scrollCat() and infinite-clone logic are handled by script.js.
+         Arrow SVG is shared across all cards — the path draws a → arrow.
+  ──────────────────────────────────────────────────────────────────────── -->
+    <section class="cat-row-section section fade-up">
+      <div class="container">
+        <div class="cat-carousel-outer">
+
+          <!-- Scroll arrows -->
+          <button class="cat-arrow cat-arrow-left" onclick="scrollCat(-1)">&#8249;</button>
+          <button class="cat-arrow cat-arrow-right" onclick="scrollCat(1)">&#8250;</button>
+
+          <!-- Scrollable track (JS triples innerHTML for infinite loop) -->
+          <div class="cat-track" id="catTrack">
+
+            <div class="cat-wrap cat-wrap--yellow">
+              <a href="products.html" class="cat-card">
+                <img src="photos/1-story-book.jpeg" alt="Story Books" loading="lazy">
+                <div class="cat-card-label">
+                  <span>Story Books</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </a>
+            </div>
+
+            <div class="cat-wrap cat-wrap--mint">
+              <a href="products.html" class="cat-card">
+                <img src="photos/2-activity-book.jpeg" alt="Activity Books" loading="lazy">
+                <div class="cat-card-label">
+                  <span>Activity Books</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </a>
+            </div>
+
+            <div class="cat-wrap cat-wrap--pink">
+              <a href="products.html" class="cat-card">
+                <img src="photos/3-subject-book.jpeg" alt="Subject Books" loading="lazy">
+                <div class="cat-card-label">
+                  <span>Subject Books</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </a>
+            </div>
+
+            <div class="cat-wrap cat-wrap--yellow">
+              <a href="products.html" class="cat-card">
+                <img src="photos/4-worksheet.jpeg" alt="Worksheets" loading="lazy">
+                <div class="cat-card-label">
+                  <span>Practice Worksheets</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </a>
+            </div>
+
+            <div class="cat-wrap cat-wrap--mint">
+              <a href="products.html" class="cat-card">
+                <img src="photos/5-coloring-book.jpeg" alt="Coloring Books" loading="lazy">
+                <div class="cat-card-label">
+                  <span>Coloring Books</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </a>
+            </div>
+
+            <div class="cat-wrap cat-wrap--pink">
+              <a href="products.html" class="cat-card">
+                <img src="photos/6-IT-and-fundamental-book.jpeg" alt="IT & Fundamentals Books" loading="lazy">
+                <div class="cat-card-label">
+                  <span>IT &amp; Fundamentals Books</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </a>
+            </div>
+
+          </div><!-- /#catTrack -->
+        </div><!-- /.cat-carousel-outer -->
+      </div><!-- /.container -->
+    </section>
+
+  </main><!-- /main -->
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+  5. Footer 
+════════════════════════════════════════════════════════════════════════════ -->
+
+  <footer class="footer fade-up">
+    <div class="container">
+      <div class="footer-main">
+
+        <div class="footer-left">
+          <a href="index.html" class="footer-logo" style="margin-bottom: 5px; display: inline-block;">
+            <img src="photos/logo.png" alt="Mind fuels Logo" style="height:60px; width:auto; display:block;">
+          </a>
+
+          <p
+            style="margin-top: 5px; margin-bottom: 24px; color: var(--text-secondary); font-size: 14px; line-height: 1.6;">
+            Fueling curiosity through every page. Discover our curated collection of educational books designed to
+            inspire young minds.
+          </p>
+          <div class="footer-follow">
+            <p class="follow-label">Follow us on</p>
+            <div class="footer-social">
+              <a href="https://www.facebook.com/" aria-label="Facebook" target="_blank">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                </svg>
+              </a>
+              <a href="https://www.instagram.com/" aria-label="Instagram" target="_blank">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                </svg>
+              </a>
+              <a href="https://www.youtube.com/" aria-label="YouTube" target="_blank">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M22.5 6.4a2.8 2.8 0 0 0-2-2C18.9 4 12 4 12 4s-6.9 0-8.5.5a2.8 2.8 0 0 0-2 2A29.3 29.3 0 0 0 1 12a29.3 29.3 0 0 0 .5 5.6 2.8 2.8 0 0 0 2 2c1.6.4 8.5.4 8.5.4s6.9 0 8.5-.5a2.8 2.8 0 0 0 2-2A29.3 29.3 0 0 0 23 12a29.3 29.3 0 0 0-.5-5.6zM9.8 15.5V8.5l5.6 3.5-5.6 3.5z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-links" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px;">
+
+          <div class="footer-col">
+            <h4>About</h4>
+            <ul>
+              <li><a href="#">About us</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Collection</h4>
+            <ul>
+              <li><a href="products.html">Pre-Nursery</a></li>
+              <li><a href="products.html">Nursery</a></li>
+              <li><a href="products.html">LKG</a></li>
+              <li><a href="products.html">UKG</a></li>
+              <li><a href="products.html">Class 1</a></li>
+              <li><a href="products.html">Class 2</a></li>
+              <li><a href="products.html">Class 3</a></li>
+              <li><a href="products.html">Class 4</a></li>
+              <li><a href="products.html">Class 5</a></li>
+              <li><a href="products.html">Class 6</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Support</h4>
+            <ul>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">Returns &amp; Exchanges</a></li>
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">Nearest Store</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Legal</h4>
+            <ul>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Terms &amp; Conditions</a></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2002, Mindfuels Publishers and Distributors.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+  5. MODALS / OVERLAYS
+════════════════════════════════════════════════════════════════════════════ -->
+
+  <!-- ─────────────────────────────────────────────────────────────────────
+  5.1  PRODUCT DETAIL MODAL
+       Clicking a product card calls openModal(product) from script.js.
+       Clicking the overlay (outside the white box) calls closeModal(event).
+       The modal-left column shows an image gallery; modal-right shows details.
+──────────────────────────────────────────────────────────────────────── -->
+  <div class="product-modal-overlay" id="productModal" onclick="closeModal(event)">
+    <div class="product-modal-content" onclick="event.stopPropagation()">
+
+      <button class="modal-close" onclick="closeModal()">×</button>
+
+      <!-- Left: image carousel + thumbnails -->
+      <div class="modal-left">
+        <div class="modal-carousel">
+          <img id="modalMainImage" src="" alt="Product">
+          <button class="carousel-arrow right-arrow" onclick="nextModalImage()">&#8250;</button>
+          <button class="product-wishlist modal-wishlist" aria-label="Wishlist"
+            onclick="toggleModalWishlist(this)">♡</button>
+        </div>
+        <div class="modal-thumbnails" id="modalThumbnails">
+          <!-- Thumbnails injected by script.js -->
+        </div>
+      </div>
+
+      <!-- Right: product name, price, description, CTA -->
+      <div class="modal-right">
+        <h2 class="modal-product-name" id="modalProductName">Product Name</h2>
+        <div class="modal-price-box">
+          <span class="modal-price-current" id="modalPrice">₹0</span>
+          <span class="modal-price-original" id="modalOriginalPrice">₹0</span>
+          <span class="modal-price-discount" id="modalDiscount">0% OFF</span>
+        </div>
+        <div class="modal-description" id="modalDesc">
+          Product description goes here. This product is amazing and perfect for your kid's educational development.
+        </div>
+        <div id="modalCartActions" style="margin-top: 20px;"></div>
+      </div>
+
+    </div><!-- /.product-modal-content -->
+  </div><!-- /#productModal -->
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+  6. SCRIPTS
+     Load order matters:
+       1. script.js     — all page behaviour (carousels, filters, modal, etc.)
+       2. auth0-spa-js  — Auth0 SDK (must load before auth.js)
+       3. auth.js       — authentication logic
+════════════════════════════════════════════════════════════════════════════ -->
+  <script src="script.js"></script>
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
+  <script src="auth.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <title>Products | Fueling Curiosity</title>
+  <meta name="description" content="Fueling curiosity through every page. Explore our collection.">
+  <link rel="icon" href="photos/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Lato:wght@300;400;700;900&family=Playfair+Display:wght@400;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="page-bg-cream">
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <img src="photos/logo.png" alt="Mind fuels Logo" style="height: 36px; width: auto; display: block;">
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="products.html">All Products</a>
+        <a href="#">Class <span class="nav-arrow">▾</span></a>
+        <a href="#">Age Group <span class="nav-arrow">▾</span></a>
+        <a href="#">Subject <span class="nav-arrow">▾</span></a>
+      </nav>
+
+      <div class="header-icons">
+        <button aria-label="Search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.3-4.3" />
+          </svg>
+        </button>
+        <div class="account-wrapper" id="accountWrapper">
+          <a href="login.html" id="accountBtn" aria-label="Account">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+          </a>
+          <div id="accountDropdown" class="account-dropdown"></div>
+        </div>
+        <div class="account-wrapper" id="wishlistWrapper">
+          <a href="javascript:void(0)" id="wishlistBtn" aria-label="Wishlist" style="position: relative;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21.3l7.8-7.8 1-1.1a5.5 5.5 0 0 0 0-7.8z" />
+            </svg>
+            <span class="cart-badge" id="wishlistBadge" style="display:none; right:-8px; top:-5px;">0</span>
+          </a>
+          <div id="wishlistDropdown" class="account-dropdown" style="width: 320px; max-height: 480px; overflow-y: auto;">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+        <a href="cart.html" class="cart-icon" aria-label="Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1" />
+            <circle cx="20" cy="21" r="1" />
+            <path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6" />
+          </svg>
+          <span class="cart-badge">0</span>
+        </a>
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="catalog-section" style="background: transparent;">
+      <div class="container catalog-layout" style="position: relative;">
+        <!-- Sidebar -->
+        <aside class="catalog-sidebar" id="catalogSidebar">
+          <div class="sidebar-inner" id="sidebarInner">
+            <div class="sidebar-header">
+              <h2 class="sidebar-main-title">Filters</h2>
+              <button class="sidebar-close-btn" onclick="toggleSidebar()" aria-label="Close Sidebar">&times;</button>
+            </div>
+
+            <div class="filter-group">
+              <h3 class="filter-title">Shop by Interest</h3>
+              <div class="filter-list" id="interestFilter">
+                <label><input type="checkbox" value="Story Books"> <span class="text">Story Books</span></label>
+                <label><input type="checkbox" value="Activity & Puzzles"> <span class="text">Activity &
+                    Puzzles</span></label>
+                <label><input type="checkbox" value="Art & Creativity"> <span class="text">Art &
+                    Creativity</span></label>
+                <label><input type="checkbox" value="School Textbooks"> <span class="text">School
+                    Textbooks</span></label>
+              </div>
+            </div>
+
+            <div class="filter-group">
+              <h3 class="filter-title">Shop by Subject</h3>
+              <div class="filter-list" id="subjectFilter">
+                <label><input type="checkbox" value="English"> <span class="text">English</span></label>
+                <label><input type="checkbox" value="Hindi"> <span class="text">Hindi</span></label>
+                <label><input type="checkbox" value="Mathematics"> <span class="text">Mathematics</span></label>
+                <label><input type="checkbox" value="Science & EVS"> <span class="text">Science & EVS</span></label>
+                <label><input type="checkbox" value="Computers & AI"> <span class="text">Computers & AI</span></label>
+              </div>
+            </div>
+
+            <div class="filter-group">
+              <h3 class="filter-title">Shop by Class</h3>
+              <div class="filter-list" id="classFilter">
+                <label><input type="checkbox" value="2-4 Years (Nursery)"> <span class="text">2-4 Years
+                    (Nursery)</span></label>
+                <label><input type="checkbox" value="4-5 Years (LKG)"> <span class="text">4-5 Years (LKG)</span></label>
+                <label><input type="checkbox" value="5-6 Years (UKG)"> <span class="text">5-6 Years (UKG)</span></label>
+                <label><input type="checkbox" value="6-7 Years (Class 1)"> <span class="text">6-7 Years (Class
+                    1)</span></label>
+                <label><input type="checkbox" value="7-8 Years (Class 2)"> <span class="text">7-8 Years (Class
+                    2)</span></label>
+                <label><input type="checkbox" value="8-9 Years (Class 3)"> <span class="text">8-9 Years (Class
+                    3)</span></label>
+                <label><input type="checkbox" value="9-10 Years (Class 4)"> <span class="text">9-10 Years (Class
+                    4)</span></label>
+                <label><input type="checkbox" value="10-11 Years (Class 5)"> <span class="text">10-11 Years (Class
+                    5)</span></label>
+                <label><input type="checkbox" value="11-12 Years (Class 6)"> <span class="text">11-12 Years (Class
+                    6)</span></label>
+              </div>
+            </div>
+
+            <div class="filter-group">
+              <h3 class="filter-title">Price</h3>
+              <div class="price-slider-container">
+                <span class="price-label">Up to ₹<span id="priceDisplay">1500</span></span>
+                <input type="range" id="priceRange" min="150" max="1500" value="1500" step="50" class="price-slider"
+                  oninput="updatePriceDisplay(this.value)">
+              </div>
+            </div>
+
+            <button class="clear-filters-btn" onclick="clearAllFilters()">Clear All Filters</button>
+          </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="catalog-main">
+          <div class="catalog-header">
+            <button class="filter-toggle-btn" onclick="toggleSidebar()">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="4" y1="21" x2="4" y2="14"></line>
+                <line x1="4" y1="10" x2="4" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12" y2="3"></line>
+                <line x1="20" y1="21" x2="20" y2="16"></line>
+                <line x1="20" y1="12" x2="20" y2="3"></line>
+                <line x1="1" y1="14" x2="7" y2="14"></line>
+                <line x1="9" y1="8" x2="15" y2="8"></line>
+                <line x1="17" y1="16" x2="23" y2="16"></line>
+              </svg>
+              Toggle Filters
+            </button>
+            <div class="sort-dropdown">
+              <label for="sortSelect">Sort By:</label>
+              <select id="sortSelect" onchange="if(window.renderProducts) renderProducts()">
+                <option value="bestsellers">Bestsellers</option>
+                <option value="most_purchased">Offers</option>
+                <option value="price_low_high">Price: Low to High</option>
+                <option value="price_high_low">Price: High to Low</option>
+              </select>
+            </div>
+          </div>
+          <div class="catalog-grid" id="productGrid" style="min-height: 80vh;">
+            <!-- Products rendered dynamically by script.js -->
+          </div>
+        </div>
+      </div>
+
+
+    </section>
+
+    <!-- Banner Bottom -->
+    <section class="banner-bottom" style="width: 100%; display: block;">
+      <img src="photos/product-page-banner.jpeg" alt="Mindfuels Collection"
+        style="width: 100%; height: auto; display: block;">
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer fade-up">
+    <div class="container">
+      <div class="footer-main">
+
+        <div class="footer-left">
+          <a href="index.html" class="footer-logo" style="margin-bottom: 5px; display: inline-block;">
+            <img src="photos/logo.png" alt="Mind fuels Logo" style="height:60px; width:auto; display:block;">
+          </a>
+
+          <p
+            style="margin-top: 5px; margin-bottom: 24px; color: var(--text-secondary); font-size: 14px; line-height: 1.6;">
+            Fueling curiosity through every page. Discover our curated collection of educational books designed to
+            inspire young minds.
+          </p>
+          <div class="footer-follow">
+            <p class="follow-label">Follow us on</p>
+            <div class="footer-social">
+              <a href="https://www.facebook.com/" aria-label="Facebook" target="_blank">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                </svg>
+              </a>
+              <a href="https://www.instagram.com/" aria-label="Instagram" target="_blank">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                </svg>
+              </a>
+              <a href="https://www.youtube.com/" aria-label="YouTube" target="_blank">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M22.5 6.4a2.8 2.8 0 0 0-2-2C18.9 4 12 4 12 4s-6.9 0-8.5.5a2.8 2.8 0 0 0-2 2A29.3 29.3 0 0 0 1 12a29.3 29.3 0 0 0 .5 5.6 2.8 2.8 0 0 0 2 2c1.6.4 8.5.4 8.5.4s6.9 0 8.5-.5a2.8 2.8 0 0 0 2-2A29.3 29.3 0 0 0 23 12a29.3 29.3 0 0 0-.5-5.6zM9.8 15.5V8.5l5.6 3.5-5.6 3.5z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-links" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px;">
+
+          <div class="footer-col">
+            <h4>About</h4>
+            <ul>
+              <li><a href="#">About us</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Collection</h4>
+            <ul>
+              <li><a href="products.html">Pre-Nursery</a></li>
+              <li><a href="products.html">Nursery</a></li>
+              <li><a href="products.html">LKG</a></li>
+              <li><a href="products.html">UKG</a></li>
+              <li><a href="products.html">Class 1</a></li>
+              <li><a href="products.html">Class 2</a></li>
+              <li><a href="products.html">Class 3</a></li>
+              <li><a href="products.html">Class 4</a></li>
+              <li><a href="products.html">Class 5</a></li>
+              <li><a href="products.html">Class 6</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Support</h4>
+            <ul>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">Returns &amp; Exchanges</a></li>
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">Nearest Store</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Legal</h4>
+            <ul>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Terms &amp; Conditions</a></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2002, Mindfuels Publishers and Distributors.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Product Modal -->
+  <div class="product-modal-overlay" id="productModal" onclick="closeModal(event)">
+    <div class="product-modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()">×</button>
+
+      <div class="modal-left">
+        <div class="modal-carousel">
+          <img id="modalMainImage" src="" alt="Product">
+          <button class="carousel-arrow right-arrow" onclick="nextModalImage()">&#8250;</button>
+          <button class="product-wishlist modal-wishlist" aria-label="Wishlist"
+            onclick="toggleModalWishlist(this)">♡</button>
+        </div>
+        <div class="modal-thumbnails" id="modalThumbnails">
+        </div>
+      </div>
+
+      <div class="modal-right">
+        <h2 class="modal-product-name" id="modalProductName">Product Name</h2>
+        <div class="modal-price-box">
+          <span class="modal-price-current" id="modalPrice">₹0</span>
+          <span class="modal-price-original" id="modalOriginalPrice">₹0</span>
+          <span class="modal-price-discount" id="modalDiscount">0% OFF</span>
+        </div>
+        <div class="modal-description" id="modalDesc">
+          A wonderful product perfect for your child's educational development.
+        </div>
+        <div id="modalCartActions" style="margin-top: 20px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
+  <script src="auth.js"></script>
+</body>
+
+</html>
