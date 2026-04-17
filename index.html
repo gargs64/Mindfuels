@@ -45,7 +45,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=5">
 </head>
 
 
@@ -105,8 +105,12 @@
 
         <!-- Search -->
         <div class="nav-search-wrapper" id="navSearchWrapper">
-          <input type="text" id="searchInput" class="nav-search-input" placeholder="Search..."
-            onkeypress="if(event.key === 'Enter') { window.location.href = 'products.html?search=' + encodeURIComponent(this.value); }">
+          <input type="text" id="searchInput" class="nav-search-input" placeholder="Search books..."
+            oninput="showSearchSuggestions(this.value);"
+            onkeypress="if(event.key === 'Enter') { window.location.href = 'products.html?search=' + encodeURIComponent(this.value); hideSearchSuggestions(); }"
+            onfocus="showSearchSuggestions(this.value)"
+            autocomplete="off">
+          <div class="search-suggestions" id="searchSuggestions"></div>
           <button aria-label="Search" onclick="toggleSearchInput()">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
               stroke-linecap="round" stroke-linejoin="round">
@@ -264,17 +268,6 @@
   ──────────────────────────────────────────────────────────────────────── -->
     <section class="feedback-section section fade-up">
       <div class="feedback-container">
-
-        <!-- Left: copy + decorative elements -->
-        <div class="feedback-left">
-          <img src="photos/VoicesOfMindfuels.png" alt="Voices of Mindfuels" class="voices-image">
-          <div class="feedback-content">
-            <p class="feedback-text">
-              Share your <strong>#MindfuelsKids</strong> and <strong>#LittleReaders</strong> moments with us and tag
-              <strong>@Mindfuels</strong> for a chance to be featured.
-            </p>
-          </div>
-        </div>
 
         <!-- Right: testimonial card track (populated by script.js) -->
         <div class="feedback-right">
@@ -478,7 +471,7 @@
           <div class="footer-col">
             <h4>About</h4>
             <ul>
-              <li><a href="#">About us</a></li>
+              <li><a href="legal_pages.html#about">About us</a></li>
             </ul>
           </div>
 
@@ -501,18 +494,18 @@
           <div class="footer-col">
             <h4>Support</h4>
             <ul>
+              <li><a href="legal_pages.html#refund">Returns &amp; Exchanges</a></li>
+              <li><a href="legal_pages.html#shipping">Shipping Policy</a></li>
+              <li><a href="legal_pages.html#contact">Contact Us</a></li>
               <li><a href="#">FAQ</a></li>
-              <li><a href="#">Returns &amp; Exchanges</a></li>
-              <li><a href="#">Contact Us</a></li>
-              <li><a href="#">Nearest Store</a></li>
             </ul>
           </div>
 
           <div class="footer-col">
             <h4>Legal</h4>
             <ul>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Terms &amp; Conditions</a></li>
+              <li><a href="legal_pages.html#privacy">Privacy Policy</a></li>
+              <li><a href="legal_pages.html#terms">Terms &amp; Conditions</a></li>
             </ul>
           </div>
 
@@ -582,10 +575,9 @@
        2. auth0-spa-js  — Auth0 SDK (must load before auth.js)
        3. auth.js       — authentication logic
 ════════════════════════════════════════════════════════════════════════════ -->
-  <script src="data.js"></script>
-  <script src="script.js"></script>
+  <script src="script.js?v=5"></script>
   <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
-  <script src="auth.js"></script>
+  <script src="auth.js?v=5"></script>
 
 </body>
 

@@ -5,20 +5,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login | Mindfuels</title>
-  <!-- Google Fonts -->
+  <meta name="description" content="Sign in to Mindfuels — your gateway to curated educational books and resources for children.">
   <link
-    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&display=swap"
     rel="stylesheet">
   <style>
     :root {
       --primary: #FFD21E;
-      /* Mindfuels Yellow */
       --primary-dark: #e6bd1b;
-      --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-      --card-bg: rgba(255, 255, 255, 0.95);
+      --primary-glow: rgba(255, 210, 30, 0.35);
+      --card-bg: rgba(255, 255, 255, 0.92);
       --text-main: #1e293b;
       --text-muted: #64748b;
-      --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+      --text-light: #94a3b8;
+      --border: #e2e8f0;
+      --border-focus: #FFD21E;
+      --error-bg: #fef2f2;
+      --error-text: #dc2626;
+      --success-bg: #f0fdf4;
+      --success-text: #16a34a;
+      --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
+      --card-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.15);
     }
 
     * {
@@ -29,388 +36,583 @@
 
     body {
       font-family: 'Outfit', sans-serif;
-      background: linear-gradient(135deg, rgba(248, 250, 252, 0.85) 0%, rgba(226, 232, 240, 0.85) 100%),
+      background: linear-gradient(135deg, rgba(248, 250, 252, 0.88) 0%, rgba(226, 232, 240, 0.88) 100%),
         url('photos/Login_bg.jpeg') center center / cover no-repeat fixed;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 20px;
-      overflow-x: hidden;
-    }
-
-    /* ── Background Elements ── */
-    .bg-blobs {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
       overflow: hidden;
     }
 
-    .blob {
-      position: absolute;
+    /* Floating ambient orbs */
+    body::before,
+    body::after {
+      content: '';
+      position: fixed;
       border-radius: 50%;
       filter: blur(80px);
-      opacity: 0.3;
-      animation: float 20s infinite alternate;
+      opacity: 0.4;
+      z-index: 0;
+      animation: floatOrb 8s ease-in-out infinite alternate;
     }
 
-    .blob-1 {
+    body::before {
       width: 400px;
       height: 400px;
-      background: #FFD21E;
+      background: var(--primary);
       top: -100px;
-      left: -100px;
+      right: -100px;
     }
 
-    .blob-2 {
+    body::after {
       width: 300px;
       height: 300px;
-      background: #3b82f6;
-      bottom: -50px;
-      right: -50px;
-      animation-delay: -5s;
+      background: #a78bfa;
+      bottom: -80px;
+      left: -80px;
+      animation-delay: -4s;
     }
 
-    @keyframes float {
-      0% {
-        transform: translate(0, 0) scale(1);
-      }
-
-      100% {
-        transform: translate(50px, 50px) scale(1.1);
-      }
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(30px, -30px) scale(1.1); }
     }
 
-    /* ── Card ── */
+    /* ── Login Card ── */
     .login-card {
-      background: var(--card-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: 32px;
-      padding: 56px 48px;
-      width: 100%;
-      max-width: 480px;
-      box-shadow: var(--glass-shadow);
-      border: 1px solid rgba(255, 255, 255, 0.3);
       position: relative;
-      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1;
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 28px;
+      padding: 48px 44px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(255, 255, 255, 0.6);
       text-align: center;
+      animation: cardEntry 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes cardEntry {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
 
     /* ── Logo ── */
     .logo-container {
-      margin-bottom: 40px;
+      margin-bottom: 8px;
     }
 
     .logo-container h1 {
       font-family: 'Playfair Display', serif;
-      font-size: 36px;
+      font-size: 34px;
       color: var(--text-main);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       letter-spacing: -0.5px;
     }
 
-    .logo-container p {
+    .tagline {
+      font-size: 14px;
       color: var(--text-muted);
-      font-size: 16px;
       font-weight: 400;
-      line-height: 1.5;
+      letter-spacing: 0.3px;
     }
 
     /* ── Sections ── */
     .section {
       display: none;
-      opacity: 0;
-      transform: translateY(20px);
+      animation: sectionFade 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
 
     .section.active {
       display: block;
-      opacity: 1;
-      transform: translateY(0);
-      animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     }
 
-    @keyframes fadeInUp {
+    @keyframes sectionFade {
       from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(12px);
       }
-
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
 
+    /* ── Divider ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 28px 0 4px;
+      gap: 12px;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .divider span {
+      font-size: 12px;
+      color: var(--text-light);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ── Section Header ── */
+    .section-header {
+      margin: 24px 0 6px;
+    }
+
+    .section-header h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .section-header p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
     /* ── Buttons ── */
     .btn {
       width: 100%;
-      padding: 16px 24px;
-      border-radius: 16px;
-      font-size: 16px;
+      padding: 15px 24px;
+      border-radius: 14px;
+      font-size: 15px;
       font-weight: 600;
+      font-family: 'Outfit', sans-serif;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 12px;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       border: none;
-      outline: none;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
+      overflow: hidden;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
     }
 
     .btn-google {
       background: #ffffff;
+      border: 1.5px solid var(--border);
       color: var(--text-main);
-      border: 1.5px solid #e2e8f0;
-      margin-top: 10px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      margin-top: 24px;
     }
 
     .btn-google:hover {
-      background: #f8fafc;
-      transform: translateY(-2px);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
       border-color: #cbd5e1;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      transform: translateY(-1px);
     }
 
-    .btn-google:active {
-      transform: translateY(0);
-    }
-
-    .google-icon {
-      width: 22px;
-      height: 22px;
+    .btn-google img {
+      width: 20px;
+      height: 20px;
     }
 
     .btn-primary {
       background: var(--primary);
-      color: #1a1a1a;
-      margin-top: 32px;
-      box-shadow: 0 4px 14px rgba(255, 210, 30, 0.3);
+      color: var(--text-main);
+      margin-top: 20px;
+      font-weight: 700;
+      box-shadow: 0 4px 16px var(--primary-glow);
     }
 
     .btn-primary:hover {
       background: var(--primary-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(255, 210, 30, 0.4);
+      box-shadow: 0 6px 24px var(--primary-glow);
+      transform: translateY(-1px);
     }
 
-    .btn-primary:active {
-      transform: translateY(0);
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
     }
 
-    /* ── Input ── */
+    /* ── Input Fields ── */
     .input-group {
+      margin-top: 18px;
       text-align: left;
-      margin-top: 32px;
     }
 
     .input-group label {
       display: block;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
-      color: #475569;
-      margin-bottom: 10px;
-      margin-left: 4px;
-    }
-
-    input[type="text"] {
-      width: 100%;
-      padding: 16px 20px;
-      border-radius: 16px;
-      border: 2px solid #e2e8f0;
-      font-size: 16px;
       color: var(--text-main);
-      transition: all 0.3s;
-      font-family: inherit;
-      background: #f8fafc;
+      margin-bottom: 6px;
+      letter-spacing: 0.2px;
     }
 
-    input[type="text"]:focus {
-      border-color: var(--primary);
-      background: #fff;
-      box-shadow: 0 0 0 5px rgba(255, 210, 30, 0.15);
+    .input-group input {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 2px solid var(--border);
+      font-size: 15px;
+      font-family: 'Outfit', sans-serif;
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.7);
+      transition: all 0.25s ease;
       outline: none;
     }
 
-    /* ── Welcome Message ── */
-    .welcome-msg {
-      font-size: 20px;
-      line-height: 1.7;
-      color: #334155;
-      font-weight: 400;
+    .input-group input:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 4px var(--primary-glow);
+      background: #fff;
     }
 
-    .username-highlight {
-      color: #2563eb;
-      font-weight: 700;
-      display: inline-block;
-      margin: 0 4px;
-      border-bottom: 3px solid var(--primary);
+    .input-group input::placeholder {
+      color: var(--text-light);
     }
 
-    /* ── Loading Spinner ── */
-    .spinner {
-      width: 22px;
-      height: 22px;
-      border: 3px solid rgba(0, 0, 0, 0.05);
-      border-top-color: #1a1a1a;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      display: none;
-      position: absolute;
+    .input-group .input-hint {
+      font-size: 12px;
+      color: var(--text-light);
+      margin-top: 5px;
     }
 
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    .loading .spinner {
-      display: block;
-    }
-
-    .loading .btn-text,
-    .loading .google-icon {
-      visibility: hidden;
-    }
-
-    /* ── Welcome Decor ── */
-    .welcome-container {
+    /* ── Phone input with country code ── */
+    .phone-input-wrapper {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 24px;
+      gap: 8px;
     }
 
-    .book-icon {
-      font-size: 64px;
-      margin-bottom: 8px;
-      filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.1));
+    .phone-input-wrapper .country-code {
+      width: 72px;
+      flex-shrink: 0;
+      text-align: center;
+      background: #f8fafc;
+      font-weight: 600;
     }
 
-    @keyframes gentleBounce {
-
-      0%,
-      100% {
-        transform: translateY(0) rotate(0);
-      }
-
-      50% {
-        transform: translateY(-15px) rotate(5deg);
-      }
+    .phone-input-wrapper input[type="tel"] {
+      flex: 1;
     }
 
-    /* ── Alerts ── */
-    #alertBox {
-      background: #fee2e2;
-      color: #b91c1c;
-      padding: 12px;
+    /* ── Alert / Error ── */
+    .alert-box {
+      padding: 12px 16px;
       border-radius: 12px;
-      font-size: 14px;
       margin-top: 16px;
+      font-size: 13px;
+      font-weight: 500;
       display: none;
+      align-items: center;
+      gap: 8px;
+      animation: alertPop 0.3s ease;
+    }
+
+    .alert-box.error {
+      background: var(--error-bg);
+      color: var(--error-text);
+      border: 1px solid #fecaca;
+    }
+
+    .alert-box.success {
+      background: var(--success-bg);
+      color: var(--success-text);
+      border: 1px solid #bbf7d0;
+    }
+
+    .alert-box.visible {
+      display: flex;
+    }
+
+    @keyframes alertPop {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Spinner ── */
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2.5px solid rgba(0, 0, 0, 0.1);
+      border-top-color: var(--text-main);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .loading .spinner { display: block; }
+    .loading .btn-text { display: none; }
+
+    /* ── Welcome Section ── */
+    .welcome-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary) 0%, #fbbf24 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 20px auto 16px;
+      font-size: 32px;
+      box-shadow: 0 8px 24px var(--primary-glow);
+      animation: welcomePulse 2s ease-in-out infinite;
+    }
+
+    @keyframes welcomePulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 8px 24px var(--primary-glow); }
+      50% { transform: scale(1.05); box-shadow: 0 12px 32px var(--primary-glow); }
+    }
+
+    .welcome-name {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .welcome-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    /* ── Google email preview ── */
+    .google-email-preview {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background: #f8fafc;
+      border-radius: 12px;
+      margin: 20px 0 4px;
+      text-align: left;
+    }
+
+    .google-email-preview img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--border);
+    }
+
+    .google-email-preview .email-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .google-email-preview .email-info .email-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .google-email-preview .email-info .email-addr {
+      font-size: 12px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .google-email-preview .check-icon {
+      color: var(--success-text);
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    /* ── Terms ── */
+    .terms {
+      font-size: 11.5px;
+      color: var(--text-light);
+      margin-top: 24px;
+      line-height: 1.6;
+    }
+
+    .terms a {
+      color: var(--text-muted);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    /* ── Step indicator ── */
+    .step-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    .step-dots .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border);
+      transition: all 0.3s ease;
+    }
+
+    .step-dots .dot.active {
+      background: var(--primary);
+      width: 24px;
+      border-radius: 4px;
+    }
+
+    .step-dots .dot.done {
+      background: var(--success-text);
     }
 
     /* ── Responsive ── */
-    @media (max-width: 520px) {
+    @media (max-width: 480px) {
       .login-card {
-        padding: 48px 24px;
-        margin: 0 16px;
-        border-radius: 28px;
+        padding: 36px 24px;
+        border-radius: 24px;
       }
 
       .logo-container h1 {
-        font-size: 30px;
-      }
-
-      .welcome-msg {
-        font-size: 18px;
+        font-size: 28px;
       }
     }
   </style>
 </head>
 
 <body>
-
-  <div class="bg-blobs">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-  </div>
-
   <main class="login-card" id="loginCard">
     <div class="logo-container">
       <h1>Mindfuels</h1>
-      <p id="tagline">Let's Fuel Our Imagination</p>
+      <p class="tagline">Fuel Your Child's Imagination</p>
     </div>
 
-    <!-- State 1: Login -->
+    <!-- ═══ State 1: Google Login ═══ -->
     <div id="section-login" class="section active">
+      <div class="divider"><span>Sign in to continue</span></div>
+
       <button class="btn btn-google" id="googleBtn" onclick="handleGoogle()">
-        <svg class="google-icon" viewBox="0 0 24 24">
-          <path
-            d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-            fill="#4285F4" />
-          <path
-            d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-            fill="#34A853" />
-          <path
-            d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-            fill="#FBBC05" />
-          <path
-            d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-            fill="#EA4335" />
-        </svg>
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" width="20">
         <span class="btn-text">Continue with Google</span>
         <div class="spinner"></div>
       </button>
-      <div id="alertBox"></div>
+
+      <div class="alert-box error" id="alertBox">
+        <span>⚠️</span>
+        <span id="alertMsg">Something went wrong. Please try again.</span>
+      </div>
+
+      <p class="terms">
+        By continuing, you agree to our
+        <a href="legal_pages.html">Terms of Service</a> and
+        <a href="legal_pages.html">Privacy Policy</a>.
+      </p>
+
+      <div class="step-dots">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
     </div>
 
-    <!-- State 2: Username -->
-    <div id="section-username" class="section">
-      <div class="input-group">
-        <label for="usernameInput">Enter Your Name</label>
-        <input type="text" id="usernameInput" placeholder="Enter username..." autocomplete="off">
+    <!-- ═══ State 2: Complete Profile ═══ -->
+    <div id="section-profile" class="section">
+      <div class="section-header">
+        <h2>Complete Your Profile</h2>
+        <p>Just a few details to personalize your experience</p>
       </div>
-      <button class="btn btn-primary" id="usernameBtn" onclick="submitUsername()">
+
+      <div class="google-email-preview" id="googlePreview" style="display:none;">
+        <img id="previewPicture" src="" alt="Profile">
+        <div class="email-info">
+          <div class="email-name" id="previewName"></div>
+          <div class="email-addr" id="previewEmail"></div>
+        </div>
+        <span class="check-icon">✓</span>
+      </div>
+
+      <div class="input-group">
+        <label for="nameInput">Display Name</label>
+        <input type="text" id="nameInput" placeholder="e.g. Priya Sharma" autocomplete="name" maxlength="50">
+      </div>
+
+      <div class="input-group">
+        <label for="phoneInput">Phone Number <span style="color:var(--text-light);font-weight:400;">(optional)</span></label>
+        <div class="phone-input-wrapper">
+          <input type="text" class="country-code" value="+91" readonly>
+          <input type="tel" id="phoneInput" placeholder="9876543210" maxlength="10" autocomplete="tel">
+        </div>
+        <p class="input-hint">We'll only use this for order updates</p>
+      </div>
+
+      <div class="alert-box error" id="profileAlertBox">
+        <span>⚠️</span>
+        <span id="profileAlertMsg"></span>
+      </div>
+
+      <button class="btn btn-primary" id="profileBtn" onclick="submitProfile()">
         <span class="btn-text">Continue</span>
         <div class="spinner"></div>
       </button>
-    </div>
 
-    <!-- State 3: Welcome -->
-    <div id="section-welcome" class="section">
-      <div class="welcome-container">
-        <div class="book-icon">
-          <img src="photos/logo_head.jpeg" alt="Mindfuels Logo" style="width: 100px; height: auto; border-radius: 12px; box-shadow: var(--glass-shadow);">
-        </div>
-        <div class="welcome-msg" id="welcomeMsg"></div>
-        <button class="btn btn-primary" style="margin-top: 8px;" onclick="goToMain()">
-          Start Exploring
-        </button>
+      <div class="step-dots">
+        <div class="dot done"></div>
+        <div class="dot active"></div>
+        <div class="dot"></div>
       </div>
     </div>
 
+    <!-- ═══ State 3: Welcome ═══ -->
+    <div id="section-welcome" class="section">
+      <div class="welcome-icon" id="welcomeAvatar">🎉</div>
+      <h2 class="welcome-name" id="welcomeMsg">Welcome!</h2>
+      <p class="welcome-sub">Your account is all set. Let's explore!</p>
+
+      <button class="btn btn-primary" onclick="window.location.href='index.html'" style="margin-top: 8px;">
+        <span class="btn-text">Start Exploring →</span>
+      </button>
+
+      <div class="step-dots">
+        <div class="dot done"></div>
+        <div class="dot done"></div>
+        <div class="dot active"></div>
+      </div>
+    </div>
   </main>
 
-  <!-- Auth0 SDK -->
   <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
   <script>
+    // ── Auth0 Configuration ──
     const AUTH0_DOMAIN = 'mindfuels.us.auth0.com';
-    const AUTH0_CLIENT_ID = 'HOTM4KSpHLFFmdXYchCP2vYDtgTBDfJW';
-    const REDIRECT_URI = window.location.origin + window.location.pathname;
+    const AUTH0_CLIENT_ID = 'Lmx8bHhyDNqIurh0VV0NL11oDVMbQF63';
+    const API_BASE_URL = 'https://mindfuels-backend.onrender.com/api';
+
+    // Build redirect URI dynamically (works on localhost & production)
+    const pathBase = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+    const REDIRECT_URI = window.location.origin + pathBase + 'login.html';
 
     let auth0Client = null;
 
+    // ── Initialize Auth0 ──
     async function initAuth0() {
       try {
         auth0Client = await auth0.createAuth0Client({
@@ -418,100 +620,217 @@
           clientId: AUTH0_CLIENT_ID,
           authorizationParams: {
             redirect_uri: REDIRECT_URI,
+            audience: 'mindfuels-api'
           },
           cacheLocation: 'localstorage'
         });
 
-        // Handle Auth0 Callback
-        if (window.location.search.includes('code=') || window.location.search.includes('error=')) {
-          await auth0Client.handleRedirectCallback();
-          window.history.replaceState({}, document.title, window.location.pathname);
-          showSection('username');
-          return;
+        // Handle redirect callback (user just came back from Google)
+        if (window.location.search.includes('code=') && window.location.search.includes('state=')) {
+          try {
+            await auth0Client.handleRedirectCallback();
+            window.history.replaceState({}, document.title, window.location.pathname);
+          } catch (cbErr) {
+            console.error('Callback error:', cbErr);
+            showAlert('alertBox', 'alertMsg', 'Login failed. Please try again.');
+            return;
+          }
         }
 
-        // Check if already authenticated but direct access (not from redirect)
+        // Check if already authenticated
         const isAuthenticated = await auth0Client.isAuthenticated();
         if (isAuthenticated) {
-          // If we haven't shown welcome this session, show username prompt
-          if (!sessionStorage.getItem('mindfuels_welcome_shown')) {
-            showSection('username');
+          const user = await auth0Client.getUser();
+
+          // Check if user already has a profile saved (returning user)
+          const savedName = localStorage.getItem('mindfuels_username');
+          if (savedName) {
+            // Returning user — sync silently and go straight to welcome
+            showSection('welcome');
+            document.getElementById('welcomeMsg').textContent = 'Welcome back, ' + savedName + '!';
+            document.querySelector('.welcome-sub').textContent = 'Good to see you again!';
+            document.getElementById('welcomeAvatar').textContent = '👋';
+
+            // Silent backend sync
+            silentSync(user, savedName);
           } else {
-            // Optional: direct to home if already done
-            // window.location.href = 'index.html';
+            // New user — show profile completion
+            showProfileSection(user);
           }
         }
       } catch (err) {
-        console.error('Auth0 Error:', err);
+        console.error('Auth0 init error:', err);
+        showAlert('alertBox', 'alertMsg', 'Unable to connect to authentication service. Please refresh.');
       }
     }
 
+    // ── Show profile section with Google info pre-filled ──
+    function showProfileSection(user) {
+      showSection('profile');
+
+      // Show Google email preview
+      const preview = document.getElementById('googlePreview');
+      if (user) {
+        preview.style.display = 'flex';
+        document.getElementById('previewPicture').src = user.picture || '';
+        document.getElementById('previewName').textContent = user.name || '';
+        document.getElementById('previewEmail').textContent = user.email || '';
+
+        // Pre-fill name (use Google name, skip if it looks like an email)
+        const nameInput = document.getElementById('nameInput');
+        if (user.name && !user.name.includes('@')) {
+          nameInput.value = user.name;
+        }
+      }
+    }
+
+    // ── Section Navigation ──
     function showSection(id) {
       document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-      const activeSection = document.getElementById(`section-${id}`);
-      activeSection.classList.add('active');
-
-      const tagline = document.getElementById('tagline');
-      if (id === 'username') {
-        tagline.textContent = 'Welcome back! Let us know who you are.';
-      } else if (id === 'welcome') {
-        tagline.textContent = 'Ready for takeoff!';
+      const section = document.getElementById('section-' + id);
+      if (section) {
+        section.classList.add('active');
+        // Re-trigger animation
+        section.style.animation = 'none';
+        section.offsetHeight; // force reflow
+        section.style.animation = '';
       }
     }
 
+    // ── Show Alert ──
+    function showAlert(boxId, msgId, message) {
+      const box = document.getElementById(boxId);
+      const msg = document.getElementById(msgId);
+      if (box && msg) {
+        msg.textContent = message;
+        box.classList.add('visible');
+        setTimeout(() => box.classList.remove('visible'), 5000);
+      }
+    }
+
+    // ── Google Login ──
     async function handleGoogle() {
       const btn = document.getElementById('googleBtn');
       btn.classList.add('loading');
+
       try {
-        await auth0Client.loginWithPopup({
+        await auth0Client.loginWithRedirect({
           authorizationParams: {
-            connection: 'google-oauth2',
+            connection: 'google-oauth2'
           }
         });
-        // Popup closed successfully with authentication
-        showSection('username');
       } catch (err) {
+        console.error('Login error:', err);
         btn.classList.remove('loading');
-        const alert = document.getElementById('alertBox');
-        alert.textContent = "Couldn't connect to Google. Please try again.";
-        alert.style.display = 'block';
+        showAlert('alertBox', 'alertMsg', 'Could not open Google login. Please try again.');
       }
     }
 
-    function submitUsername() {
-      const input = document.getElementById('usernameInput');
-      const username = input.value.trim();
+    // ── Submit Profile (Name + Phone) ──
+    async function submitProfile() {
+      const nameInput = document.getElementById('nameInput');
+      const phoneInput = document.getElementById('phoneInput');
+      const name = nameInput.value.trim();
+      const phone = phoneInput.value.trim();
 
-      if (!username) {
-        input.style.borderColor = '#ef4444';
+      // Validation
+      if (!name || name.length < 2) {
+        showAlert('profileAlertBox', 'profileAlertMsg', 'Please enter your name (at least 2 characters).');
+        nameInput.focus();
         return;
       }
 
-      const btn = document.getElementById('usernameBtn');
+      if (phone && !/^\d{10}$/.test(phone)) {
+        showAlert('profileAlertBox', 'profileAlertMsg', 'Please enter a valid 10-digit phone number.');
+        phoneInput.focus();
+        return;
+      }
+
+      const btn = document.getElementById('profileBtn');
       btn.classList.add('loading');
+      btn.disabled = true;
 
-      // Add a slight delay for better UX feel
-      setTimeout(() => {
-        const message = `Happy to have you <span class="username-highlight">${username}</span> here, welcome to our world of books where young readers find their fuel for future flight`;
-        document.getElementById('welcomeMsg').innerHTML = message;
+      try {
+        const user = await auth0Client.getUser();
+        const token = await auth0Client.getTokenSilently();
 
-        sessionStorage.setItem('mindfuels_welcome_shown', 'true');
-        localStorage.setItem('mindfuels_username', username);
+        const fullPhone = phone ? '+91' + phone : '';
 
+        const response = await fetch(`${API_BASE_URL}/users/sync`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            name: name,
+            email: user.email,
+            phone: fullPhone,
+            picture: user.picture
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error('Backend sync failed');
+        }
+
+        // Save to localStorage for immediate use across pages
+        localStorage.setItem('mindfuels_username', name);
+        if (fullPhone) localStorage.setItem('mindfuels_phone', fullPhone);
+
+        // Show welcome
+        document.getElementById('welcomeMsg').textContent = 'Welcome, ' + name + '!';
+        document.getElementById('welcomeAvatar').textContent = '🎉';
+        document.querySelector('.welcome-sub').textContent = 'Your account is all set. Let\'s explore!';
         showSection('welcome');
+
+      } catch (err) {
+        console.error('Profile submit error:', err);
+        // Even if backend fails, save locally and proceed (graceful degradation)
+        localStorage.setItem('mindfuels_username', name);
+        document.getElementById('welcomeMsg').textContent = 'Welcome, ' + name + '!';
+        showSection('welcome');
+      } finally {
         btn.classList.remove('loading');
-      }, 1000);
+        btn.disabled = false;
+      }
     }
 
-    function goToMain() {
-      window.location.href = 'index.html';
+    // ── Silent backend sync for returning users ──
+    async function silentSync(user, name) {
+      try {
+        const token = await auth0Client.getTokenSilently();
+        const phone = localStorage.getItem('mindfuels_phone') || '';
+        await fetch(`${API_BASE_URL}/users/sync`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            name: name,
+            email: user.email,
+            phone: phone,
+            picture: user.picture
+          })
+        });
+      } catch (err) {
+        // Silent fail — non-critical
+        console.warn('Silent sync failed:', err);
+      }
     }
 
-    document.getElementById('usernameInput').addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') submitUsername();
-      e.target.style.borderColor = '#e2e8f0';
+    // ── Phone input: digits only ──
+    document.addEventListener('DOMContentLoaded', () => {
+      const phoneInput = document.getElementById('phoneInput');
+      if (phoneInput) {
+        phoneInput.addEventListener('input', (e) => {
+          e.target.value = e.target.value.replace(/\D/g, '').slice(0, 10);
+        });
+      }
     });
 
+    // ── Boot ──
     window.onload = initAuth0;
   </script>
 </body>

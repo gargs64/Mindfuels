@@ -12,7 +12,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Lato:wght@300;400;700;900&family=Playfair+Display:wght@400;600;700&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=5">
 </head>
 
 <body class="page-bg-cream">
@@ -29,7 +29,8 @@
         <div class="nav-item">
           <a href="#">Class <span class="nav-arrow">▾</span></a>
           <div class="dropdown-menu">
-            <a href="products.html?class=Early Foundation (Pre Nursery %26 Nursery)">Early Foundation (Pre Nursery & Nursery)</a>
+            <a href="products.html?class=Early Foundation (Pre Nursery %26 Nursery)">Early Foundation (Pre Nursery &
+              Nursery)</a>
             <a href="products.html?class=Kindergarten Years (U.K.G %26 L.K.G)">Kindergarten Years (U.K.G & L.K.G)</a>
             <a href="products.html?class=Lower Primary (Class 1 %26 2)">Lower Primary (Class 1 & 2)</a>
             <a href="products.html?class=Upper Primary (Class 3 %26 4)">Upper Primary (Class 3 & 4)</a>
@@ -58,9 +59,12 @@
 
       <div class="header-icons">
         <div class="nav-search-wrapper" id="navSearchWrapper">
-          <input type="text" id="searchInput" class="nav-search-input" placeholder="Search..."
-            oninput="if(window.renderProducts) renderProducts()"
-            onkeypress="if(event.key === 'Enter') { if(window.renderProducts) renderProducts(); }">
+          <input type="text" id="searchInput" class="nav-search-input" placeholder="Search books..."
+            oninput="if(window.renderProducts) renderProducts(); showSearchSuggestions(this.value);"
+            onkeypress="if(event.key === 'Enter') { if(window.renderProducts) renderProducts(); hideSearchSuggestions(); }"
+            onfocus="showSearchSuggestions(this.value)"
+            autocomplete="off">
+          <div class="search-suggestions" id="searchSuggestions"></div>
           <button aria-label="Search" onclick="toggleSearchInput()">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
               stroke-linecap="round" stroke-linejoin="round">
@@ -258,7 +262,7 @@
           <div class="footer-col">
             <h4>About</h4>
             <ul>
-              <li><a href="#">About us</a></li>
+              <li><a href="legal_pages.html#about">About us</a></li>
             </ul>
           </div>
 
@@ -281,18 +285,18 @@
           <div class="footer-col">
             <h4>Support</h4>
             <ul>
+              <li><a href="legal_pages.html#refund">Returns &amp; Exchanges</a></li>
+              <li><a href="legal_pages.html#shipping">Shipping Policy</a></li>
+              <li><a href="legal_pages.html#contact">Contact Us</a></li>
               <li><a href="#">FAQ</a></li>
-              <li><a href="#">Returns &amp; Exchanges</a></li>
-              <li><a href="#">Contact Us</a></li>
-              <li><a href="#">Nearest Store</a></li>
             </ul>
           </div>
 
           <div class="footer-col">
             <h4>Legal</h4>
             <ul>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Terms &amp; Conditions</a></li>
+              <li><a href="legal_pages.html#privacy">Privacy Policy</a></li>
+              <li><a href="legal_pages.html#terms">Terms &amp; Conditions</a></li>
             </ul>
           </div>
 
@@ -312,9 +316,9 @@
       <div class="modal-left">
         <div class="modal-carousel">
           <img id="modalMainImage" src="" alt="Product">
+          <button class="carousel-arrow left-arrow" onclick="prevModalImage()">&#8249;</button>
           <button class="carousel-arrow right-arrow" onclick="nextModalImage()">&#8250;</button>
-          <button class="product-wishlist modal-wishlist" aria-label="Wishlist"
-            onclick="toggleModalWishlist(this)">♡</button>
+          <span class="modal-image-counter" id="modalImageCounter">1 / 1</span>
         </div>
         <div class="modal-thumbnails" id="modalThumbnails">
         </div>
@@ -327,23 +331,28 @@
           <span class="modal-price-original" id="modalOriginalPrice">₹0</span>
           <span class="modal-price-discount" id="modalDiscount">0% OFF</span>
         </div>
-        <div class="modal-rating-length" id="modalRatingLength"
-          style="margin-top:10px; margin-bottom:10px; font-size:14px; color:#555; display:flex; gap:15px; font-weight:600;">
+        <div class="modal-rating-length" id="modalRatingLength">
           <span id="modalRating"></span>
           <span id="modalLength"></span>
         </div>
         <div class="modal-description" id="modalDesc">
           A wonderful product perfect for your child's educational development.
         </div>
-        <div id="modalCartActions" style="margin-top: 20px;"></div>
+        <div class="modal-actions-bar">
+          <div id="modalCartActions" class="modal-cart-actions"></div>
+          <button class="modal-wishlist-btn" id="modalWishlistBtn" aria-label="Add to Wishlist" onclick="toggleModalWishlist(this)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21.3l7.8-7.8 1-1.1a5.5 5.5 0 0 0 0-7.8z"/>
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   </div>
 
-  <script src="data.js"></script>
-  <script src="script.js"></script>
+  <script src="script.js?v=5"></script>
   <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
-  <script src="auth.js"></script>
+  <script src="auth.js?v=5"></script>
 </body>
 
 </html>

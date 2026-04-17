@@ -130,7 +130,7 @@
           <div class="footer-col">
             <h4>About</h4>
             <ul>
-              <li><a href="#">About us</a></li>
+              <li><a href="legal_pages.html#about">About us</a></li>
             </ul>
           </div>
 
@@ -153,18 +153,18 @@
           <div class="footer-col">
             <h4>Support</h4>
             <ul>
+              <li><a href="legal_pages.html#refund">Returns &amp; Exchanges</a></li>
+              <li><a href="legal_pages.html#shipping">Shipping Policy</a></li>
+              <li><a href="legal_pages.html#contact">Contact Us</a></li>
               <li><a href="#">FAQ</a></li>
-              <li><a href="#">Returns &amp; Exchanges</a></li>
-              <li><a href="#">Contact Us</a></li>
-              <li><a href="#">Nearest Store</a></li>
             </ul>
           </div>
 
           <div class="footer-col">
             <h4>Legal</h4>
             <ul>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Terms &amp; Conditions</a></li>
+              <li><a href="legal_pages.html#privacy">Privacy Policy</a></li>
+              <li><a href="legal_pages.html#terms">Terms &amp; Conditions</a></li>
             </ul>
           </div>
 
@@ -176,7 +176,6 @@
     </div>
   </footer>
 
-  <script src="data.js"></script>
   <script src="script.js"></script>
   <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
   <script src="auth.js"></script>
@@ -301,9 +300,13 @@
     function changeCartQty(index, delta) {
       let cart = JSON.parse(localStorage.getItem('mindfuels_cart')) || [];
       if (cart[index]) {
+        let pid = cart[index].id;
         cart[index].qty += delta;
         if (cart[index].qty <= 0) {
           cart.splice(index, 1);
+          if (window.syncItemToBackend) window.syncItemToBackend(pid, 0);
+        } else {
+          if (window.syncItemToBackend) window.syncItemToBackend(pid, cart[index].qty);
         }
         localStorage.setItem('mindfuels_cart', JSON.stringify(cart));
         renderCartPage();
@@ -313,11 +316,14 @@
     function setCartQty(index, value) {
       let cart = JSON.parse(localStorage.getItem('mindfuels_cart')) || [];
       if (cart[index]) {
+        let pid = cart[index].id;
         let newQty = parseInt(value, 10);
         if (isNaN(newQty) || newQty <= 0) {
           cart.splice(index, 1);
+          if (window.syncItemToBackend) window.syncItemToBackend(pid, 0);
         } else {
           cart[index].qty = newQty;
+          if (window.syncItemToBackend) window.syncItemToBackend(pid, newQty);
         }
         localStorage.setItem('mindfuels_cart', JSON.stringify(cart));
         renderCartPage();
@@ -326,9 +332,13 @@
 
     function removeCartItem(index) {
       let cart = JSON.parse(localStorage.getItem('mindfuels_cart')) || [];
-      cart.splice(index, 1);
-      localStorage.setItem('mindfuels_cart', JSON.stringify(cart));
-      renderCartPage();
+      if (cart[index]) {
+        let pid = cart[index].id;
+        cart.splice(index, 1);
+        if (window.syncItemToBackend) window.syncItemToBackend(pid, 0);
+        localStorage.setItem('mindfuels_cart', JSON.stringify(cart));
+        renderCartPage();
+      }
     }
 
     document.addEventListener('DOMContentLoaded', renderCartPage);
