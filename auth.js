@@ -122,6 +122,7 @@ window.logout = function () {
   localStorage.removeItem('mindfuels_username');
   localStorage.removeItem('mindfuels_phone');
   localStorage.removeItem('mindfuels_wishlist');
+  localStorage.removeItem('mindfuels_cart'); // Clear cart to avoid seeing old data before next load
   if (auth0Client) {
     auth0Client.logout({ logoutParams: { returnTo: window.location.origin } });
   } else {
