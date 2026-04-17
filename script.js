@@ -357,20 +357,23 @@ let wishlist = JSON.parse(localStorage.getItem('mindfuels_wishlist')) || [];
 
 /** Sync wishlist change to backend */
 window.syncWishlistToBackend = async function syncWishlistToBackend(productId, action) {
-  if (!window.isUserLoggedIn) return;
-  const user = await auth0Client.getUser();
-  if (!user) return;
+  const token = await getAuthToken();
+  if (!token) return;
 
   try {
     if (action === 'add') {
       await fetch(`${API_BASE_URL}/wishlist`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ user_id: user.sub, product_id: productId })
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ product_id: productId })
       });
     } else {
-      await fetch(`${API_BASE_URL}/wishlist/${user.sub}/${productId}`, {
-        method: 'DELETE'
+      await fetch(`${API_BASE_URL}/wishlist/${productId}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` }
       });
     }
   } catch (err) {
@@ -380,16 +383,18 @@ window.syncWishlistToBackend = async function syncWishlistToBackend(productId, a
 
 /** Fetch user wishlist from backend */
 window.loadUserWishlist = async function loadUserWishlist() {
-  if (!window.isUserLoggedIn) return;
-  const user = await auth0Client.getUser();
-  if (!user) return;
+  const token = await getAuthToken();
+  if (!token) return;
 
   try {
-    const res = await fetch(`${API_BASE_URL}/wishlist/${user.sub}`);
+    const res = await fetch(`${API_BASE_URL}/wishlist`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
     const backendWishlist = await res.json();
     wishlist = backendWishlist;
     localStorage.setItem('mindfuels_wishlist', JSON.stringify(wishlist));
     renderProducts();
+    if (typeof updateWishlistDropdown === 'function') updateWishlistDropdown();
   } catch (err) {
     console.error('Failed to load wishlist:', err);
   }
