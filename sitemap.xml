@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://www.mindfuelspublisher.com/</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- All Products -->
+  <url>
+    <loc>https://www.mindfuelspublisher.com/products.html</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Products by Class -->
+  <url>
+    <loc>https://www.mindfuelspublisher.com/products.html?class=Early%20Foundation%20(Pre%20Nursery%20%26%20Nursery)</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.mindfuelspublisher.com/products.html?class=Kindergarten%20Years%20(U.K.G%20%26%20L.K.G)</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.mindfuelspublisher.com/products.html?class=Lower%20Primary%20(Class%201%20%26%202)</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.mindfuelspublisher.com/products.html?class=Upper%20Primary%20(Class%203%20%26%204)</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.mindfuelspublisher.com/products.html?class=Middle%20School%20(Class%205%20%26%206)</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Products by Interest -->
+  <url>
+    <loc>https://www.mindfuelspublisher.com/products.html?interest=All-Subject%20Activity%20Books</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.mindfuelspublisher.com/products.html?interest=Phonetics</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.mindfuelspublisher.com/products.html?interest=Calligraphy%20%26%20Cursive</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Products by Subject -->
+  <url>
+    <loc>https://www.mindfuelspublisher.com/products.html?subject=English</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.mindfuelspublisher.com/products.html?subject=Hindi</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.mindfuelspublisher.com/products.html?subject=Mathematics</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Cart -->
+  <url>
+    <loc>https://www.mindfuelspublisher.com/cart.html</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <!-- Login -->
+  <url>
+    <loc>https://www.mindfuelspublisher.com/login.html</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- Legal & Compliance -->
+  <url>
+    <loc>https://www.mindfuelspublisher.com/legal_pages.html</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+</urlset>

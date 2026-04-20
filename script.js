@@ -560,9 +560,10 @@ function renderProducts() {
     const showBadge = discountPercent > 0;
 
     return `
-      <div class="product-card" onclick="window.openModalById('${p.id}')">
+      <div class="product-card" onclick="window.openModalById('${p.id}')" itemscope itemtype="https://schema.org/Product">
+        <meta itemprop="description" content="${(p.description || p.name).replace(/"/g, '&quot;')}">
         <div class="product-img">
-          <img src="${p.images[0]}" alt="${p.name}">
+          <img src="${p.images[0]}" alt="${p.name}" itemprop="image" loading="lazy">
           ${showBadge ? `<span class="product-badge">${discountPercent}% OFF</span>` : ''}
           <button class="product-wishlist" aria-label="Wishlist" data-product-id="${p.id}"
                   style="color: ${wishlist.includes(p.id) ? '#F93549' : ''};"
@@ -571,9 +572,10 @@ function renderProducts() {
           </button>
         </div>
         <div class="product-info">
-          <div class="product-name">${p.name}</div>
-          <div class="product-price">
-            <span class="price-current">₹${p.price}</span>
+          <div class="product-name" itemprop="name">${p.name}</div>
+          <div class="product-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+            <meta itemprop="priceCurrency" content="INR">
+            <span class="price-current" itemprop="price" content="${p.price}">₹${p.price}</span>
             ${showBadge ? `
               <span class="price-original">₹${p.originalPrice}</span>
               <span class="price-discount">(${discountPercent}% OFF)</span>
@@ -778,9 +780,10 @@ function renderHomeBestsellers() {
     const showBadge = discountPercent > 0;
 
     return `
-      <div class="product-card bs-product-card" onclick="window.openModalById('${p.id}')">
+      <div class="product-card bs-product-card" onclick="window.openModalById('${p.id}')" itemscope itemtype="https://schema.org/Product">
+        <meta itemprop="description" content="${(p.description || p.name).replace(/"/g, '&quot;')}">
         <div class="product-img">
-          <img src="${p.images[0]}" alt="${p.name}">
+          <img src="${p.images[0]}" alt="${p.name}" itemprop="image" loading="lazy">
           ${showBadge ? `<span class="product-badge">${discountPercent}% OFF</span>` : ''}
           <button class="product-wishlist" aria-label="Wishlist" data-product-id="${p.id}"
                   style="color: ${wishlist.includes(p.id) ? '#F93549' : ''};"
@@ -789,9 +792,10 @@ function renderHomeBestsellers() {
           </button>
         </div>
         <div class="product-info">
-          <div class="product-name">${p.name}</div>
-          <div class="product-price">
-            <span class="price-current">₹${p.price}</span>
+          <div class="product-name" itemprop="name">${p.name}</div>
+          <div class="product-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+            <meta itemprop="priceCurrency" content="INR">
+            <span class="price-current" itemprop="price" content="${p.price}">₹${p.price}</span>
             ${showBadge ? `
               <span class="price-original">₹${p.originalPrice}</span>
               <span class="price-discount">(${discountPercent}% OFF)</span>
@@ -1408,4 +1412,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+
 

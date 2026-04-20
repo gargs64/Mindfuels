@@ -158,6 +158,19 @@ input {
   border: none;
 }
 
+/* Screen-reader only — visually hidden but accessible to SEO and assistive tech */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 
 /* ============================================================
    3. TYPOGRAPHY HELPERS
@@ -201,6 +214,19 @@ input {
   background-color: #ECEDE7;
 }
 
+
+/* Accessibility Utility to hide elements visually but keep them for SEO/Screen Readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
 
 /* ============================================================
    5. HEADER & NAVIGATION
@@ -3438,4 +3464,213 @@ footer {
 
 .modal-actions-bar {
   display: block !important;
+}
+
+/* =========================================================================
+   MOBILE RESPONSIVENESS OVERRIDES
+   ========================================================================= */
+
+/* Step 3: Breakpoints Foundation / Tablet */
+@media (max-width: 1024px) {
+  .main-nav { gap: 15px; }
+  .dropdown-menu.two-col { min-width: 200px; grid-template-columns: 1fr; }
+}
+
+/* Step 3: Breakpoints Foundation / Mobile Landscape */
+@media (max-width: 768px) {
+  /* Step 4: Navigation Fix */
+  .main-nav {
+    display: none; /* hidden by default */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    z-index: 1000;
+  }
+  .main-nav.open {
+    display: flex !important; /* JS toggle */
+  }
+  .dropdown-menu {
+    position: static;
+    visibility: visible;
+    opacity: 1;
+    box-shadow: none;
+    transform: none;
+    display: none; /* start collapsed */
+    padding-left: 20px;
+  }
+  .nav-item:hover .dropdown-menu {
+    display: flex; /* Accordion style hover/tap */
+  }
+  .hamburger {
+    display: flex !important;
+    margin-left: auto;
+  }
+  .cart-icon {
+    display: flex !important;
+  }
+  
+  /* Step 5: Hero Section */
+  .hero-slide {
+    height: auto !important;
+  }
+  .hero-slide img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  .hero {
+    padding: 16px;
+  }
+  .trust-bar-inner {
+    flex-wrap: wrap; /* ticker wrap */
+    justify-content: center;
+    gap: 10px;
+  }
+
+  /* Step 6: Shop By Age Row (Grid Option A implementation) */
+  .age-sides {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    padding-top: 10px;
+  }
+  .age-card {
+    width: 100%;
+  }
+
+  /* Step 7: Category Cards Row */
+  /* Maintained carousel structure but shrank child sizing for mobile */
+  .cat-wrap {
+    flex: 0 0 calc(50vw - 20px);
+    min-width: 160px;
+  }
+  .cat-card img {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Footer Adjustments */
+  .footer-links {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px;
+  }
+}
+
+/* Step 3: Breakpoints Foundation / Mobile Portrait */
+@media (max-width: 480px) {
+  /* Smaller age bubbles */
+  .age-sides {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .age-circle {
+    width: 90px;
+    height: 90px;
+  }
+  
+  /* Footer */
+  .footer-links {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Modal constraints */
+  .modal-content {
+    width: 95vw !important;
+    max-width: 95vw !important;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+    padding: 16px !important;
+    margin: 20px auto;
+  }
+  
+  .modal-content img {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  .modal-close {
+    width: 44px !important;
+    height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    top: 10px !important;
+    right: 10px !important;
+    font-size: 24px !important;
+  }
+}
+
+/* =========================================================================
+   STEP 8-14: ADVANCED MOBILE RESPONSIVENESS AND ACCESSIBILITY
+   ========================================================================= */
+
+/* Step 9: Global Image Rule */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  /* Step 8: Product Carousels & Buttons */
+  .carousel-btn {
+    min-width: 44px !important;
+    min-height: 44px !important;
+  }
+
+  /* Step 10: Fluid Typography */
+  h1 { 
+    font-size: clamp(1.4rem, 5vw, 2.2rem) !important; 
+    line-height: 1.2 !important;
+  }
+  h2 { 
+    font-size: clamp(1.2rem, 4vw, 1.8rem) !important; 
+    line-height: 1.3 !important;
+  }
+  body, p { 
+    font-size: 15px !important; 
+  }
+
+  /* Step 13: Touch Targets and Spacing */
+  a, button {
+    display: inline-flex; /* Ensures min limits affect formatting safely */
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Certain links in text or headers shouldn't be forced huge */
+  .main-nav a, .footer-links a {
+    min-height: 44px !important;
+  }
+
+  .section { 
+    padding: 32px 16px !important; 
+  }
+  .container { 
+    padding: 0 16px !important; 
+  }
+
+  /* Advanced Steps: Form Input Zoom Prevention, Strict Overflows & Hard-Width scaling */
+  * { 
+    box-sizing: border-box !important; 
+  }
+  html, body {
+    overflow-x: hidden !important; /* Forces 100vw restriction */
+  }
+  .search-wrapper, .dropdown-menu, .account-dropdown, .container {
+    max-width: 100vw !important;
+  }
+  /* Step 6: Form Input Optimization */
+  input, select, textarea {
+    font-size: 16px !important; /* Prevent iOS auto-zoom on focus */
+    width: 100% !important; /* override any hard widths like width: 250px */
+    box-sizing: border-box !important;
+  }
 }
