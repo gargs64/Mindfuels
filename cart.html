@@ -491,7 +491,7 @@
 
       try {
         const token = await window.auth0Client.getTokenSilently();
-        const BASE_API = 'http://localhost:5000/api';
+        const BASE_API = 'https://mindfuels-backend-aopx.onrender.com';
 
         // 1. Create Razorpay Order on server
         const rzpOrderResponse = await fetch(`${BASE_API}/payments/create-order`, {
