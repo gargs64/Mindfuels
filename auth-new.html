@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Mindfuels</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --primary: #FFD21E;
+      --primary-dark: #e6bd1b;
+      --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: linear-gradient(135deg, rgba(248, 250, 252, 0.85) 0%, rgba(226, 232, 240, 0.85) 100%),
+        url('photos/Login_bg.jpeg') center center / cover no-repeat fixed;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .login-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border-radius: 32px;
+      padding: 56px 48px;
+      width: 100%;
+      max-width: 480px;
+      box-shadow: var(--glass-shadow);
+      text-align: center;
+    }
+
+    .logo-container h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    .section { display: none; }
+    .section.active { display: block; }
+
+    .btn {
+      width: 100%;
+      padding: 16px 24px;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      border: none;
+      transition: all 0.3s;
+    }
+
+    .btn-google {
+      background: white;
+      border: 1.5px solid #e2e8f0;
+      margin-top: 20px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      margin-top: 20px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 16px 20px;
+      border-radius: 16px;
+      border: 2px solid #e2e8f0;
+      margin-top: 20px;
+    }
+
+    #alertBox {
+      background: #fee2e2;
+      color: #b91c1c;
+      padding: 12px;
+      border-radius: 12px;
+      margin-top: 16px;
+      display: none;
+    }
+
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(0,0,0,0.1);
+      border-top-color: #000;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      display: none;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading .spinner { display: block; }
+    .loading .btn-text { display: none; }
+  </style>
+</head>
+
+<body>
+  <main class="login-card">
+    <div class="logo-container">
+      <h1>Mindfuels</h1>
+      <p id="tagline">Let's Fuel Our Imagination</p>
+    </div>
+
+    <!-- State 1: Login -->
+    <div id="section-login" class="section active">
+      <button class="btn btn-google" id="googleBtn" onclick="handleGoogle()">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20">
+        <span class="btn-text">Continue with Google</span>
+        <div class="spinner"></div>
+      </button>
+      <div id="alertBox"></div>
+    </div>
+
+    <!-- State 2: Username -->
+    <div id="section-username" class="section">
+      <input type="text" id="usernameInput" placeholder="Enter Your Name">
+      <button class="btn btn-primary" id="usernameBtn" onclick="submitUsername()">
+        <span class="btn-text">Continue</span>
+        <div class="spinner"></div>
+      </button>
+    </div>
+
+    <!-- State 3: Welcome -->
+    <div id="section-welcome" class="section">
+      <h2 id="welcomeMsg"></h2>
+      <button class="btn btn-primary" onclick="window.location.href='index.html'">Start Exploring</button>
+    </div>
+  </main>
+
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
+  <script>
+    const AUTH0_DOMAIN = 'mindfuels.us.auth0.com';
+    const AUTH0_CLIENT_ID = 'HOTM4KSpHLFFmdXYchCP2vYDtgTBDfJW';
+    const REDIRECT_URI = window.location.origin + window.location.pathname;
+
+    let auth0Client = null;
+
+    async function initAuth0() {
+      try {
+        auth0Client = await auth0.createAuth0Client({
+          domain: AUTH0_DOMAIN,
+          clientId: AUTH0_CLIENT_ID,
+          authorizationParams: {
+            redirect_uri: REDIRECT_URI,
+            audience: 'mindfuels-api'
+          },
+          cacheLocation: 'localstorage'
+        });
+
+        if (window.location.search.includes('code=')) {
+          await auth0Client.handleRedirectCallback();
+          window.history.replaceState({}, document.title, window.location.pathname);
+          showSection('username');
+          return;
+        }
+
+        const authenticated = await auth0Client.isAuthenticated();
+        if (authenticated) showSection('username');
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById('section-' + id).classList.add('active');
+    }
+
+    async function handleGoogle() {
+      document.getElementById('googleBtn').classList.add('loading');
+      await auth0Client.loginWithRedirect();
+    }
+
+    async function submitUsername() {
+      const name = document.getElementById('usernameInput').value;
+      if(!name) return;
+      
+      const btn = document.getElementById('usernameBtn');
+      btn.classList.add('loading');
+
+      try {
+        const user = await auth0Client.getUser();
+        const token = await auth0Client.getTokenSilently();
+        
+        await fetch('https://mindfuels-backend.onrender.com/api/users/sync', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+          body: JSON.stringify({ name, email: user.email, picture: user.picture })
+        });
+
+        localStorage.setItem('mindfuels_username', name);
+        document.getElementById('welcomeMsg').textContent = 'Welcome, ' + name + '!';
+        showSection('welcome');
+      } catch (err) {
+        console.error(err);
+        showSection('welcome'); // fallback
+      } finally {
+        btn.classList.remove('loading');
+      }
+    }
+
+    window.onload = initAuth0;
+  </script>
+</body>
+</html>

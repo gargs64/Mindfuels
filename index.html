@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!--
+  =============================================================================
+  MINDFUELS — HOME PAGE  (index.html)
+  =============================================================================
+
+  PAGE STRUCTURE  (in order of appearance)
+  -----------------------------------------
+   1. <head>          Meta, fonts, stylesheet
+   2. <header>        Sticky nav — logo, nav links, icon bar, hamburger
+   3. <main>
+      3.1  Hero       Full-width image carousel
+      3.2  Trust Bar  Scrolling trust badges
+      3.3  Bestsellers  Tabbed product carousels (Parents / Teachers)
+      3.4  Testimonials  Video review cards + Mind-Quests CTA
+      3.5  Shop by Age  Age-group circles
+      3.6  Categories  Horizontally-scrollable category cards
+   4. <footer>         Links, social, copyright
+   5. Modals / Overlays
+      5.1  Product detail modal
+   6. <scripts>       script.js, Auth0, auth.js
+  =============================================================================
+-->
+
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+  1. HEAD
+     Charset, viewport, title, description, favicon, fonts, stylesheet.
+════════════════════════════════════════════════════════════════════════════ -->
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>MindFuels Publisher — Educational Books for Kids | Activity Books, Workbooks & Story Books India</title>
+  <meta name="description"
+    content="MindFuels Publisher — 20+ years of trusted educational books for children. Shop activity books, story books, phonetics, calligraphy, worksheets & workbooks for Pre-Nursery to Class 6. Loved by parents & teachers across India.">
+  <meta name="keywords" content="educational books for kids, children's books India, activity books for nursery, kids workbooks online, story books for children, phonetics books, calligraphy books, school textbooks India, LKG UKG books, class 1 textbooks, nursery activity books, coloring books for kids, MindFuels Publisher">
+  <meta name="author" content="MindFuels Publisher and Distributors">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://www.mindfuelspublisher.com/">
+
+  <!-- Open Graph / Facebook / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.mindfuelspublisher.com/">
+  <meta property="og:title" content="MindFuels Publisher — Educational Books for Kids | India">
+  <meta property="og:description" content="20+ years of trusted educational books for children. Activity books, story books, phonetics, calligraphy & workbooks for Pre-Nursery to Class 6.">
+  <meta property="og:image" content="https://www.mindfuelspublisher.com/photos/og-share.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="MindFuels Publisher">
+  <meta property="og:locale" content="en_IN">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MindFuels Publisher — Educational Books for Kids | India">
+  <meta name="twitter:description" content="20+ years of trusted educational books for children. Activity books, story books, phonetics, calligraphy & workbooks for Pre-Nursery to Class 6.">
+  <meta name="twitter:image" content="https://www.mindfuelspublisher.com/photos/og-share.png">
+
+  <link rel="icon" href="photos/favicon.png" type="image/png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css?v=5">
+
+  <!-- Structured Data: Organization + WebSite + LocalBusiness -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.mindfuelspublisher.com/#organization",
+        "name": "MindFuels Publisher and Distributors",
+        "url": "https://www.mindfuelspublisher.com/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.mindfuelspublisher.com/photos/logo.png"
+        },
+        "description": "Trusted educational book publisher in India for over 20 years. Activity books, story books, phonetics, calligraphy, worksheets and workbooks for Pre-Nursery through Class 6.",
+        "foundingDate": "2002",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+91-9899923670",
+          "contactType": "customer service",
+          "availableLanguage": ["English", "Hindi"],
+          "areaServed": "IN"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "WZ-55 B SRI NAGAR WZ-55 B Gali No 1",
+          "addressLocality": "Delhi",
+          "addressRegion": "North West Delhi",
+          "postalCode": "110034",
+          "addressCountry": "IN"
+        },
+        "sameAs": [
+          "https://www.instagram.com/mindfuels_publisher"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://www.mindfuelspublisher.com/#website",
+        "url": "https://www.mindfuelspublisher.com/",
+        "name": "MindFuels Publisher",
+        "publisher": { "@id": "https://www.mindfuelspublisher.com/#organization" },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://www.mindfuelspublisher.com/products.html?search={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://www.mindfuelspublisher.com/#localbusiness",
+        "name": "MindFuels Publisher and Distributors",
+        "image": "https://www.mindfuelspublisher.com/photos/logo.png",
+        "telephone": "+91-9899923670",
+        "email": "support@mindfuelspublisher.com",
+        "url": "https://www.mindfuelspublisher.com/",
+        "priceRange": "₹₹",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "WZ-55 B SRI NAGAR WZ-55 B Gali No 1",
+          "addressLocality": "Delhi",
+          "addressRegion": "North West Delhi",
+          "postalCode": "110034",
+          "addressCountry": "IN"
+        }
+      }
+    ]
+  }
+  <!-- Google Analytics Placeholder (Replace G-XXXXXXXXXX with your actual ID) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+</head>
+
+
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+  2. HEADER
+     Sticky top bar containing:
+       - Logo (left)
+       - Main navigation links (centre)
+       - Icon bar: Search, Account (with dropdown), Wishlist, Cart, Hamburger (right)
+════════════════════════════════════════════════════════════════════════════ -->
+  <header class="header" id="header">
+    <div class="header-inner">
+
+      <!-- Logo -->
+      <a href="index.html" class="logo">
+        <img src="photos/logo.png" alt="Mind fuels Logo" style="height:36px; width:auto; display:block;">
+      </a>
+
+      <!-- Primary navigation -->
+      <nav class="main-nav" id="mainNav">
+        <a href="products.html">All Products</a>
+        <div class="nav-item">
+          <a href="#">Class <span class="nav-arrow">▾</span></a>
+          <div class="dropdown-menu">
+            <a href="products.html?class=Early Foundation (Pre Nursery %26 Nursery)">Early Foundation (Pre Nursery &
+              Nursery)</a>
+            <a href="products.html?class=Kindergarten Years (U.K.G %26 L.K.G)">Kindergarten Years (U.K.G & L.K.G)</a>
+            <a href="products.html?class=Lower Primary (Class 1 %26 2)">Lower Primary (Class 1 & 2)</a>
+            <a href="products.html?class=Upper Primary (Class 3 %26 4)">Upper Primary (Class 3 & 4)</a>
+            <a href="products.html?class=Middle School (Class 5 %26 6)">Middle School (Class 5 & 6)</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="#">Interest <span class="nav-arrow">▾</span></a>
+          <div class="dropdown-menu">
+            <a href="products.html?interest=All-Subject Activity Books">All-Subject Activity Books</a>
+            <a href="products.html?interest=Phonetics">Phonetics</a>
+            <a href="products.html?interest=Calligraphy %26 Cursive">Calligraphy & Cursive</a>
+            <a href="products.html?interest=All-in-One">All-in-One</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="#">Subject <span class="nav-arrow">▾</span></a>
+          <div class="dropdown-menu">
+            <a href="products.html?subject=English">English</a>
+            <a href="products.html?subject=Hindi">Hindi</a>
+            <a href="products.html?subject=Mathematics">Mathematics</a>
+            <a href="products.html?subject=Mental Ability %26 GK">Mental Ability & GK</a>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Icon bar -->
+      <div class="header-icons">
+
+        <!-- Search -->
+        <div class="nav-search-wrapper" id="navSearchWrapper">
+          <input type="text" id="searchInput" class="nav-search-input" placeholder="Search books..."
+            oninput="showSearchSuggestions(this.value);"
+            onkeypress="if(event.key === 'Enter') { window.location.href = 'products.html?search=' + encodeURIComponent(this.value); hideSearchSuggestions(); }"
+            onfocus="showSearchSuggestions(this.value)"
+            autocomplete="off">
+          <div class="search-suggestions" id="searchSuggestions"></div>
+          <button aria-label="Search" onclick="toggleSearchInput()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Account -->
+        <div class="account-wrapper" id="accountWrapper">
+          <a href="login.html" id="accountBtn" aria-label="Account">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+          </a>
+          <div id="accountDropdown" class="account-dropdown"></div>
+        </div>
+
+        <!-- Wishlist -->
+        <div class="account-wrapper" id="wishlistWrapper">
+          <a href="javascript:void(0)" id="wishlistBtn" aria-label="Wishlist" style="position: relative;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21.3l7.8-7.8 1-1.1a5.5 5.5 0 0 0 0-7.8z" />
+            </svg>
+            <span class="cart-badge" id="wishlistBadge" style="display:none; right:-8px; top:-5px;">0</span>
+          </a>
+          <div id="wishlistDropdown" class="account-dropdown"
+            style="width: 320px; max-height: 480px; overflow-y: auto;">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+        <!-- Cart -->
+        <a href="cart.html" class="cart-icon" aria-label="Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1" />
+            <circle cx="20" cy="21" r="1" />
+            <path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6" />
+          </svg>
+          <span class="cart-badge">0</span>
+        </a>
+
+        <!-- Hamburger (mobile menu toggle) -->
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+          <span></span><span></span><span></span>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+  3. MAIN CONTENT
+════════════════════════════════════════════════════════════════════════════ -->
+  <main>
+
+    <!-- ─────────────────────────────────────────────────────────────────────
+    3.1  HERO CAROUSEL
+         Full-width image slider. JS handles auto-play, dots, and swipe.
+         Add more .hero-slide items here to extend the carousel.
+  ──────────────────────────────────────────────────────────────────────── -->
+    <section class="hero" id="heroCarousel">
+      <h1 class="sr-only">MindFuels Publisher — Educational Books & Activity Books for Children in India</h1>
+      <div class="hero-track" id="heroTrack">
+
+        <div class="hero-slide">
+          <a href="products.html">
+            <img src="photos/hero-image.png" alt="MindFuels educational books collection — activity books, story books and workbooks for children" loading="eager">
+          </a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ─────────────────────────────────────────────────────────────────────
+    3.2  TRUST BAR
+         Horizontal strip of brand trust badges.
+  ──────────────────────────────────────────────────────────────────────── -->
+    <div class="trust-bar">
+      <div class="trust-bar-inner">
+        <span class="trust-item">20+ Years of Trust</span>
+        <span class="trust-icon">❤</span>
+        <span class="trust-item">School-Trusted Store</span>
+        <span class="trust-icon">❤</span>
+        <span class="trust-item">Quality You Can Trust</span>
+        <span class="trust-icon">❤</span>
+        <span class="trust-item">Young Readers Collection</span>
+      </div>
+    </div>
+
+
+    <!-- ─────────────────────────────────────────────────────────────────────
+    3.3  BESTSELLERS — TABBED PRODUCT CAROUSELS
+         Two tabs: "Parents' First Choice" and "Teacher's Recommendation".
+         Each tab contains a horizontally scrollable row of product cards.
+         switchTab() and scrollProducts() are defined in script.js.
+  ──────────────────────────────────────────────────────────────────────── -->
+    <section class="bestsellers-section section fade-up">
+      <div class="container">
+
+        <!-- Section header -->
+        <div class="bestsellers-header">
+          <div class="bestsellers-title-group">
+            <h2 class="bestsellers-title">Trusted Favorites</h2>
+            <p class="bestsellers-subtitle">Loved by Parents and Teachers</p>
+          </div>
+          <div class="bestsellers-tabs">
+            <button class="bs-tab active" id="tabParents" onclick="switchTab('parents')">Parents' First Choice</button>
+            <button class="bs-tab" id="tabTeachers" onclick="switchTab('teachers')">Teacher's Recommendation</button>
+          </div>
+        </div>
+
+        <!-- TAB: Parents' First Choice -->
+        <div id="parentsProducts" class="tab-content">
+          <div class="bs-scroll-wrapper">
+            <button class="bs-arrow bs-arrow-left" onclick="scrollProducts('parentsScroll', -1)">&#8249;</button>
+            <div class="bs-track" id="parentsScroll">
+              <!-- Dynamically populated by script.js -->
+            </div>
+            <button class="bs-arrow bs-arrow-right" onclick="scrollProducts('parentsScroll', 1)">&#8250;</button>
+          </div>
+        </div><!-- /#parentsProducts -->
+
+        <!-- TAB: Teacher's Recommendation (hidden by default) -->
+        <div id="teachersProducts" class="tab-content" style="display:none;">
+          <div class="bs-scroll-wrapper">
+            <button class="bs-arrow bs-arrow-left" onclick="scrollProducts('teachersScroll', -1)">&#8249;</button>
+            <div class="bs-track" id="teachersScroll">
+              <!-- Dynamically populated by script.js -->
+            </div>
+            <button class="bs-arrow bs-arrow-right" onclick="scrollProducts('teachersScroll', 1)">&#8250;</button>
+          </div>
+        </div><!-- /#teachersProducts -->
+
+        <!-- Shop All CTA -->
+        <div style="text-align:center; margin-top:36px;">
+          <a href="products.html" class="shop-all-btn">Shop All</a>
+        </div>
+
+      </div><!-- /.container -->
+    </section>
+
+
+    <!-- ─────────────────────────────────────────────────────────────────────
+    3.4  TESTIMONIALS / MIND-QUESTS
+         Left: brand CTA copy + decorative icons.
+         Right: horizontally auto-scrolling video testimonial cards.
+         Cards and scroll logic are handled by script.js.
+  ──────────────────────────────────────────────────────────────────────── -->
+    <section class="feedback-section section fade-up">
+      <div class="feedback-container">
+
+        <!-- Right: testimonial card track (populated by script.js) -->
+        <div class="feedback-right">
+          <div class="products-scroll-wrapper" style="position:relative; width:100%; height:100%;">
+            <div class="testimonial-track" id="testimonialTrack">
+              <!-- Cards injected by JS -->
+            </div>
+            <button class="scroll-btn right" onclick="scrollTestimonials(1)"
+              style="right:15px; z-index:10; width:48px; height:48px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+              &#8250;
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ─────────────────────────────────────────────────────────────────────
+    3.5  SHOP BY AGE
+         Four circular age-group thumbnails arranged in pairs.
+         Each links to the products page.
+  ──────────────────────────────────────────────────────────────────────── -->
+    <section class="age-section section fade-up">
+      <!-- Decorative icons -->
+      <img src="photos/paper-plane.png" class="age-plane-icon" alt="">
+      <img src="photos/cloud-sky-floating-kawaii.png" class="age-cloud-icon" alt="">
+
+      <div class="age-header">
+        <h2 class="age-title">Shop by Age</h2>
+        <p class="age-subtitle">Find the perfect learning companion for every stage</p>
+      </div>
+
+      <div class="age-sides">
+        <a href="products.html?class=Early%20Foundation%20(Pre%20Nursery%20%26%20Nursery)" class="age-card">
+          <div class="age-circle"><img src="photos/2-4 kid.jpg" alt="Educational books for children aged 2 to 4 years"></div>
+          <div class="age-label">2–4 YRS</div>
+        </a>
+        <a href="products.html?class=Kindergarten%20Years%20(U.K.G%20%26%20L.K.G)" class="age-card">
+          <div class="age-circle"><img src="photos/4-6 kid.jpg" alt="Educational books for children aged 4 to 6 years"></div>
+          <div class="age-label">4–6 YRS</div>
+        </a>
+        <a href="products.html?class=Lower%20Primary%20(Class%201%20%26%202)" class="age-card">
+          <div class="age-circle"><img src="photos/6-8 kid.jpg" alt="Educational books for children aged 6 to 8 years"></div>
+          <div class="age-label">6–8 YRS</div>
+        </a>
+        <a href="products.html?class=Upper%20Primary%20(Class%203%20%26%204)" class="age-card">
+          <div class="age-circle"><img src="photos/8-10 kid.jpg" alt="Educational books for children aged 8 to 10 years"></div>
+          <div class="age-label">8–10 YRS</div>
+        </a>
+        <a href="products.html?class=Middle%20School%20(Class%205%20%26%206)" class="age-card">
+          <div class="age-circle"><img src="photos/10-12 kid.jpg" alt="Educational books for children aged 10 to 12 years"></div>
+          <div class="age-label">10–12 YRS</div>
+        </a>
+      </div>
+    </section>
+
+
+    <!-- ─────────────────────────────────────────────────────────────────────
+    3.6  CATEGORY CAROUSEL
+         Horizontally scrollable row of category cards.
+         scrollCat() and infinite-clone logic are handled by script.js.
+         Arrow SVG is shared across all cards — the path draws a → arrow.
+  ──────────────────────────────────────────────────────────────────────── -->
+    <section class="cat-row-section section fade-up">
+      <div class="container">
+        <div class="cat-carousel-outer">
+
+          <!-- Scroll arrows -->
+          <button class="cat-arrow cat-arrow-left" onclick="scrollCat(-1)">&#8249;</button>
+          <button class="cat-arrow cat-arrow-right" onclick="scrollCat(1)">&#8250;</button>
+
+          <!-- Scrollable track (JS triples innerHTML for infinite loop) -->
+          <div class="cat-track" id="catTrack">
+
+            <div class="cat-wrap cat-wrap--yellow">
+              <a href="products.html?interest=Story%20Books" class="cat-card">
+                <img src="photos/1-story-book.jpeg" alt="Story books for children — MindFuels Publisher" loading="lazy">
+                <div class="cat-card-label">
+                  <span>Story Books</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </a>
+            </div>
+
+            <div class="cat-wrap cat-wrap--mint">
+              <a href="products.html?interest=All-Subject%20Activity%20Books" class="cat-card">
+                <img src="photos/2-activity-book.jpeg" alt="Activity books for kids — MindFuels Publisher" loading="lazy">
+                <div class="cat-card-label">
+                  <span>Activity Books</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </a>
+            </div>
+
+            <div class="cat-wrap cat-wrap--pink">
+              <a href="products.html?subject=English" class="cat-card">
+                <img src="photos/3-subject-book.jpeg" alt="Subject-wise educational books — English, Hindi, Maths" loading="lazy">
+                <div class="cat-card-label">
+                  <span>Subject Books</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </a>
+            </div>
+
+            <div class="cat-wrap cat-wrap--yellow">
+              <a href="products.html?interest=Worksheets" class="cat-card">
+                <img src="photos/4-worksheet.jpeg" alt="Practice worksheets for kids — writing, math, and more" loading="lazy">
+                <div class="cat-card-label">
+                  <span>Practice Worksheets</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </a>
+            </div>
+
+            <div class="cat-wrap cat-wrap--mint">
+              <a href="products.html?interest=Coloring%20Books" class="cat-card">
+                <img src="photos/5-coloring-book.jpeg" alt="Coloring books for children — creative learning" loading="lazy">
+                <div class="cat-card-label">
+                  <span>Coloring Books</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </a>
+            </div>
+
+            <div class="cat-wrap cat-wrap--pink">
+              <a href="products.html?subject=Computer" class="cat-card">
+                <img src="photos/6-IT-and-fundamental-book.jpeg" alt="IT and fundamentals books for school children" loading="lazy">
+                <div class="cat-card-label">
+                  <span>IT &amp; Fundamentals Books</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </a>
+            </div>
+
+          </div><!-- /#catTrack -->
+        </div><!-- /.cat-carousel-outer -->
+      </div><!-- /.container -->
+    </section>
+
+  </main><!-- /main -->
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+  4. Footer 
+════════════════════════════════════════════════════════════════════════════ -->
+
+  <footer class="footer fade-up" style="background-image: url('photos/footer-banner.svg');">
+    <div class="container">
+      <div class="footer-main">
+
+        <div class="footer-left">
+          <a href="index.html" class="footer-logo" style="margin-bottom: 5px; display: inline-block;">
+            <img src="photos/logo.png" alt="Mind fuels Logo" style="height:60px; width:auto; display:block;">
+          </a>
+
+          <p
+            style="margin-top: 5px; margin-bottom: 24px; color: var(--text-secondary); font-size: 14px; line-height: 1.6;">
+            Fueling curiosity through every page. Discover our curated collection of educational books designed to
+            inspire young minds.
+          </p>
+          <div class="footer-follow">
+            <p class="follow-label">Follow us on</p>
+            <div class="footer-social">
+              <a href="https://www.instagram.com/mindfuels_publisher" aria-label="Instagram" target="_blank" rel="noopener">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-links" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px;">
+
+          <div class="footer-col">
+            <h4>About</h4>
+            <ul>
+              <li><a href="legal_pages.html#about">About us</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Collection</h4>
+            <ul>
+              <li><a href="products.html?class=Early%20Foundation%20(Pre%20Nursery%20%26%20Nursery)">Pre-Nursery</a></li>
+              <li><a href="products.html?class=Early%20Foundation%20(Pre%20Nursery%20%26%20Nursery)">Nursery</a></li>
+              <li><a href="products.html?class=Kindergarten%20Years%20(U.K.G%20%26%20L.K.G)">LKG</a></li>
+              <li><a href="products.html?class=Kindergarten%20Years%20(U.K.G%20%26%20L.K.G)">UKG</a></li>
+              <li><a href="products.html?class=Lower%20Primary%20(Class%201%20%26%202)">Class 1</a></li>
+              <li><a href="products.html?class=Lower%20Primary%20(Class%201%20%26%202)">Class 2</a></li>
+              <li><a href="products.html?class=Upper%20Primary%20(Class%203%20%26%204)">Class 3</a></li>
+              <li><a href="products.html?class=Upper%20Primary%20(Class%203%20%26%204)">Class 4</a></li>
+              <li><a href="products.html?class=Middle%20School%20(Class%205%20%26%206)">Class 5</a></li>
+              <li><a href="products.html?class=Middle%20School%20(Class%205%20%26%206)">Class 6</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Support</h4>
+            <ul>
+              <li><a href="legal_pages.html#refund">Returns &amp; Exchanges</a></li>
+              <li><a href="legal_pages.html#shipping">Shipping Policy</a></li>
+              <li><a href="legal_pages.html#contact">Contact Us</a></li>
+              <li><a href="legal_pages.html#contact">Contact Us</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Legal</h4>
+            <ul>
+              <li><a href="legal_pages.html#privacy">Privacy Policy</a></li>
+              <li><a href="legal_pages.html#terms">Terms &amp; Conditions</a></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2002, Mindfuels Publishers and Distributors.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+  5. MODALS / OVERLAYS
+════════════════════════════════════════════════════════════════════════════ -->
+
+  <!-- ─────────────────────────────────────────────────────────────────────
+  5.1  PRODUCT DETAIL MODAL
+       Clicking a product card calls openModal(product) from script.js.
+       Clicking the overlay (outside the white box) calls closeModal(event).
+       The modal-left column shows an image gallery; modal-right shows details.
+──────────────────────────────────────────────────────────────────────── -->
+  <div class="product-modal-overlay" id="productModal" onclick="closeModal(event)">
+    <div class="product-modal-content" onclick="event.stopPropagation()">
+
+      <button class="modal-close" onclick="closeModal()">×</button>
+
+      <!-- Left: image carousel + thumbnails -->
+      <div class="modal-left">
+        <div class="modal-carousel">
+          <img id="modalMainImage" src="" alt="Product">
+          <button class="carousel-arrow right-arrow" onclick="nextModalImage()">&#8250;</button>
+          <button class="product-wishlist modal-wishlist" aria-label="Wishlist"
+            onclick="toggleModalWishlist(this)">♡</button>
+        </div>
+        <div class="modal-thumbnails" id="modalThumbnails">
+          <!-- Thumbnails injected by script.js -->
+        </div>
+      </div>
+
+      <!-- Right: product name, price, description, CTA -->
+      <div class="modal-right">
+        <h2 class="modal-product-name" id="modalProductName">Product Name</h2>
+        <div class="modal-price-box">
+          <span class="modal-price-current" id="modalPrice">₹0</span>
+          <span class="modal-price-original" id="modalOriginalPrice">₹0</span>
+          <span class="modal-price-discount" id="modalDiscount">0% OFF</span>
+        </div>
+        <div class="modal-rating-length" id="modalRatingLength"
+          style="margin-top:10px; margin-bottom:10px; font-size:14px; color:#555; display:flex; gap:15px; font-weight:600;">
+          <span id="modalRating"></span>
+          <span id="modalLength"></span>
+        </div>
+        <div class="modal-description" id="modalDesc">
+          Product description goes here. This product is amazing and perfect for your kid's educational development.
+        </div>
+        <div id="modalCartActions" style="margin-top: 20px;"></div>
+      </div>
+
+    </div><!-- /.product-modal-content -->
+  </div><!-- /#productModal -->
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+  6. SCRIPTS
+     Load order matters:
+       1. script.js     — all page behaviour (carousels, filters, modal, etc.)
+       2. auth0-spa-js  — Auth0 SDK (must load before auth.js)
+       3. auth.js       — authentication logic
+════════════════════════════════════════════════════════════════════════════ -->
+  <script src="script.js?v=5"></script>
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
+  <script src="auth.js?v=5"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+# Robots.txt for MindFuels Publisher
+# https://www.mindfuelspublisher.com/
+
+User-agent: *
+Allow: /
+
+# Disallow non-public pages
+Disallow: /auth-new.html
+Disallow: /csv_reader.js
+Disallow: /generate_data.js
+Disallow: /syn_products.php
+Disallow: /product-data-tmp.txt
+Disallow: /mindfuels_amazon_data.csv
+
+# Sitemap
+Sitemap: https://www.mindfuelspublisher.com/sitemap.xml
