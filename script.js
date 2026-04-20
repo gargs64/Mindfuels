@@ -491,6 +491,7 @@ function renderProducts() {
     // 1. Text Search
     if (searchTerm) {
       const haystack = [
+        String(p.id),
         p.name,
         p.description,
         p.subject,
