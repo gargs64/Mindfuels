@@ -6,7 +6,7 @@ const AUTH0_CLIENT_ID = 'Lmx8bHhyDNqIurh0VV0NL11oDVMbQF63';
 const pathBase = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
 const REDIRECT_URI = window.location.origin + pathBase + 'login.html';
 
-let auth0Client = null;
+window.auth0Client = null;
 window.isUserLoggedIn = false;
 
 // 1. IMMEDIATE FALLBACK (Runs instantly as soon as script starts)
@@ -35,8 +35,8 @@ async function checkAuthState() {
       return;
     }
 
-    if (!auth0Client) {
-      auth0Client = await auth0.createAuth0Client({
+    if (!window.auth0Client) {
+      window.auth0Client = await auth0.createAuth0Client({
         domain: AUTH0_DOMAIN,
         clientId: AUTH0_CLIENT_ID,
         authorizationParams: { 
@@ -47,12 +47,12 @@ async function checkAuthState() {
       });
     }
 
-    const isAuthenticated = await auth0Client.isAuthenticated();
+    const isAuthenticated = await window.auth0Client.isAuthenticated();
     window.isUserLoggedIn = isAuthenticated;
     const accountBtn = document.getElementById('accountBtn');
 
     if (isAuthenticated) {
-      const user = await auth0Client.getUser();
+      const user = await window.auth0Client.getUser();
       const customUsername = localStorage.getItem('mindfuels_username');
       let displayName = customUsername || (user.name && !user.name.includes('@') ? user.name : user.email.split('@')[0]);
       const firstLetter = (displayName || '?').charAt(0).toUpperCase();
@@ -93,7 +93,7 @@ async function checkAuthState() {
 
       // Sync backend
       try {
-        const token = await auth0Client.getTokenSilently();
+        const token = await window.auth0Client.getTokenSilently();
         const phone = localStorage.getItem('mindfuels_phone') || '';
         fetch(`${API_BASE_URL}/users/sync`, {
           method: 'POST',
@@ -123,8 +123,8 @@ window.logout = function () {
   localStorage.removeItem('mindfuels_phone');
   localStorage.removeItem('mindfuels_wishlist');
   localStorage.removeItem('mindfuels_cart'); // Clear cart to avoid seeing old data before next load
-  if (auth0Client) {
-    auth0Client.logout({ logoutParams: { returnTo: window.location.origin } });
+  if (window.auth0Client) {
+    window.auth0Client.logout({ logoutParams: { returnTo: window.location.origin } });
   } else {
     window.location.href = 'index.html';
   }
