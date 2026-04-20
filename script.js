@@ -562,7 +562,7 @@ function renderProducts() {
       <div class="product-card" onclick="window.openModalById('${p.id}')" itemscope itemtype="https://schema.org/Product">
         <meta itemprop="description" content="${(p.description || p.name).replace(/"/g, '&quot;')}">
         <div class="product-img">
-          <img src="${p.images[0]}" alt="${p.name}" itemprop="image">
+          <img src="${p.images[0]}" alt="${p.name}" itemprop="image" loading="lazy">
           ${showBadge ? `<span class="product-badge">${discountPercent}% OFF</span>` : ''}
           <button class="product-wishlist" aria-label="Wishlist" data-product-id="${p.id}"
                   style="color: ${wishlist.includes(p.id) ? '#F93549' : ''};"
@@ -782,7 +782,7 @@ function renderHomeBestsellers() {
       <div class="product-card bs-product-card" onclick="window.openModalById('${p.id}')" itemscope itemtype="https://schema.org/Product">
         <meta itemprop="description" content="${(p.description || p.name).replace(/"/g, '&quot;')}">
         <div class="product-img">
-          <img src="${p.images[0]}" alt="${p.name}" itemprop="image">
+          <img src="${p.images[0]}" alt="${p.name}" itemprop="image" loading="lazy">
           ${showBadge ? `<span class="product-badge">${discountPercent}% OFF</span>` : ''}
           <button class="product-wishlist" aria-label="Wishlist" data-product-id="${p.id}"
                   style="color: ${wishlist.includes(p.id) ? '#F93549' : ''};"
@@ -1411,4 +1411,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+
 
