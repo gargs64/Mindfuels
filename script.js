@@ -24,7 +24,7 @@
  */
 
 // API Configuration
-const API_BASE_URL = 'https://mindfuels-backend.onrender.com/api'; // REPLACE THIS with your Render URL
+const API_BASE_URL = 'https://mindfuels-backend-aopx.onrender.com'; // REPLACE THIS with your Render URL
 // const API_BASE_URL = 'http://localhost:5000/api'; 
 let catalogProducts = [];
 
@@ -364,7 +364,7 @@ window.syncWishlistToBackend = async function syncWishlistToBackend(productId, a
     if (action === 'add') {
       await fetch(`${API_BASE_URL}/wishlist`, {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
@@ -1312,11 +1312,11 @@ window.moveToCartFromWishlist = function (productId, e) {
     });
   }
   localStorage.setItem('mindfuels_cart', JSON.stringify(cart));
-  
+
   // Sync cart to backend database
   const finalQty = cart.find(item => item.id == productId).qty;
   syncItemToBackend(productId, finalQty);
-  
+
   if (typeof updateCartBadge === 'function') updateCartBadge();
 
   // Remove from wishlist
@@ -1324,7 +1324,7 @@ window.moveToCartFromWishlist = function (productId, e) {
   if (idx !== -1) {
     wishlist.splice(idx, 1);
     localStorage.setItem('mindfuels_wishlist', JSON.stringify(wishlist));
-    
+
     // Sync wishlist removal to backend database
     syncWishlistToBackend(productId, 'remove');
 
