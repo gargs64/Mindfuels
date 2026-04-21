@@ -3709,3 +3709,162 @@ img {
     box-sizing: border-box !important;
   }
 }
+
+/* =========================================================================
+   PREMIUM MOBILE ENHANCEMENTS (NEW)
+   ========================================================================= */
+
+/* 1. Skeleton Loading Shimmer */
+.skeleton {
+  background: #eee;
+  background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+  border-radius: var(--radius-sm);
+  background-size: 200% 100%;
+  animation: 1.5s shine linear infinite;
+  display: block;
+}
+
+@keyframes shine {
+  to {
+    background-position-x: -200%;
+  }
+}
+
+.skeleton-card {
+  height: 320px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* 2. Touch Feedback (Visual Pushes) */
+@media (hover: none) {
+  .product-card:active,
+  .shop-all-btn:active,
+  .bs-tab:active,
+  .footer-social a:active,
+  .header-icons a:active,
+  .header-icons button:active {
+    transform: scale(0.96) !important;
+    transition: transform 0.1s ease;
+  }
+}
+
+/* 3. Mobile Filter Drawer & Overlay */
+@media (max-width: 768px) {
+  .catalog-sidebar {
+    position: fixed !important;
+    top: 0;
+    left: -100% !important; /* hidden by default */
+    width: 85% !important;
+    height: 100vh !important;
+    background: #fff !important;
+    z-index: 2000 !important;
+    overflow-y: auto !important;
+    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 20px 0 50px rgba(0,0,0,0.15) !important;
+    margin: 0 !important;
+    padding: 24px !important;
+    display: block !important;
+    overflow-x: hidden !important;
+  }
+
+  .catalog-sidebar.open {
+    left: 0 !important;
+  }
+
+  /* Overlay behind the drawer */
+  .drawer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 1999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(2px);
+  }
+
+  .drawer-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Floating Filter Toggle for Mobile */
+  .mobile-filter-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 20px;
+    background: var(--primary);
+    color: #1a1a1a;
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 14px;
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 8px 25px rgba(246, 171, 6, 0.4);
+    z-index: 999 !important;
+    animation: scaleIn 0.5s ease backwards 1s;
+    border: none;
+    cursor: pointer;
+  }
+
+  @keyframes scaleIn {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .catalog-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+}
+
+/* 4. Mobile Navigation Accordion */
+@media (max-width: 768px) {
+  .nav-item > a {
+    justify-content: space-between;
+    width: 100%;
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .dropdown-menu {
+    position: static !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    border-radius: 0;
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 !important;
+    transition: max-height 0.4s ease;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+
+  .nav-item.active .dropdown-menu {
+    max-height: 800px; /* arbitrary large value */
+    padding: 10px 0 20px 20px !important;
+  }
+
+  .nav-item.active .nav-arrow {
+    transform: rotate(180deg);
+  }
+  
+  .header.scrolled {
+    width: 100% !important;
+    left: 0 !important;
+    border-radius: 0 !important;
+  }
+}
+
+/* Body Scroll Lock */
+body.no-scroll {
+  overflow: hidden !important;
+  touch-action: none;
+}

@@ -51,7 +51,36 @@ function toggleMenu() {
   const hamburger = document.getElementById('hamburger');
   nav.classList.toggle('open');
   hamburger.classList.toggle('active');
+
+  // Close any open accordions when closing menu
+  if (!nav.classList.contains('open')) {
+    document.querySelectorAll('.nav-item.active').forEach(item => item.classList.remove('active'));
+  }
 }
+
+/**
+ * Mobile Navigation Accordion
+ * On mobile, clicking a nav-item with a dropdown toggles the dropdown instead of navigating.
+ */
+document.addEventListener('click', (e) => {
+  if (window.innerWidth > 768) return;
+
+  const navItem = e.target.closest('.nav-item');
+  if (navItem) {
+    const link = navItem.querySelector('a');
+    const dropdown = navItem.querySelector('.dropdown-menu');
+
+    if (dropdown && e.target === link) {
+      e.preventDefault();
+      navItem.classList.toggle('active');
+
+      // Close other accordions
+      document.querySelectorAll('.nav-item').forEach(other => {
+        if (other !== navItem) other.classList.remove('active');
+      });
+    }
+  }
+});
 
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -669,9 +698,28 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
+ * Show skeleton cards in the product grid while loading.
+ */
+function showSkeletons() {
+  const grid = document.getElementById('productGrid');
+  if (!grid) return;
+
+  const skeletonHTML = Array(8).fill(0).map(() => `
+    <div class="skeleton-card">
+      <div class="skeleton" style="width: 100%; height: 200px; margin-bottom: 10px;"></div>
+      <div class="skeleton" style="width: 80%; height: 20px; margin-bottom: 10px;"></div>
+      <div class="skeleton" style="width: 40%; height: 20px;"></div>
+    </div>
+  `).join('');
+
+  grid.innerHTML = skeletonHTML;
+}
+
+/**
  * Fetch products from backend instead of local data.js
  */
 async function loadProducts() {
+  showSkeletons();
   try {
     const res = await fetch(`${API_BASE_URL}/products`);
     catalogProducts = await res.json();
@@ -681,12 +729,28 @@ async function loadProducts() {
     renderHomeBestsellers();
   } catch (err) {
     console.error('Failed to load products from API:', err);
+    // If API fails, we could fallback to local data if needed, 
+    // or show an error state.
   }
 }
 
 // Call the loader immediately
 loadProducts();
 // Cart & wishlist are loaded from auth.js after Auth0 confirms login
+
+window.toggleSidebar = function () {
+  const sidebar = document.getElementById('catalogSidebar');
+  const overlay = document.getElementById('drawerOverlay');
+
+  if (sidebar) {
+    sidebar.classList.toggle('open');
+    document.body.classList.toggle('no-scroll', sidebar.classList.contains('open'));
+  }
+
+  if (overlay) {
+    overlay.classList.toggle('visible');
+  }
+};
 
 window.toggleSearchInput = function () {
   const wrapper = document.getElementById('navSearchWrapper');
