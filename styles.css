@@ -4019,78 +4019,83 @@ body.no-scroll {
   }
 }
 
-/* ==========================================================================
-   NEW NAVIGATION (Myntra Style) & MOBILE OVERHAUL
-   ========================================================================== */
-.navbar {
-  position: fixed; top: 0; left: 0; width: 100%;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  z-index: 1000;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 12px 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  height: 60px;
-}
-.nav-logo img { height: 32px; width: auto; }
-.nav-icons { display: flex; align-items: center; gap: 16px; }
-.nav-icon-btn {
-  background: none; border: none; color: #333;
-  width: 24px; height: 24px; padding: 0;
-  display: flex; align-items: center; justify-content: center; cursor: pointer;
-}
-.nav-icon-btn svg { width: 22px; height: 22px; }
-
-/* Desktop nav hidden by default (mobile first) */
-.desktop-nav-links { display: none; }
+/* Global hide for hamburger */
 .hamburger-btn {
-  background: none; border: none;
-  font-size: 24px; color: #333; padding: 0; margin-left: 8px; cursor: pointer;
-}
-.cart-badge {
-  position: absolute; top: -5px; right: -8px;
-  background: #f93549; color: #fff;
-  font-size: 10px; font-weight: bold;
-  width: 16px; height: 16px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--text-primary);
+  cursor: pointer;
+  padding: 5px;
 }
 
-/* ---------------------------------------------------
-   DESKTOP OVERRIDES (> 768px)
---------------------------------------------------- */
-@media (min-width: 768px) {
-  .navbar { padding: 0 40px; height: 70px; }
-  .hamburger-btn { display: none; }
-  
-  /* Show desktop links */
-  .desktop-nav-links {
-    display: flex; position: absolute; left: 50%; transform: translateX(-50%);
-    gap: 30px; align-items: center; height: 100%;
+/* ==========================================================================
+   MOBILE HEADER OVERRIDES (Myntra Style)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .header {
+    width: 100% !important;
+    left: 0 !important;
+    top: 0 !important;
+    border-radius: 0 !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05) !important;
+    border: none !important;
+    height: 60px !important;
+    padding: 0 !important;
   }
-  .desktop-nav-links > a, .desktop-nav-links .dropdown > button {
-    font-size: 14px; font-weight: 700; text-transform: uppercase;
-    color: #333; background: none; border: none; cursor: pointer;
-    text-decoration: none; display: flex; align-items: center; gap: 4px;
-    height: 100%;
+  .header-inner {
+    padding: 0 15px !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    max-width: 100% !important;
   }
-  
-  .dropdown { position: relative; height: 100%; }
-  .dropdown-menu {
-    position: absolute; top: 100%; left: 0;
-    background: #fff; min-width: 200px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-    border-radius: 8px; padding: 8px 0;
-    opacity: 0; visibility: hidden; transform: translateY(10px);
-    transition: all 0.2s ease;
+  .main-nav {
+    display: none !important;
   }
-  .dropdown:hover .dropdown-menu {
-    opacity: 1; visibility: visible; transform: translateY(0);
+  .logo img {
+    height: 30px !important;
   }
-  .dropdown-menu a {
-    display: block; padding: 10px 16px;
-    color: #333; text-decoration: none; font-size: 14px;
+  .header-icons {
+    gap: 8px !important;
+    margin-left: auto;
   }
-  .dropdown-menu a:hover { background: #f5f5f5; color: #7E2C7F; }
+  .header-icons a, .header-icons button {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 18px !important;
+    background: transparent !important;
+    padding: 0 !important;
+  }
+  .hamburger-btn {
+    display: block !important;
+    order: 10;
+    margin-left: 5px !important;
+  }
+}
+
+.cart-badge {
+  position: absolute;
+  top: -5px;
+  right: -8px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 10px;
+  font-weight: bold;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #fff;
+  line-height: 1;
 }
 
 /* ---------------------------------------------------

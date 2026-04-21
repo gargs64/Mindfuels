@@ -96,21 +96,33 @@ const filterOverlay = document.getElementById('filterOverlay');
 const closeFilterSheet = document.getElementById('closeFilterSheet');
 
 if (mobileFilterBtn && filterSheet && filterOverlay && closeFilterSheet) {
-  function openFilterSheet() {
+  window.openFilterSheet = function() {
     filterSheet.classList.add('active');
     filterOverlay.classList.add('active');
     document.body.style.overflow = 'hidden';
-  }
+  };
 
-  function closeSheet() {
+  window.closeSheet = function() {
     filterSheet.classList.remove('active');
     filterOverlay.classList.remove('active');
     document.body.style.overflow = '';
-  }
+  };
 
-  mobileFilterBtn.addEventListener('click', openFilterSheet);
-  closeFilterSheet.addEventListener('click', closeSheet);
-  filterOverlay.addEventListener('click', closeSheet);
+  mobileFilterBtn.addEventListener('click', window.openFilterSheet);
+  closeFilterSheet.addEventListener('click', window.closeSheet);
+  filterOverlay.addEventListener('click', window.closeSheet);
+}
+
+// Mobile Sort Button logic
+const mobileSortBtn = document.getElementById('mobileSortBtn');
+if (mobileSortBtn) {
+  mobileSortBtn.addEventListener('click', () => {
+    const sortSelect = document.getElementById('sortProducts');
+    if (sortSelect) {
+      sortSelect.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(() => sortSelect.focus(), 500);
+    }
+  });
 }
 
 
@@ -711,7 +723,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (applyFiltersBtn) {
     applyFiltersBtn.addEventListener('click', () => {
       renderProducts();
-      if (typeof closeSheet === 'function') closeSheet();
+      if (window.closeSheet) window.closeSheet();
     });
   }
 
