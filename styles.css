@@ -3559,17 +3559,14 @@ footer {
   .logo img {
     height: 28px !important;
   }
+  /* Trust bar: preserve marquee animation on mobile */
   .trust-bar-inner {
     flex-wrap: nowrap !important;
     justify-content: flex-start !important;
     gap: 20px !important;
-    overflow-x: auto !important;
+    overflow-x: hidden !important;
     padding: 4px 0 !important;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  .trust-bar-inner::-webkit-scrollbar {
-    display: none;
+    animation: marquee 25s linear infinite !important;
   }
   .trust-item {
     flex-shrink: 0 !important;
@@ -3680,18 +3677,16 @@ img {
     font-size: 15px !important; 
   }
 
-  /* Step 13: Touch Targets and Spacing */
-  a, button {
-    display: inline-flex; /* Ensures min limits affect formatting safely */
-    align-items: center;
-    justify-content: center;
+  /* Step 13: Touch Targets - SCOPED to interactive controls only */
+  .header-icons a,
+  .header-icons button,
+  .hamburger-btn,
+  .carousel-btn,
+  .filter-toggle-btn,
+  .mobile-menu-close,
+  .accordion-toggle {
     min-height: 44px;
     min-width: 44px;
-  }
-  
-  /* Certain links in text or headers shouldn't be forced huge */
-  .main-nav a, .footer-links a {
-    min-height: 44px !important;
   }
 
   .section { 
@@ -3758,80 +3753,8 @@ img {
   }
 }
 
-/* 3. Mobile Filter Drawer & Overlay */
-@media (max-width: 768px) {
-  .catalog-sidebar {
-    position: fixed !important;
-    top: 0;
-    left: -100% !important; /* hidden by default */
-    width: 85% !important;
-    height: 100vh !important;
-    background: #fff !important;
-    z-index: 2000 !important;
-    overflow-y: auto !important;
-    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    box-shadow: 20px 0 50px rgba(0,0,0,0.15) !important;
-    margin: 0 !important;
-    padding: 24px !important;
-    display: block !important;
-    overflow-x: hidden !important;
-  }
-
-  .catalog-sidebar.open {
-    left: 0 !important;
-  }
-
-  /* Overlay behind the drawer */
-  .drawer-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.4);
-    z-index: 1999;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(2px);
-  }
-
-  .drawer-overlay.visible {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  /* Floating Filter Toggle for Mobile */
-  .mobile-filter-btn {
-    position: fixed;
-    bottom: 30px;
-    right: 20px;
-    background: var(--primary);
-    color: #1a1a1a;
-    padding: 12px 20px;
-    border-radius: 30px;
-    font-weight: 700;
-    font-size: 14px;
-    display: flex !important;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 8px 25px rgba(246, 171, 6, 0.4);
-    z-index: 999 !important;
-    animation: scaleIn 0.5s ease backwards 1s;
-    border: none;
-    cursor: pointer;
-  }
-
-  @keyframes scaleIn {
-    from { transform: scale(0.5); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-  }
-
-  .catalog-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 12px !important;
-  }
-}
+/* 3. Mobile Filter Drawer — REPLACED by bottom-sheet in final override block */
+/* (Old left-slide rules removed to prevent conflicts) */
 
 /* 4. Mobile Navigation Accordion */
 @media (max-width: 768px) {
@@ -3993,11 +3916,31 @@ body.no-scroll {
     display: block !important;
   }
   
+  /* Hide old hamburger div - replaced by hamburger-btn */
+  .hamburger {
+    display: none !important;
+  }
+  
   .main-nav {
     display: none !important;
   }
 
-  .header, .hero, .hero-section, .navbar {
+  /* Force header to full width, no floating */
+  .header, .header.scrolled {
+    width: 100% !important;
+    max-width: 100vw !important;
+    left: 0 !important;
+    top: 0 !important;
+    border-radius: 0 !important;
+    position: fixed !important;
+  }
+
+  .header-inner {
+    padding: 8px 12px !important;
+    max-width: 100% !important;
+  }
+
+  .hero, .hero-section, .navbar {
     width: 100% !important;
     max-width: 100vw !important;
   }
@@ -4023,9 +3966,11 @@ body.no-scroll {
   /* Products Page Bottom Sheet Sidebar */
   .catalog-sidebar, .filter-sidebar {
     position: fixed !important;
+    top: auto !important;
     bottom: -100% !important;
     left: 0 !important;
     width: 100% !important;
+    height: auto !important;
     max-height: 80vh !important;
     overflow-y: auto !important;
     background: #fff !important;
