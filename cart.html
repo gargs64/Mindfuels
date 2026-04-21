@@ -541,11 +541,9 @@
               const data = await finalResponse.json();
 
               if (finalResponse.ok) {
-                alert(`Success! ${data.message} \nOrder ID: ${data.orderId}`);
                 localStorage.removeItem('mindfuels_cart');
-                closeShippingModal();
-                renderCartPage();
                 if (typeof updateCartBadge === 'function') updateCartBadge();
+                window.location.href = `receipt.html?orderId=${data.orderId}`;
               } else {
                 alert('Payment Captured but Order Recording Failed: ' + data.message);
               }
