@@ -895,9 +895,10 @@ window.selectSearchSuggestion = function (name) {
   const input = document.getElementById('searchInput');
   if (input) {
     input.value = name;
-    // If we're on the products page, filter in-place; otherwise navigate to it
-    if (window.renderProducts) {
-      renderProducts();
+    // If we're on the products page (which has productGrid), filter in-place; otherwise navigate to it
+    const grid = document.getElementById('productGrid');
+    if (grid) {
+      if (window.renderProducts) renderProducts();
     } else {
       window.location.href = 'products.html?search=' + encodeURIComponent(name);
       return;
