@@ -67,7 +67,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=5">
+  <link rel="stylesheet" href="styles.css?v=7">
 
   <!-- Structured Data: Organization + WebSite + LocalBusiness -->
   <script type="application/ld+json">
@@ -164,6 +164,11 @@
         <img src="photos/logo.png" alt="Mind fuels Logo" style="height:36px; width:auto; display:block;">
       </a>
 
+      <!-- Hamburger (mobile menu toggle) -->
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu">
+        &#9776;
+      </button>
+
       <!-- Primary navigation -->
       <nav class="main-nav" id="mainNav">
         <a href="products.html">All Products</a>
@@ -254,13 +259,8 @@
             <circle cx="20" cy="21" r="1" />
             <path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6" />
           </svg>
-          <span class="cart-badge">0</span>
+          <span class="cart-badge cart-count">0</span>
         </a>
-
-        <!-- Hamburger (mobile menu toggle) -->
-        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
-          <span></span><span></span><span></span>
-        </div>
 
       </div>
     </div>
@@ -283,7 +283,7 @@
 
         <div class="hero-slide">
           <a href="products.html">
-            <img src="photos/hero-image.png" alt="MindFuels educational books collection — activity books, story books and workbooks for children" loading="eager">
+            <img src="photos/hero-image.png" alt="MindFuels educational books collection — activity books, story books and workbooks for children" loading="eager" decoding="async" fetchpriority="high">
           </a>
         </div>
       </div>
@@ -296,6 +296,15 @@
   ──────────────────────────────────────────────────────────────────────── -->
     <div class="trust-bar">
       <div class="trust-bar-inner">
+        <span class="trust-item">20+ Years of Trust</span>
+        <span class="trust-icon">❤</span>
+        <span class="trust-item">School-Trusted Store</span>
+        <span class="trust-icon">❤</span>
+        <span class="trust-item">Quality You Can Trust</span>
+        <span class="trust-icon">❤</span>
+        <span class="trust-item">Young Readers Collection</span>
+        <!-- Duplicate for Marquee Loop -->
+        <span class="trust-icon">❤</span>
         <span class="trust-item">20+ Years of Trust</span>
         <span class="trust-icon">❤</span>
         <span class="trust-item">School-Trusted Store</span>
@@ -663,9 +672,51 @@
        2. auth0-spa-js  — Auth0 SDK (must load before auth.js)
        3. auth.js       — authentication logic
 ════════════════════════════════════════════════════════════════════════════ -->
-  <script src="script.js?v=5"></script>
+  <!-- Mobile Drawer -->
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-header">
+      <img src="photos/logo.png" alt="Logo" style="height:36px;">
+      <button id="closeDrawer">✕</button>
+    </div>
+
+    <a href="products.html" class="drawer-link">📚 All Products</a>
+
+    <div class="drawer-accordion">
+      <button class="accordion-head">Class <span>▾</span></button>
+      <div class="accordion-body">
+        <a href="products.html?class=Early Foundation (Pre Nursery %26 Nursery)">Early Foundation (Pre-Nursery & Nursery)</a>
+        <a href="products.html?class=Kindergarten Years (U.K.G %26 L.K.G)">Kindergarten (UKG & LKG)</a>
+        <a href="products.html?class=Lower Primary (Class 1 %26 2)">Lower Primary (Class 1 & 2)</a>
+        <a href="products.html?class=Upper Primary (Class 3 %26 4)">Upper Primary (Class 3 & 4)</a>
+        <a href="products.html?class=Middle School (Class 5 %26 6)">Middle School (Class 5 & 6)</a>
+      </div>
+    </div>
+
+    <div class="drawer-accordion">
+      <button class="accordion-head">Interest <span>▾</span></button>
+      <div class="accordion-body">
+        <a href="products.html?interest=All-Subject Activity Books">All-Subject Activity Books</a>
+        <a href="products.html?interest=Phonetics">Phonetics</a>
+        <a href="products.html?interest=Calligraphy %26 Cursive">Calligraphy & Cursive</a>
+        <a href="products.html?interest=All-in-One">All-in-One</a>
+      </div>
+    </div>
+
+    <div class="drawer-accordion">
+      <button class="accordion-head">Subject <span>▾</span></button>
+      <div class="accordion-body">
+        <a href="products.html?subject=English">English</a>
+        <a href="products.html?subject=Hindi">Hindi</a>
+        <a href="products.html?subject=Mathematics">Mathematics</a>
+        <a href="products.html?subject=Mental Ability %26 GK">Mental Ability & GK</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js?v=9"></script>
   <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
-  <script src="auth.js?v=5"></script>
+  <script src="auth.js?v=9"></script>
 
 </body>
 

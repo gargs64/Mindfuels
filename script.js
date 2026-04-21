@@ -24,7 +24,7 @@
  */
 
 // API Configuration
-const API_BASE_URL = 'https://mindfuels-backend-aopx.onrender.com'; // REPLACE THIS with your Render URL
+const API_BASE_URL = 'https://mindfuels-backend.onrender.com/api'; // REPLACE THIS with your Render URL
 // const API_BASE_URL = 'http://localhost:5000/api'; 
 let catalogProducts = [];
 
@@ -42,15 +42,87 @@ window.addEventListener('scroll', () => {
 
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   2. MOBILE MENU TOGGLE
-   Opens / closes the main navigation on small screens.
+   2. MOBILE NAVIGATION DRAWER & ACCORDION
 ───────────────────────────────────────────────────────────────────────────── */
 
-function toggleMenu() {
-  const nav = document.getElementById('mainNav');
-  const hamburger = document.getElementById('hamburger');
-  nav.classList.toggle('open');
-  hamburger.classList.toggle('active');
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mobileDrawer = document.getElementById('mobileDrawer');
+const mobileOverlay = document.getElementById('mobileOverlay');
+const closeDrawerBtn = document.getElementById('closeDrawer');
+
+if (hamburgerBtn && mobileDrawer && mobileOverlay && closeDrawerBtn) {
+  function openDrawer() {
+    mobileDrawer.classList.add('active');
+    mobileOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+  }
+
+  function closeDrawer() {
+    mobileDrawer.classList.remove('active');
+    mobileOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  hamburgerBtn.addEventListener('click', openDrawer);
+  closeDrawerBtn.addEventListener('click', closeDrawer);
+  mobileOverlay.addEventListener('click', closeDrawer);
+}
+
+// Accordion Logic inside Drawer
+const accordions = document.querySelectorAll('.accordion-head');
+accordions.forEach(acc => {
+  acc.addEventListener('click', function() {
+    // Toggle active class on button
+    this.classList.toggle('active');
+    
+    // Toggle body visibility
+    const body = this.nextElementSibling;
+    if (body.style.display === 'block') {
+      body.style.display = 'none';
+      this.querySelector('span').style.transform = 'rotate(0deg)';
+    } else {
+      body.style.display = 'block';
+      this.querySelector('span').style.transform = 'rotate(180deg)';
+    }
+  });
+});
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   MOBILE FILTER BOTTOM SHEET
+───────────────────────────────────────────────────────────────────────────── */
+const mobileFilterBtn = document.getElementById('mobileFilterBtn');
+const filterSheet = document.getElementById('filterSheet');
+const filterOverlay = document.getElementById('filterOverlay');
+const closeFilterSheet = document.getElementById('closeFilterSheet');
+
+if (mobileFilterBtn && filterSheet && filterOverlay && closeFilterSheet) {
+  window.openFilterSheet = function() {
+    filterSheet.classList.add('active');
+    filterOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeSheet = function() {
+    filterSheet.classList.remove('active');
+    filterOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  };
+
+  mobileFilterBtn.addEventListener('click', window.openFilterSheet);
+  closeFilterSheet.addEventListener('click', window.closeSheet);
+  filterOverlay.addEventListener('click', window.closeSheet);
+}
+
+// Mobile Sort Button logic
+const mobileSortBtn = document.getElementById('mobileSortBtn');
+if (mobileSortBtn) {
+  mobileSortBtn.addEventListener('click', () => {
+    const sortSelect = document.getElementById('sortProducts');
+    if (sortSelect) {
+      sortSelect.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(() => sortSelect.focus(), 500);
+    }
+  });
 }
 
 
@@ -481,7 +553,14 @@ function renderProducts() {
   ).map(cb => cb.value.toLowerCase());
 
   const priceRange = document.getElementById('priceRange');
-  const maxPrice = priceRange ? parseInt(priceRange.value, 10) : 1500;
+  const priceRangeSheet = document.getElementById('priceRangeSheet');
+  // Read from sheet if visible on mobile, else sidebar
+  let maxPrice = 1500;
+  if (window.innerWidth <= 768 && priceRangeSheet) {
+    maxPrice = parseInt(priceRangeSheet.value, 10);
+  } else if (priceRange) {
+    maxPrice = parseInt(priceRange.value, 10);
+  }
 
   const searchInput = document.getElementById('searchInput');
   const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
@@ -509,9 +588,9 @@ function renderProducts() {
     const norm = (str) => (str || '').toLowerCase().replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
 
     // 2. Specific Tag Filtering (Subject, Interest, Class)
-    const selectedInterests = Array.from(document.querySelectorAll('#interestFilter input:checked')).map(cb => norm(cb.value));
-    const selectedSubjects = Array.from(document.querySelectorAll('#subjectFilter input:checked')).map(cb => norm(cb.value));
-    const selectedClasses = Array.from(document.querySelectorAll('#classFilter input:checked')).map(cb => norm(cb.value));
+    const selectedInterests = Array.from(document.querySelectorAll('#interestFilter input:checked, #interestFilterSheet input:checked')).map(cb => norm(cb.value));
+    const selectedSubjects = Array.from(document.querySelectorAll('#subjectFilter input:checked, #subjectFilterSheet input:checked')).map(cb => norm(cb.value));
+    const selectedClasses = Array.from(document.querySelectorAll('#classFilter input:checked, #classFilterSheet input:checked')).map(cb => norm(cb.value));
 
     // Check Interest
     if (selectedInterests.length > 0) {
@@ -590,9 +669,14 @@ function renderProducts() {
 // Expose globally so HTML onchange / oninput attributes can call it
 window.renderProducts = renderProducts;
 
-/** Update the visible price label and re-render. */
 window.updatePriceDisplay = function (val) {
   const display = document.getElementById('priceDisplay');
+  if (display) display.innerText = val;
+  renderProducts();
+};
+
+window.updatePriceDisplaySheet = function (val) {
+  const display = document.getElementById('priceDisplaySheet');
   if (display) display.innerText = val;
   renderProducts();
 };
@@ -617,6 +701,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const priceRange = document.getElementById('priceRange');
   if (priceRange) {
     priceRange.addEventListener('input', () => updatePriceDisplay(priceRange.value));
+  }
+
+  const priceRangeSheet = document.getElementById('priceRangeSheet');
+  if (priceRangeSheet) {
+    priceRangeSheet.addEventListener('input', () => updatePriceDisplaySheet(priceRangeSheet.value));
+  }
+
+  // Filter Sheet Clear and Apply
+  const clearFiltersBtn = document.getElementById('clearFilters');
+  if (clearFiltersBtn) {
+    clearFiltersBtn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-list input[type="checkbox"]').forEach(cb => cb.checked = false);
+      if (priceRangeSheet) { priceRangeSheet.value = 1500; updatePriceDisplaySheet(1500); }
+      if (priceRange) { priceRange.value = 1500; updatePriceDisplay(1500); }
+      renderProducts();
+    });
+  }
+
+  const applyFiltersBtn = document.getElementById('applyFilters');
+  if (applyFiltersBtn) {
+    applyFiltersBtn.addEventListener('click', () => {
+      renderProducts();
+      if (window.closeSheet) window.closeSheet();
+    });
   }
 
   // Check URL for search parameter and apply it
@@ -669,9 +777,28 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
+ * Show skeleton cards in the product grid while loading.
+ */
+function showSkeletons() {
+  const grid = document.getElementById('productGrid');
+  if (!grid) return;
+
+  const skeletonHTML = Array(8).fill(0).map(() => `
+    <div class="skeleton-card">
+      <div class="skeleton" style="width: 100%; height: 200px; margin-bottom: 10px;"></div>
+      <div class="skeleton" style="width: 80%; height: 20px; margin-bottom: 10px;"></div>
+      <div class="skeleton" style="width: 40%; height: 20px;"></div>
+    </div>
+  `).join('');
+
+  grid.innerHTML = skeletonHTML;
+}
+
+/**
  * Fetch products from backend instead of local data.js
  */
 async function loadProducts() {
+  showSkeletons();
   try {
     const res = await fetch(`${API_BASE_URL}/products`);
     catalogProducts = await res.json();
@@ -681,12 +808,30 @@ async function loadProducts() {
     renderHomeBestsellers();
   } catch (err) {
     console.error('Failed to load products from API:', err);
+    // If API fails, we could fallback to local data if needed, 
+    // or show an error state.
   }
 }
 
 // Call the loader immediately
 loadProducts();
 // Cart & wishlist are loaded from auth.js after Auth0 confirms login
+
+window.toggleSidebar = function () {
+  const sidebar = document.getElementById('catalogSidebar');
+  const overlay = document.getElementById('drawerOverlay');
+  const filterOverlay = document.getElementById('filterOverlay'); // check both common names
+
+  if (sidebar) {
+    sidebar.classList.toggle('open');
+    const isOpen = sidebar.classList.contains('open');
+    document.body.classList.toggle('no-scroll', isOpen);
+    
+    // Toggle overlays
+    if (overlay) overlay.classList.toggle('visible', isOpen);
+    if (filterOverlay) filterOverlay.classList.toggle('open', isOpen);
+  }
+};
 
 window.toggleSearchInput = function () {
   const wrapper = document.getElementById('navSearchWrapper');

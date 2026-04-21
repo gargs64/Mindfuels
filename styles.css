@@ -201,9 +201,10 @@ input {
    4. LAYOUT UTILITIES
    ============================================================ */
 .container {
-  max-width: 1400px;
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 20px;
 }
 
 .section {
@@ -865,16 +866,24 @@ input {
    ============================================================ */
 .trust-bar {
   background-color: #ECEDE7;
-  padding: 16px 20px;
-  text-align: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #feeebb;
+  overflow: hidden;
+  width: 100%;
 }
 
 .trust-bar-inner {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 16px;
-  flex-wrap: wrap;
+  gap: 40px;
+  white-space: nowrap;
+  width: max-content;
+  animation: marquee 25s linear infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 .trust-item {
@@ -3550,17 +3559,14 @@ footer {
   .logo img {
     height: 28px !important;
   }
+  /* Trust bar: preserve marquee animation on mobile */
   .trust-bar-inner {
     flex-wrap: nowrap !important;
     justify-content: flex-start !important;
     gap: 20px !important;
-    overflow-x: auto !important;
+    overflow-x: hidden !important;
     padding: 4px 0 !important;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  .trust-bar-inner::-webkit-scrollbar {
-    display: none;
+    animation: marquee 25s linear infinite !important;
   }
   .trust-item {
     flex-shrink: 0 !important;
@@ -3671,18 +3677,16 @@ img {
     font-size: 15px !important; 
   }
 
-  /* Step 13: Touch Targets and Spacing */
-  a, button {
-    display: inline-flex; /* Ensures min limits affect formatting safely */
-    align-items: center;
-    justify-content: center;
+  /* Step 13: Touch Targets - SCOPED to interactive controls only */
+  .header-icons a,
+  .header-icons button,
+  .hamburger-btn,
+  .carousel-btn,
+  .filter-toggle-btn,
+  .mobile-menu-close,
+  .accordion-toggle {
     min-height: 44px;
     min-width: 44px;
-  }
-  
-  /* Certain links in text or headers shouldn't be forced huge */
-  .main-nav a, .footer-links a {
-    min-height: 44px !important;
   }
 
   .section { 
@@ -3708,4 +3712,489 @@ img {
     width: 100% !important; /* override any hard widths like width: 250px */
     box-sizing: border-box !important;
   }
+}
+
+/* =========================================================================
+   PREMIUM MOBILE ENHANCEMENTS (NEW)
+   ========================================================================= */
+
+/* 1. Skeleton Loading Shimmer */
+.skeleton {
+  background: #eee;
+  background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+  border-radius: var(--radius-sm);
+  background-size: 200% 100%;
+  animation: 1.5s shine linear infinite;
+  display: block;
+}
+
+@keyframes shine {
+  to {
+    background-position-x: -200%;
+  }
+}
+
+.skeleton-card {
+  height: 320px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* 2. Touch Feedback (Visual Pushes) */
+@media (hover: none) {
+  .product-card:active,
+  .shop-all-btn:active,
+  .bs-tab:active,
+  .footer-social a:active,
+  .header-icons a:active,
+  .header-icons button:active {
+    transform: scale(0.96) !important;
+    transition: transform 0.1s ease;
+  }
+}
+
+/* 3. Mobile Filter Drawer — REPLACED by bottom-sheet in final override block */
+/* (Old left-slide rules removed to prevent conflicts) */
+
+/* 4. Mobile Navigation Accordion */
+@media (max-width: 768px) {
+  .nav-item > a {
+    justify-content: space-between;
+    width: 100%;
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .dropdown-menu {
+    position: static !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    border-radius: 0;
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 !important;
+    transition: max-height 0.4s ease;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+
+  .nav-item.active .dropdown-menu {
+    max-height: 800px; /* arbitrary large value */
+    padding: 10px 0 20px 20px !important;
+  }
+
+  .nav-item.active .nav-arrow {
+    transform: rotate(180deg);
+  }
+  
+  .header.scrolled {
+    width: 100% !important;
+    left: 0 !important;
+    border-radius: 0 !important;
+  }
+}
+
+/* Body Scroll Lock */
+body.no-scroll {
+  overflow: hidden !important;
+  touch-action: none;
+}
+
+/* =========================================================================
+   NEW MOBILE UI COMPONENTS
+   ========================================================================= */
+
+.hamburger-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 32px;
+  cursor: pointer;
+  color: var(--text-primary);
+  margin-left: auto;
+  padding: 5px;
+}
+
+/* The dark overlay behind the drawer */
+.mobile-menu-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 2000;
+  backdrop-filter: blur(4px);
+}
+
+.mobile-menu-overlay.open {
+  display: block;
+}
+
+/* The drawer itself */
+.mobile-menu-drawer {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 85%;
+  max-width: 320px;
+  height: 100vh;
+  background: #fff;
+  z-index: 2100;
+  overflow-y: auto;
+  padding: 24px 20px;
+  transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+}
+
+.mobile-menu-drawer.open {
+  right: 0;
+}
+
+.mobile-menu-close {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  color: var(--text-primary);
+}
+
+.mobile-nav-link {
+  display: block;
+  padding: 15px 0;
+  font-size: 16px;
+  font-weight: 700;
+  border-bottom: 1px solid #f0f0f0;
+  text-decoration: none;
+  color: var(--text-primary);
+}
+
+/* Accordion */
+.accordion-toggle {
+  width: 100%;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #f0f0f0;
+  text-align: left;
+  padding: 15px 0;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.accordion-content {
+  display: none;
+  flex-direction: column;
+  padding-left: 15px;
+  background: #fafafa;
+}
+
+.accordion-content.open {
+  display: flex;
+}
+
+.accordion-content a {
+  padding: 12px 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-bottom: 1px solid #eee;
+}
+
+/* =========================================================================
+   PRODUCTS PAGE MOBILE FIXES
+   ========================================================================= */
+
+@media (max-width: 768px) {
+  .hamburger-btn {
+    display: block !important;
+  }
+  
+  /* Hide old hamburger div - replaced by hamburger-btn */
+  .hamburger {
+    display: none !important;
+  }
+  
+  .main-nav {
+    display: none !important;
+  }
+
+  /* Force header to full width, no floating */
+  .header, .header.scrolled {
+    width: 100% !important;
+    max-width: 100vw !important;
+    left: 0 !important;
+    top: 0 !important;
+    border-radius: 0 !important;
+    position: fixed !important;
+  }
+
+  .header-inner {
+    padding: 8px 12px !important;
+    max-width: 100% !important;
+  }
+
+  .hero, .hero-section, .navbar {
+    width: 100% !important;
+    max-width: 100vw !important;
+  }
+
+  .hero-slide img {
+    width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    object-fit: contain !important;
+  }
+
+  /* Filter Toggle for Mobile */
+  .filter-toggle-btn {
+    width: 100% !important;
+    justify-content: center !important;
+    background: var(--bg-white) !important;
+    border: 1px solid var(--border-light) !important;
+    border-radius: 30px !important;
+    margin-bottom: 20px !important;
+    display: flex !important;
+  }
+
+  /* Products Page Bottom Sheet Sidebar */
+  .catalog-sidebar, .filter-sidebar {
+    position: fixed !important;
+    top: auto !important;
+    bottom: -100% !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: 80vh !important;
+    overflow-y: auto !important;
+    background: #fff !important;
+    z-index: 2200 !important;
+    border-radius: 20px 20px 0 0 !important;
+    padding: 30px 20px !important;
+    transition: bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    display: block !important;
+    margin: 0 !important;
+    box-shadow: 0 -5px 25px rgba(0,0,0,0.15) !important;
+  }
+
+  .catalog-sidebar.open, .filter-sidebar.open {
+    bottom: 0 !important;
+  }
+
+  .catalog-grid, .products-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+    width: 100% !important;
+  }
+
+  .product-card {
+    min-width: unset !important;
+    max-width: unset !important;
+    width: 100% !important;
+    padding: 10px !important;
+  }
+
+  .product-card .product-name {
+    font-size: 13px !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    display: block !important;
+    height: auto !important;
+    line-height: 1.3 !important;
+  }
+
+  /* Force 100% width on containers */
+  .container {
+    width: 100% !important;
+    max-width: 100vw !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+}
+
+/* Global hide for hamburger */
+.hamburger-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--text-primary);
+  cursor: pointer;
+  padding: 5px;
+}
+
+/* ==========================================================================
+   MOBILE HEADER OVERRIDES (Myntra Style)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .header {
+    width: 100% !important;
+    left: 0 !important;
+    top: 0 !important;
+    border-radius: 0 !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05) !important;
+    border: none !important;
+    height: 60px !important;
+    padding: 0 !important;
+  }
+  .header-inner {
+    padding: 0 15px !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .main-nav {
+    display: none !important;
+  }
+  .logo img {
+    height: 30px !important;
+  }
+  .header-icons {
+    gap: 8px !important;
+    margin-left: auto;
+  }
+  .header-icons a, .header-icons button {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 18px !important;
+    background: transparent !important;
+    padding: 0 !important;
+  }
+  .hamburger-btn {
+    display: block !important;
+    order: 10;
+    margin-left: 5px !important;
+  }
+}
+
+.cart-badge {
+  position: absolute;
+  top: -5px;
+  right: -8px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 10px;
+  font-weight: bold;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #fff;
+  line-height: 1;
+}
+
+/* ---------------------------------------------------
+   MOBILE DRAWER
+--------------------------------------------------- */
+.mobile-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5); z-index: 1001;
+  opacity: 0; visibility: hidden; transition: 0.3s;
+}
+.mobile-overlay.active { opacity: 1; visibility: visible; }
+
+.mobile-drawer {
+  position: fixed; top: 0; right: -300px; width: 300px; height: 100%;
+  background: #fff; z-index: 1002;
+  box-shadow: -4px 0 24px rgba(0,0,0,0.1);
+  transition: right 0.3s ease; overflow-y: auto;
+  display: flex; flex-direction: column;
+}
+.mobile-drawer.active { right: 0; }
+
+.drawer-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20px; border-bottom: 1px solid #eee;
+}
+.drawer-header button {
+  background: none; border: none; font-size: 20px; color: #333; cursor: pointer;
+}
+.drawer-link {
+  display: block; padding: 16px 20px; font-weight: 700;
+  color: #333; text-decoration: none; border-bottom: 1px solid #eee;
+}
+
+.drawer-accordion { border-bottom: 1px solid #eee; }
+.accordion-head {
+  width: 100%; display: flex; justify-content: space-between;
+  padding: 16px 20px; background: none; border: none;
+  font-weight: 700; color: #333; font-size: 15px; cursor: pointer;
+}
+.accordion-body {
+  display: none; background: #f9f9f9; padding: 10px 20px;
+}
+.accordion-body a {
+  display: block; padding: 10px 0; color: #555; text-decoration: none;
+  font-size: 14px; border-bottom: 1px solid #eee;
+}
+.accordion-body a:last-child { border-bottom: none; }
+
+/* ---------------------------------------------------
+   MOBILE BOTTOM BAR (Sort & Filter)
+--------------------------------------------------- */
+.mobile-bottom-bar {
+  display: none; position: fixed; bottom: 0; left: 0; width: 100%;
+  background: #fff; border-top: 1px solid #eee; z-index: 999;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.05); height: 50px;
+}
+.bottom-bar-btn {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+  background: none; border: none; font-weight: 700; color: #333; font-size: 13px; cursor: pointer;
+}
+.bottom-bar-divider { width: 1px; height: 30px; background: #eee; margin: auto 0; }
+
+@media (max-width: 768px) {
+  .mobile-bottom-bar { display: flex; }
+  body { padding-bottom: 50px; } /* Leave space for bottom bar */
+}
+
+/* ---------------------------------------------------
+   FILTER BOTTOM SHEET
+--------------------------------------------------- */
+.filter-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5); z-index: 1005;
+  opacity: 0; visibility: hidden; transition: 0.3s;
+}
+.filter-overlay.active { opacity: 1; visibility: visible; }
+
+.filter-sheet {
+  position: fixed; bottom: -100%; left: 0; width: 100%; height: 80vh;
+  background: #fff; z-index: 1006; border-radius: 20px 20px 0 0;
+  transition: bottom 0.3s ease; display: flex; flex-direction: column;
+}
+.filter-sheet.active { bottom: 0; }
+
+.filter-sheet-header {
+  display: flex; justify-content: space-between; padding: 16px 20px;
+  border-bottom: 1px solid #eee; font-weight: 700;
+}
+.filter-sheet-header button { background: none; border: none; font-size: 18px; cursor: pointer; }
+
+.filter-sheet-body { flex: 1; overflow-y: auto; padding: 20px; }
+.filter-sheet-footer {
+  display: flex; padding: 12px 20px; gap: 12px; border-top: 1px solid #eee;
+}
+.filter-clear-btn {
+  flex: 1; padding: 12px; background: #fff; border: 1px solid #ccc;
+  border-radius: 4px; font-weight: 700; cursor: pointer;
+}
+.filter-apply-btn {
+  flex: 1; padding: 12px; background: #f93549; color: #fff; border: none;
+  border-radius: 4px; font-weight: 700; cursor: pointer;
 }
