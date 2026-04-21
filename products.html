@@ -157,7 +157,11 @@
           </svg>
           <span class="cart-badge">0</span>
         </a>
-        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <!-- Hamburger (mobile menu toggle) -->
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" onclick="openMobileMenu()">
+          &#9776;
+        </button>
+        <div class="hamburger" id="hamburger" onclick="openMobileMenu()" style="display: none;">
           <span></span><span></span><span></span>
         </div>
       </div>
@@ -230,6 +234,12 @@
                   oninput="updatePriceDisplay(this.value)">
               </div>
             </div>
+
+            <!-- Mobile Apply Button -->
+            <button class="sidebar-apply-btn" onclick="toggleSidebar()" 
+                    style="width:100%; padding: 14px; background: var(--primary); color: #fff; border-radius: 8px; font-weight: 700; margin-top: 20px; display: none;">
+              Apply Filters
+            </button>
           </div>
         </aside>
 
@@ -410,7 +420,46 @@
     </div>
   </div>
 
-  <script src="script.js?v=5"></script>
+  <!-- Mobile Menu Drawer (New) -->
+  <div class="mobile-menu-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+  <div class="mobile-menu-drawer" id="mobileDrawer">
+    <button class="mobile-menu-close" id="closeDrawer" onclick="closeMobileMenu()">✕</button>
+
+    <a href="products.html" class="mobile-nav-link">All Products</a>
+
+    <div class="mobile-accordion">
+      <button class="accordion-toggle" onclick="toggleAccordion(this)">Class <span>▾</span></button>
+      <div class="accordion-content">
+        <a href="products.html?class=Early Foundation (Pre Nursery %26 Nursery)">Early Foundation (Pre Nursery & Nursery)</a>
+        <a href="products.html?class=Kindergarten Years (U.K.G %26 L.K.G)">Kindergarten Years (UKG & LKG)</a>
+        <a href="products.html?class=Lower Primary (Class 1 %26 2)">Lower Primary (Class 1 & 2)</a>
+        <a href="products.html?class=Upper Primary (Class 3 %26 4)">Upper Primary (Class 3 & 4)</a>
+        <a href="products.html?class=Middle School (Class 5 %26 6)">Middle School (Class 5 & 6)</a>
+      </div>
+    </div>
+
+    <div class="mobile-accordion">
+      <button class="accordion-toggle" onclick="toggleAccordion(this)">Interest <span>▾</span></button>
+      <div class="accordion-content">
+        <a href="products.html?interest=All-Subject Activity Books">All-Subject Activity Books</a>
+        <a href="products.html?interest=Phonetics">Phonetics</a>
+        <a href="products.html?interest=Calligraphy %26 Cursive">Calligraphy & Cursive</a>
+        <a href="products.html?interest=All-in-One">All-in-One</a>
+      </div>
+    </div>
+
+    <div class="mobile-accordion">
+      <button class="accordion-toggle" onclick="toggleAccordion(this)">Subject <span>▾</span></button>
+      <div class="accordion-content">
+        <a href="products.html?subject=English">English</a>
+        <a href="products.html?subject=Hindi">Hindi</a>
+        <a href="products.html?subject=Mathematics">Mathematics</a>
+        <a href="products.html?subject=Mental Ability %26 GK">Mental Ability & GK</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js?v=6"></script>
   <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
   <script src="auth.js?v=5"></script>
 </body>

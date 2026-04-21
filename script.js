@@ -46,16 +46,38 @@ window.addEventListener('scroll', () => {
    Opens / closes the main navigation on small screens.
 ───────────────────────────────────────────────────────────────────────────── */
 
-function toggleMenu() {
-  const nav = document.getElementById('mainNav');
-  const hamburger = document.getElementById('hamburger');
-  nav.classList.toggle('open');
-  hamburger.classList.toggle('active');
+window.openMobileMenu = function() {
+  const drawer = document.getElementById('mobileDrawer');
+  const overlay = document.getElementById('mobileOverlay');
+  if (drawer) drawer.classList.add('open');
+  if (overlay) overlay.classList.add('open');
+  document.body.classList.add('no-scroll');
+};
 
-  // Close any open accordions when closing menu
-  if (!nav.classList.contains('open')) {
-    document.querySelectorAll('.nav-item.active').forEach(item => item.classList.remove('active'));
+window.closeMobileMenu = function() {
+  const drawer = document.getElementById('mobileDrawer');
+  const overlay = document.getElementById('mobileOverlay');
+  if (drawer) drawer.classList.remove('open');
+  if (overlay) overlay.classList.remove('open');
+  document.body.classList.remove('no-scroll');
+};
+
+window.toggleAccordion = function(btn) {
+  const content = btn.nextElementSibling;
+  const isOpen = content.classList.contains('open');
+  
+  // Close all other accordions
+  document.querySelectorAll('.accordion-content').forEach(el => el.classList.remove('open'));
+  document.querySelectorAll('.accordion-toggle span').forEach(s => s.textContent = '▾');
+  
+  if (!isOpen) {
+    content.classList.add('open');
+    btn.querySelector('span').textContent = '▴';
   }
+};
+
+function toggleMenu() {
+  openMobileMenu();
 }
 
 /**
@@ -741,14 +763,16 @@ loadProducts();
 window.toggleSidebar = function () {
   const sidebar = document.getElementById('catalogSidebar');
   const overlay = document.getElementById('drawerOverlay');
+  const filterOverlay = document.getElementById('filterOverlay'); // check both common names
 
   if (sidebar) {
     sidebar.classList.toggle('open');
-    document.body.classList.toggle('no-scroll', sidebar.classList.contains('open'));
-  }
-
-  if (overlay) {
-    overlay.classList.toggle('visible');
+    const isOpen = sidebar.classList.contains('open');
+    document.body.classList.toggle('no-scroll', isOpen);
+    
+    // Toggle overlays
+    if (overlay) overlay.classList.toggle('visible', isOpen);
+    if (filterOverlay) filterOverlay.classList.toggle('open', isOpen);
   }
 };
 
