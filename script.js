@@ -895,7 +895,13 @@ window.selectSearchSuggestion = function (name) {
   const input = document.getElementById('searchInput');
   if (input) {
     input.value = name;
-    if (window.renderProducts) renderProducts();
+    // If we're on the products page, filter in-place; otherwise navigate to it
+    if (window.renderProducts) {
+      renderProducts();
+    } else {
+      window.location.href = 'products.html?search=' + encodeURIComponent(name);
+      return;
+    }
     hideSearchSuggestions();
   }
 };
