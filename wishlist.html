@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Wishlist — Mindfuels Publisher</title>
+  <link rel="icon" href="photos/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Lato:wght@300;400;700;900&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=11">
+
+  <style>
+    body { background: #fafafa; font-family: 'Lato', sans-serif; }
+    .wishlist-page { max-width: 1200px; margin: 40px auto; padding: 0 20px; min-height: 50vh; }
+    .page-title { font-family: 'Playfair Display', serif; font-size: 32px; color: #1a1a1a; margin-bottom: 24px; }
+    .wishlist-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+    .empty-wishlist { text-align: center; padding: 60px 20px; background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+    .empty-wishlist svg { width: 64px; height: 64px; color: #ccc; margin-bottom: 16px; }
+    .empty-wishlist h2 { font-family: 'Playfair Display', serif; color: #333; margin-bottom: 12px; }
+    .empty-wishlist a { display: inline-block; padding: 12px 24px; background: #F6AB06; color: #1a1a1a; font-weight: 700; text-decoration: none; border-radius: 6px; margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <img src="photos/logo.png" alt="Mind fuels Logo" style="height:36px; width:auto; display:block;">
+      </a>
+      <div class="header-icons">
+        <a href="products.html" style="text-decoration:none; color:#1a1a1a; font-weight:600; font-size:14px; margin-right:15px;">Shop</a>
+        <div class="account-wrapper" id="accountWrapper">
+          <a href="login.html" id="accountBtn" aria-label="Account">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
+            </svg>
+          </a>
+          <div id="accountDropdown" class="account-dropdown"></div>
+        </div>
+        <a href="cart.html" class="cart-icon" aria-label="Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
+            <path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6" />
+          </svg>
+          <span class="cart-badge cart-count">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wishlist-page">
+    <h1 class="page-title">My Wishlist</h1>
+    <div id="wishlistGrid" class="catalog-grid">
+      <!-- Populated dynamically by script.js -->
+    </div>
+  </main>
+
+  <script src="script.js?v=11"></script>
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
+  <script src="auth.js?v=11"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Small pause to guarantee catalogProducts are loaded
+      setTimeout(renderWishlistPage, 300);
+    });
+
+    function renderWishlistPage() {
+      const grid = document.getElementById('wishlistGrid');
+      if (!grid) return;
+
+      const userWishlist = JSON.parse(localStorage.getItem('mindfuels_wishlist')) || [];
+      
+      if (userWishlist.length === 0 || !catalogProducts || catalogProducts.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-wishlist" style="grid-column: 1 / -1;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21.3l7.8-7.8 1-1.1a5.5 5.5 0 0 0 0-7.8z" />
+            </svg>
+            <h2>Your Wishlist is Empty</h2>
+            <p>Save items you love to revisit them later.</p>
+            <a href="products.html">Explore Products</a>
+          </div>
+        `;
+        return;
+      }
+
+      const productsToRender = catalogProducts.filter(p => userWishlist.includes(String(p.id)));
+
+      if (productsToRender.length === 0) {
+        grid.innerHTML = '<div class="empty-wishlist" style="grid-column: 1 / -1;"><h2>No matching products found.</h2></div>';
+        return;
+      }
+
+      grid.innerHTML = productsToRender.map(p => {
+        let currentPrice = p.price;
+        let origPrice = p.mrp || Math.round(currentPrice * 1.5);
+        let discount = Math.round(((origPrice - currentPrice) / origPrice) * 100);
+        let imageUrl = p.images && p.images[0] ? p.images[0] : (p.image || '');
+
+        return `
+          <div class="product-card">
+            <div class="product-img-wrapper">
+              <img src="${imageUrl}" alt="${p.name}" class="product-img" loading="lazy">
+              ${discount > 0 ? `<div class="product-badge">${Math.min(discount, 30)}% OFF</div>` : ''}
+              
+              <button class="product-wishlist" data-product-id="${p.id}" style="color: #F93549;">♥</button>
+            </div>
+            
+            <div class="product-info">
+              <h3 class="product-title">${p.name}</h3>
+              <div class="product-price-row">
+                <span class="price-current">₹${currentPrice}</span>
+                <span class="price-original">₹${origPrice}</span>
+              </div>
+              <button class="add-to-cart-btn" onclick="openModalById('${p.id}')">View Product</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Re-attach wishlist listeners (since wishlist array persists in local storage)
+      document.querySelectorAll('.product-wishlist').forEach(btn => {
+        btn.onclick = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleWishlist(btn);
+          // Re-render to remove item
+          setTimeout(renderWishlistPage, 100);
+        };
+      });
+    }
+
+    // Modal support (calling script.js modal)
+    function openModalById(id) {
+       const prod = catalogProducts.find(p => p.id == id);
+       if(prod && window.openModal) {
+         openModal(prod);
+       }
+    }
+  </script>
+
+  <!-- Product Modal (reusing structure from index.html) -->
+  <div class="product-modal-overlay" id="productModal" onclick="closeModal(event)">
+    <div class="product-modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <div class="modal-left">
+        <div class="modal-carousel">
+          <img id="modalMainImage" src="" alt="Product">
+          <button class="carousel-arrow left-arrow" onclick="prevModalImage()">‹</button>
+          <button class="carousel-arrow right-arrow" onclick="nextModalImage()">›</button>
+          <span class="modal-image-counter" id="modalImageCounter">1 / 1</span>
+        </div>
+        <div class="modal-thumbnails" id="modalThumbnails"></div>
+      </div>
+      <div class="modal-right">
+        <h2 class="modal-product-name" id="modalProductName">Product Name</h2>
+        <div class="modal-price-box">
+          <span class="modal-price-current" id="modalPrice">₹0</span>
+          <span class="modal-price-original" id="modalOriginalPrice">₹0</span>
+          <span class="modal-price-discount" id="modalDiscount">0% OFF</span>
+        </div>
+        <div class="modal-description" id="modalDesc"></div>
+        <div class="modal-actions-bar">
+          <div id="modalCartActions" class="modal-cart-actions"></div>
+          <button class="modal-wishlist-btn" id="modalWishlistBtn" aria-label="Add to Wishlist" onclick="toggleModalWishlist(this); setTimeout(renderWishlistPage, 300);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21.3l7.8-7.8 1-1.1a5.5 5.5 0 0 0 0-7.8z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

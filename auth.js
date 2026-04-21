@@ -74,8 +74,8 @@ async function checkAuthState() {
         accountDropdown.innerHTML = `
           <div class="dropdown-header"><strong>${displayName}</strong><span>${user.email}</span></div>
           <div class="dropdown-links">
-            <a href="#"><span class="dropdown-icon">📦</span>My Orders</a>
-            <a href="#"><span class="dropdown-icon">❤️</span>Wishlist</a>
+            <a href="order_history.html" style="display:flex; align-items:center; gap:10px;"><span class="dropdown-icon" style="background:#f3f4f6; padding:6px; border-radius:6px; display:flex; align-items:center; justify-content:center;">📦</span> My Orders</a>
+            <a href="wishlist.html" style="display:flex; align-items:center; gap:10px;"><span class="dropdown-icon" style="background:#fff1f2; padding:6px; border-radius:6px; display:flex; align-items:center; justify-content:center;">❤️</span> Wishlist</a>
           </div>
           <div class="dropdown-footer"><button onclick="logout()" class="signout-btn">Sign Out</button></div>
         `;
