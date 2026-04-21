@@ -24,7 +24,7 @@
  */
 
 // API Configuration
-const API_BASE_URL = 'https://mindfuels-backend-aopx.onrender.com'; // REPLACE THIS with your Render URL
+const API_BASE_URL = 'https://mindfuels-backend.onrender.com/api'; // REPLACE THIS with your Render URL
 // const API_BASE_URL = 'http://localhost:5000/api'; 
 let catalogProducts = [];
 
