@@ -618,6 +618,7 @@
                 body: JSON.stringify({
                   grand_total: pendingOrderTotal,
                   shipping_address: shipping_address,
+                  items: JSON.parse(localStorage.getItem('mindfuels_cart') || '[]'),
                   payment_id: response.razorpay_payment_id,
                   payment_order_id: response.razorpay_order_id,
                   payment_signature: response.razorpay_signature
