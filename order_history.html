@@ -463,13 +463,13 @@
         }
 
         if(status.includes('DELIVER')) {
-           document.getElementById('returnBtn').style.display = 'block';
+
            document.getElementById('cancelBtn').style.display = 'none';
         } else if(!status.includes('CANCEL') && !status.includes('SHIP')) {
            document.getElementById('cancelBtn').style.display = 'block';
-           document.getElementById('returnBtn').style.display = 'none';
+
         } else {
-           document.getElementById('returnBtn').style.display = 'none';
+
            document.getElementById('cancelBtn').style.display = 'none';
         }
 
