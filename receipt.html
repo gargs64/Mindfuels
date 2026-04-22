@@ -386,11 +386,19 @@
               <p class="addr-text">${order.city}, ${order.state} - ${order.pincode}</p>
               <p class="addr-text">T: ${order.phone}</p>
             </div>
-            <div>
+            <div style="margin-bottom: 25px;">
               <h4>Payment Information</h4>
               <p class="addr-text">Method: Razorpay Online</p>
               <p class="addr-text">Transaction ID: <span style="font-family: monospace;">${order.payment_id || 'NA'}</span></p>
               <p class="addr-text">Payment Order ID: <span style="font-family: monospace;">${order.payment_order_id || 'NA'}</span></p>
+            </div>
+            <div>
+              <h4>Shipping Information</h4>
+              <p class="addr-text">Delivery Partner: <span style="font-weight: 600;">${order.courier_name || 'Processing...'}</span></p>
+              ${order.awb_code && order.awb_code !== 'PENDING' ? 
+                `<p class="addr-text">Tracking ID: <a href="#" onclick="alert('Tracking ID: ${order.awb_code}\\nPlease track on Fship or your order history page.')" style="color: var(--primary); text-decoration: underline; font-weight: 600; cursor: pointer;">${order.awb_code}</a></p>` : 
+                `<p class="addr-text">Tracking ID: <span style="font-weight: 600;">Generating...</span></p>`
+              }
             </div>
           </div>
           <div class="totals-section">
@@ -406,8 +414,8 @@
 
       const footerHtml = `
         <div class="footer-grid">
-           <div class="footer-item">📧 support@mindfuelspublisher.com</div>
-           <div class="footer-item">🌐 www.mindfuelspublisher.com</div>
+           <div class="footer-item">📧 <a href="mailto:support@mindfuelspublisher.com" style="color: inherit; text-decoration: underline;">support@mindfuelspublisher.com</a></div>
+           <div class="footer-item">🌐 <a href="https://www.mindfuelspublisher.com" target="_blank" style="color: inherit; text-decoration: underline;">www.mindfuelspublisher.com</a></div>
         </div>
         <div class="note-section">
            Thank you for shopping with Mindfuels! 📚
