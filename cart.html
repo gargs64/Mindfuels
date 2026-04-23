@@ -52,45 +52,40 @@
     <div class="header-inner">
 
       <!-- Logo -->
-      <a href="index.html" class="logo">
+      <a href="/" class="logo">
         <img src="photos/logo.png" alt="Mind fuels Logo" style="height:36px; width:auto; display:block;">
       </a>
 
-      <!-- Hamburger (mobile menu toggle) -->
-      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu">
-        &#9776;
-      </button>
-
       <!-- Primary navigation -->
       <nav class="main-nav" id="mainNav">
-        <a href="products.html">All Products</a>
+        <a href="products">All Products</a>
         <div class="nav-item">
           <a href="#">Class <span class="nav-arrow">▾</span></a>
           <div class="dropdown-menu">
-            <a href="products.html?class=Early Foundation (Pre Nursery %26 Nursery)">Early Foundation (Pre Nursery &
+            <a href="products?class=Early Foundation (Pre Nursery %26 Nursery)">Early Foundation (Pre Nursery &
               Nursery)</a>
-            <a href="products.html?class=Kindergarten Years (U.K.G %26 L.K.G)">Kindergarten Years (U.K.G & L.K.G)</a>
-            <a href="products.html?class=Lower Primary (Class 1 %26 2)">Lower Primary (Class 1 & 2)</a>
-            <a href="products.html?class=Upper Primary (Class 3 %26 4)">Upper Primary (Class 3 & 4)</a>
-            <a href="products.html?class=Middle School (Class 5 %26 6)">Middle School (Class 5 & 6)</a>
+            <a href="products?class=Kindergarten Years (U.K.G %26 L.K.G)">Kindergarten Years (U.K.G & L.K.G)</a>
+            <a href="products?class=Lower Primary (Class 1 %26 2)">Lower Primary (Class 1 & 2)</a>
+            <a href="products?class=Upper Primary (Class 3 %26 4)">Upper Primary (Class 3 & 4)</a>
+            <a href="products?class=Middle School (Class 5 %26 6)">Middle School (Class 5 & 6)</a>
           </div>
         </div>
         <div class="nav-item">
           <a href="#">Interest <span class="nav-arrow">▾</span></a>
           <div class="dropdown-menu">
-            <a href="products.html?interest=All-Subject Activity Books">All-Subject Activity Books</a>
-            <a href="products.html?interest=Phonetics">Phonetics</a>
-            <a href="products.html?interest=Calligraphy %26 Cursive">Calligraphy & Cursive</a>
-            <a href="products.html?interest=All-in-One">All-in-One</a>
+            <a href="products?interest=All-Subject Activity Books">All-Subject Activity Books</a>
+            <a href="products?interest=Phonetics">Phonetics</a>
+            <a href="products?interest=Calligraphy %26 Cursive">Calligraphy & Cursive</a>
+            <a href="products?interest=All-in-One">All-in-One</a>
           </div>
         </div>
         <div class="nav-item">
           <a href="#">Subject <span class="nav-arrow">▾</span></a>
           <div class="dropdown-menu">
-            <a href="products.html?subject=English">English</a>
-            <a href="products.html?subject=Hindi">Hindi</a>
-            <a href="products.html?subject=Mathematics">Mathematics</a>
-            <a href="products.html?subject=Mental Ability %26 GK">Mental Ability & GK</a>
+            <a href="products?subject=English">English</a>
+            <a href="products?subject=Hindi">Hindi</a>
+            <a href="products?subject=Mathematics">Mathematics</a>
+            <a href="products?subject=Mental Ability %26 GK">Mental Ability & GK</a>
           </div>
         </div>
       </nav>
@@ -102,7 +97,7 @@
         <div class="nav-search-wrapper" id="navSearchWrapper">
           <input type="text" id="searchInput" class="nav-search-input" placeholder="Search books..."
             oninput="showSearchSuggestions(this.value);"
-            onkeypress="if(event.key === 'Enter') { window.location.href = 'products.html?search=' + encodeURIComponent(this.value); hideSearchSuggestions(); }"
+            onkeypress="if(event.key === 'Enter') { window.location.href = 'products?search=' + encodeURIComponent(this.value); hideSearchSuggestions(); }"
             onfocus="showSearchSuggestions(this.value)"
             autocomplete="off">
           <div class="search-suggestions" id="searchSuggestions"></div>
@@ -117,7 +112,7 @@
 
         <!-- Account -->
         <div class="account-wrapper" id="accountWrapper">
-          <a href="login.html" id="accountBtn" aria-label="Account">
+          <a href="login" id="accountBtn" aria-label="Account">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
               stroke-linecap="round" stroke-linejoin="round">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
@@ -144,7 +139,7 @@
         </div>
 
         <!-- Cart -->
-        <a href="cart.html" class="cart-icon" aria-label="Cart">
+        <a href="cart" class="cart-icon" aria-label="Cart">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round">
             <circle cx="9" cy="21" r="1" />
@@ -222,7 +217,7 @@
       <div class="footer-main">
 
         <div class="footer-left">
-          <a href="index.html" class="footer-logo" style="margin-bottom: 5px; display: inline-block;">
+          <a href="/" class="footer-logo" style="margin-bottom: 5px; display: inline-block;">
             <img src="photos/logo.png" alt="Mind fuels Logo" style="height:60px; width:auto; display:block;">
           </a>
 
@@ -251,40 +246,40 @@
           <div class="footer-col">
             <h4>About</h4>
             <ul>
-              <li><a href="legal_pages.html#about">About us</a></li>
+              <li><a href="legal_pages#about">About us</a></li>
             </ul>
           </div>
 
           <div class="footer-col">
             <h4>Collection</h4>
             <ul>
-              <li><a href="products.html?class=Early%20Foundation%20(Pre%20Nursery%20%26%20Nursery)">Pre-Nursery</a></li>
-              <li><a href="products.html?class=Early%20Foundation%20(Pre%20Nursery%20%26%20Nursery)">Nursery</a></li>
-              <li><a href="products.html?class=Kindergarten%20Years%20(U.K.G%20%26%20L.K.G)">LKG</a></li>
-              <li><a href="products.html?class=Kindergarten%20Years%20(U.K.G%20%26%20L.K.G)">UKG</a></li>
-              <li><a href="products.html?class=Lower%20Primary%20(Class%201%20%26%202)">Class 1</a></li>
-              <li><a href="products.html?class=Lower%20Primary%20(Class%201%20%26%202)">Class 2</a></li>
-              <li><a href="products.html?class=Upper%20Primary%20(Class%203%20%26%204)">Class 3</a></li>
-              <li><a href="products.html?class=Upper%20Primary%20(Class%203%20%26%204)">Class 4</a></li>
-              <li><a href="products.html?class=Middle%20School%20(Class%205%20%26%206)">Class 5</a></li>
-              <li><a href="products.html?class=Middle%20School%20(Class%205%20%26%206)">Class 6</a></li>
+              <li><a href="products?class=Early%20Foundation%20(Pre%20Nursery%20%26%20Nursery)">Pre-Nursery</a></li>
+              <li><a href="products?class=Early%20Foundation%20(Pre%20Nursery%20%26%20Nursery)">Nursery</a></li>
+              <li><a href="products?class=Kindergarten%20Years%20(U.K.G%20%26%20L.K.G)">LKG</a></li>
+              <li><a href="products?class=Kindergarten%20Years%20(U.K.G%20%26%20L.K.G)">UKG</a></li>
+              <li><a href="products?class=Lower%20Primary%20(Class%201%20%26%202)">Class 1</a></li>
+              <li><a href="products?class=Lower%20Primary%20(Class%201%20%26%202)">Class 2</a></li>
+              <li><a href="products?class=Upper%20Primary%20(Class%203%20%26%204)">Class 3</a></li>
+              <li><a href="products?class=Upper%20Primary%20(Class%203%20%26%204)">Class 4</a></li>
+              <li><a href="products?class=Middle%20School%20(Class%205%20%26%206)">Class 5</a></li>
+              <li><a href="products?class=Middle%20School%20(Class%205%20%26%206)">Class 6</a></li>
             </ul>
           </div>
 
           <div class="footer-col">
             <h4>Support</h4>
             <ul>
-              <li><a href="legal_pages.html#shipping">Shipping Policy</a></li>
-              <li><a href="legal_pages.html#contact">Contact Us</a></li>
-              <li><a href="legal_pages.html#contact">Locate Us</a></li>
+              <li><a href="legal_pages#shipping">Shipping Policy</a></li>
+              <li><a href="legal_pages#contact">Contact Us</a></li>
+              <li><a href="legal_pages#contact">Locate Us</a></li>
             </ul>
           </div>
 
           <div class="footer-col">
             <h4>Legal</h4>
             <ul>
-              <li><a href="legal_pages.html#privacy">Privacy Policy</a></li>
-              <li><a href="legal_pages.html#terms">Terms &amp; Conditions</a></li>
+              <li><a href="legal_pages#privacy">Privacy Policy</a></li>
+              <li><a href="legal_pages#terms">Terms &amp; Conditions</a></li>
             </ul>
           </div>
 
@@ -304,36 +299,36 @@
       <button id="closeDrawer">✕</button>
     </div>
 
-    <a href="products.html" class="drawer-link">📚 All Products</a>
+    <a href="products" class="drawer-link">📚 All Products</a>
 
     <div class="drawer-accordion">
       <button class="accordion-head">Class <span>▾</span></button>
       <div class="accordion-body">
-        <a href="products.html?class=Early Foundation (Pre Nursery %26 Nursery)">Early Foundation (Pre-Nursery & Nursery)</a>
-        <a href="products.html?class=Kindergarten Years (U.K.G %26 L.K.G)">Kindergarten (UKG & LKG)</a>
-        <a href="products.html?class=Lower Primary (Class 1 %26 2)">Lower Primary (Class 1 & 2)</a>
-        <a href="products.html?class=Upper Primary (Class 3 %26 4)">Upper Primary (Class 3 & 4)</a>
-        <a href="products.html?class=Middle School (Class 5 %26 6)">Middle School (Class 5 & 6)</a>
+        <a href="products?class=Early Foundation (Pre Nursery %26 Nursery)">Early Foundation (Pre-Nursery & Nursery)</a>
+        <a href="products?class=Kindergarten Years (U.K.G %26 L.K.G)">Kindergarten (UKG & LKG)</a>
+        <a href="products?class=Lower Primary (Class 1 %26 2)">Lower Primary (Class 1 & 2)</a>
+        <a href="products?class=Upper Primary (Class 3 %26 4)">Upper Primary (Class 3 & 4)</a>
+        <a href="products?class=Middle School (Class 5 %26 6)">Middle School (Class 5 & 6)</a>
       </div>
     </div>
 
     <div class="drawer-accordion">
       <button class="accordion-head">Interest <span>▾</span></button>
       <div class="accordion-body">
-        <a href="products.html?interest=All-Subject Activity Books">All-Subject Activity Books</a>
-        <a href="products.html?interest=Phonetics">Phonetics</a>
-        <a href="products.html?interest=Calligraphy %26 Cursive">Calligraphy & Cursive</a>
-        <a href="products.html?interest=All-in-One">All-in-One</a>
+        <a href="products?interest=All-Subject Activity Books">All-Subject Activity Books</a>
+        <a href="products?interest=Phonetics">Phonetics</a>
+        <a href="products?interest=Calligraphy %26 Cursive">Calligraphy & Cursive</a>
+        <a href="products?interest=All-in-One">All-in-One</a>
       </div>
     </div>
 
     <div class="drawer-accordion">
       <button class="accordion-head">Subject <span>▾</span></button>
       <div class="accordion-body">
-        <a href="products.html?subject=English">English</a>
-        <a href="products.html?subject=Hindi">Hindi</a>
-        <a href="products.html?subject=Mathematics">Mathematics</a>
-        <a href="products.html?subject=Mental Ability %26 GK">Mental Ability & GK</a>
+        <a href="products?subject=English">English</a>
+        <a href="products?subject=Hindi">Hindi</a>
+        <a href="products?subject=Mathematics">Mathematics</a>
+        <a href="products?subject=Mental Ability %26 GK">Mental Ability & GK</a>
       </div>
     </div>
   </div>
@@ -362,7 +357,7 @@
             </svg>
             <h2 style="font-family: var(--font-heading); color: var(--text-dark); margin-bottom: 12px; font-size: 28px;">Your Bag is Empty</h2>
             <p style="color: var(--text-muted); font-size: 16px; margin-bottom: 30px;">Looks like you haven't added anything to your bag yet.</p>
-            <a href="products.html" style="display: inline-block; background: var(--primary); color: var(--text-dark); padding: 14px 40px; border-radius: 4px; font-weight: 700; text-decoration: none; font-size: 14px; text-transform: uppercase;">Continue Shopping</a>
+            <a href="products" style="display: inline-block; background: var(--primary); color: var(--text-dark); padding: 14px 40px; border-radius: 4px; font-weight: 700; text-decoration: none; font-size: 14px; text-transform: uppercase;">Continue Shopping</a>
           </div>
         `;
         return;
@@ -431,13 +426,17 @@
               <span>Discount (10% OFF)</span>
               <span>- ${fmt(discountAmount)}</span>
             </div>
+            <div class="summary-row" id="shippingRow" style="color: #555;">
+              <span>Shipping</span>
+              <span id="shippingValue" style="font-weight:600;">Enter pincode</span>
+            </div>
             
             <div class="summary-row total-row">
               <span>Total Amount</span>
-              <span>${fmt(total)}</span>
+              <span id="grandTotalValue">${fmt(total)}</span>
             </div>
             
-            <button class="checkout-btn" onclick="openShippingModal(${total})">PROCEED TO CHECKOUT</button>
+            <button class="checkout-btn" onclick="openShippingModal(${total})" id="checkoutBtn">PROCEED TO CHECKOUT</button>
           </div>
           
           <!-- Share Link -->
@@ -500,14 +499,18 @@
 
     // Shipping Modal Elements
     let pendingOrderTotal = 0;
+    let currentShippingCharge = 0;
+    let shippingFetched = false;
 
     function openShippingModal(totalAmount) {
       if (!window.isUserLoggedIn) {
         alert('Please sign in to proceed to checkout.');
-        window.location.href = 'login.html';
+        window.location.href = 'login';
         return;
       }
       pendingOrderTotal = totalAmount;
+      currentShippingCharge = 0;
+      shippingFetched = false;
       document.getElementById('shippingModal').style.display = 'flex';
     }
 
@@ -538,6 +541,8 @@
         if (data && data[0].Status === "Success" && data[0].PostOffice && data[0].PostOffice.length > 0) {
           cityInput.value = data[0].PostOffice[0].District;
           stateInput.value = data[0].PostOffice[0].State;
+          // Auto-fetch shipping rate after pincode is validated
+          fetchShippingRate(pincode);
         } else {
           cityInput.value = '';
           stateInput.value = '';
@@ -553,6 +558,53 @@
         stateInput.readOnly = false;
         cityInput.style.backgroundColor = 'white';
         stateInput.style.backgroundColor = 'white';
+      }
+    }
+
+    // Fetch shipping rate from Fship via backend
+    async function fetchShippingRate(pincode) {
+      const shippingEl = document.getElementById('shippingValue');
+      const totalEl = document.getElementById('grandTotalValue');
+      if (shippingEl) shippingEl.innerHTML = '<span style="color:#888;">Calculating...</span>';
+
+      try {
+        const token = await window.auth0Client.getTokenSilently();
+        const cart = JSON.parse(localStorage.getItem('mindfuels_cart')) || [];
+        const BASE_API = 'https://mindfuels-backend-aopx.onrender.com/api';
+
+        const res = await fetch(`${BASE_API}/shipments/estimate-rate`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            destination_pincode: pincode,
+            items: cart
+          })
+        });
+
+        const data = await res.json();
+        currentShippingCharge = data.shipping_charge || 0;
+        shippingFetched = true;
+
+        if (shippingEl) {
+          if (currentShippingCharge === 0) {
+            shippingEl.innerHTML = '<span style="color:#4CAF50; font-weight:700;">FREE</span>';
+          } else {
+            shippingEl.innerText = fmt(currentShippingCharge);
+          }
+        }
+
+        // Update grand total display
+        const grandTotal = pendingOrderTotal + currentShippingCharge;
+        if (totalEl) totalEl.innerText = fmt(grandTotal);
+
+      } catch (err) {
+        console.error('Shipping rate error:', err);
+        currentShippingCharge = 0;
+        shippingFetched = true;
+        if (shippingEl) shippingEl.innerHTML = '<span style="color:#4CAF50; font-weight:700;">FREE</span>';
       }
     }
 
@@ -578,6 +630,8 @@
         const token = await window.auth0Client.getTokenSilently();
         const BASE_API = 'https://mindfuels-backend-aopx.onrender.com/api';
 
+        const actualTotal = pendingOrderTotal + currentShippingCharge;
+
         // 1. Create Razorpay Order on server
         const rzpOrderResponse = await fetch(`${BASE_API}/payments/create-order`, {
           method: 'POST',
@@ -585,7 +639,7 @@
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
           },
-          body: JSON.stringify({ amount: pendingOrderTotal })
+          body: JSON.stringify({ amount: actualTotal })
         });
         
         if (!rzpOrderResponse.ok) throw new Error("Could not create Razorpay order");
@@ -615,7 +669,8 @@
                   'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify({
-                  grand_total: pendingOrderTotal,
+                  grand_total: actualTotal,
+                  shipping_charge: currentShippingCharge,
                   shipping_address: shipping_address,
                   items: JSON.parse(localStorage.getItem('mindfuels_cart') || '[]'),
                   payment_id: response.razorpay_payment_id,

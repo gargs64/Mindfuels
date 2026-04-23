@@ -475,7 +475,7 @@ window.loadUserWishlist = async function loadUserWishlist() {
 window.toggleWishlist = async function (btn, productId) {
   if (!window.isUserLoggedIn) {
     alert("Please sign in to add products to your wishlist.");
-    window.location.href = "login.html";
+    window.location.href = 'login';
     return;
   }
 
@@ -900,7 +900,7 @@ window.selectSearchSuggestion = function (name) {
     if (grid) {
       if (window.renderProducts) renderProducts();
     } else {
-      window.location.href = 'products.html?search=' + encodeURIComponent(name);
+      window.location.href = 'products?search=' + encodeURIComponent(name);
       return;
     }
     hideSearchSuggestions();
@@ -1197,7 +1197,7 @@ window.syncItemToBackend = async function syncItemToBackend(productId, absoluteQ
 window.addToCartFromCard = function (productId) {
   if (!window.isUserLoggedIn) {
     alert('Please sign in to add items to your cart.');
-    window.location.href = 'login.html';
+    window.location.href = 'login';
     return;
   }
   const product = catalogProducts.find(p => p.id == productId);
@@ -1307,7 +1307,7 @@ window.renderModalCartActions = function () {
 window.addToCartModal = function () {
   if (!window.isUserLoggedIn) {
     alert("Please sign in to add items to your cart.");
-    window.location.href = "login.html";
+    window.location.href = 'login';
     return;
   }
   let currentCart = JSON.parse(localStorage.getItem('mindfuels_cart')) || [];
@@ -1348,7 +1348,7 @@ window.changeModalQty = function (delta) {
 window.addToCart = function (btnElem) {
   if (!window.isUserLoggedIn) {
     alert("Please sign in to add items to your cart.");
-    window.location.href = "login.html";
+    window.location.href = 'login';
     return;
   }
 
@@ -1447,7 +1447,7 @@ window.moveToCartFromWishlist = function (productId, e) {
 
   if (!window.isUserLoggedIn) {
     alert("Please sign in to add items to your cart.");
-    window.location.href = "login.html";
+    window.location.href = 'login';
     return;
   }
 

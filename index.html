@@ -160,45 +160,43 @@
     <div class="header-inner">
 
       <!-- Logo -->
-      <a href="index.html" class="logo">
+      <a href="/" class="logo">
         <img src="photos/logo.png" alt="Mind fuels Logo" style="height:36px; width:auto; display:block;">
       </a>
 
       <!-- Hamburger (mobile menu toggle) -->
-      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu">
-        &#9776;
-      </button>
+
 
       <!-- Primary navigation -->
       <nav class="main-nav" id="mainNav">
-        <a href="products.html">All Products</a>
+        <a href="products">All Products</a>
         <div class="nav-item">
           <a href="#">Class <span class="nav-arrow">▾</span></a>
           <div class="dropdown-menu">
-            <a href="products.html?class=Early Foundation (Pre Nursery %26 Nursery)">Early Foundation (Pre Nursery &
+            <a href="products?class=Early Foundation (Pre Nursery %26 Nursery)">Early Foundation (Pre Nursery &
               Nursery)</a>
-            <a href="products.html?class=Kindergarten Years (U.K.G %26 L.K.G)">Kindergarten Years (U.K.G & L.K.G)</a>
-            <a href="products.html?class=Lower Primary (Class 1 %26 2)">Lower Primary (Class 1 & 2)</a>
-            <a href="products.html?class=Upper Primary (Class 3 %26 4)">Upper Primary (Class 3 & 4)</a>
-            <a href="products.html?class=Middle School (Class 5 %26 6)">Middle School (Class 5 & 6)</a>
+            <a href="products?class=Kindergarten Years (U.K.G %26 L.K.G)">Kindergarten Years (U.K.G & L.K.G)</a>
+            <a href="products?class=Lower Primary (Class 1 %26 2)">Lower Primary (Class 1 & 2)</a>
+            <a href="products?class=Upper Primary (Class 3 %26 4)">Upper Primary (Class 3 & 4)</a>
+            <a href="products?class=Middle School (Class 5 %26 6)">Middle School (Class 5 & 6)</a>
           </div>
         </div>
         <div class="nav-item">
           <a href="#">Interest <span class="nav-arrow">▾</span></a>
           <div class="dropdown-menu">
-            <a href="products.html?interest=All-Subject Activity Books">All-Subject Activity Books</a>
-            <a href="products.html?interest=Phonetics">Phonetics</a>
-            <a href="products.html?interest=Calligraphy %26 Cursive">Calligraphy & Cursive</a>
-            <a href="products.html?interest=All-in-One">All-in-One</a>
+            <a href="products?interest=All-Subject Activity Books">All-Subject Activity Books</a>
+            <a href="products?interest=Phonetics">Phonetics</a>
+            <a href="products?interest=Calligraphy %26 Cursive">Calligraphy & Cursive</a>
+            <a href="products?interest=All-in-One">All-in-One</a>
           </div>
         </div>
         <div class="nav-item">
           <a href="#">Subject <span class="nav-arrow">▾</span></a>
           <div class="dropdown-menu">
-            <a href="products.html?subject=English">English</a>
-            <a href="products.html?subject=Hindi">Hindi</a>
-            <a href="products.html?subject=Mathematics">Mathematics</a>
-            <a href="products.html?subject=Mental Ability %26 GK">Mental Ability & GK</a>
+            <a href="products?subject=English">English</a>
+            <a href="products?subject=Hindi">Hindi</a>
+            <a href="products?subject=Mathematics">Mathematics</a>
+            <a href="products?subject=Mental Ability %26 GK">Mental Ability & GK</a>
           </div>
         </div>
       </nav>
@@ -210,7 +208,7 @@
         <div class="nav-search-wrapper" id="navSearchWrapper">
           <input type="text" id="searchInput" class="nav-search-input" placeholder="Search books..."
             oninput="showSearchSuggestions(this.value);"
-            onkeypress="if(event.key === 'Enter') { window.location.href = 'products.html?search=' + encodeURIComponent(this.value); hideSearchSuggestions(); }"
+            onkeypress="if(event.key === 'Enter') { window.location.href = 'products?search=' + encodeURIComponent(this.value); hideSearchSuggestions(); }"
             onfocus="showSearchSuggestions(this.value)"
             autocomplete="off">
           <div class="search-suggestions" id="searchSuggestions"></div>
@@ -225,7 +223,7 @@
 
         <!-- Account -->
         <div class="account-wrapper" id="accountWrapper">
-          <a href="login.html" id="accountBtn" aria-label="Account">
+          <a href="login" id="accountBtn" aria-label="Account">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
               stroke-linecap="round" stroke-linejoin="round">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
@@ -252,7 +250,7 @@
         </div>
 
         <!-- Cart -->
-        <a href="cart.html" class="cart-icon" aria-label="Cart">
+        <a href="cart" class="cart-icon" aria-label="Cart">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round">
             <circle cx="9" cy="21" r="1" />
@@ -282,7 +280,7 @@
       <div class="hero-track" id="heroTrack">
 
         <div class="hero-slide">
-          <a href="products.html">
+          <a href="products">
             <img src="photos/hero-image.png" alt="MindFuels educational books collection — activity books, story books and workbooks for children" loading="eager" decoding="async" fetchpriority="high">
           </a>
         </div>
@@ -361,7 +359,7 @@
 
         <!-- Shop All CTA -->
         <div style="text-align:center; margin-top:36px;">
-          <a href="products.html" class="shop-all-btn">Shop All</a>
+          <a href="products" class="shop-all-btn">Shop All</a>
         </div>
 
       </div><!-- /.container -->
@@ -410,23 +408,23 @@
       </div>
 
       <div class="age-sides">
-        <a href="products.html?class=Early%20Foundation%20(Pre%20Nursery%20%26%20Nursery)" class="age-card">
+        <a href="products?class=Early%20Foundation%20(Pre%20Nursery%20%26%20Nursery)" class="age-card">
           <div class="age-circle"><img src="photos/2-4 kid.jpg" alt="Educational books for children aged 2 to 4 years"></div>
           <div class="age-label">2–4 YRS</div>
         </a>
-        <a href="products.html?class=Kindergarten%20Years%20(U.K.G%20%26%20L.K.G)" class="age-card">
+        <a href="products?class=Kindergarten%20Years%20(U.K.G%20%26%20L.K.G)" class="age-card">
           <div class="age-circle"><img src="photos/4-6 kid.jpg" alt="Educational books for children aged 4 to 6 years"></div>
           <div class="age-label">4–6 YRS</div>
         </a>
-        <a href="products.html?class=Lower%20Primary%20(Class%201%20%26%202)" class="age-card">
+        <a href="products?class=Lower%20Primary%20(Class%201%20%26%202)" class="age-card">
           <div class="age-circle"><img src="photos/6-8 kid.jpg" alt="Educational books for children aged 6 to 8 years"></div>
           <div class="age-label">6–8 YRS</div>
         </a>
-        <a href="products.html?class=Upper%20Primary%20(Class%203%20%26%204)" class="age-card">
+        <a href="products?class=Upper%20Primary%20(Class%203%20%26%204)" class="age-card">
           <div class="age-circle"><img src="photos/8-10 kid.jpg" alt="Educational books for children aged 8 to 10 years"></div>
           <div class="age-label">8–10 YRS</div>
         </a>
-        <a href="products.html?class=Middle%20School%20(Class%205%20%26%206)" class="age-card">
+        <a href="products?class=Middle%20School%20(Class%205%20%26%206)" class="age-card">
           <div class="age-circle"><img src="photos/10-12 kid.jpg" alt="Educational books for children aged 10 to 12 years"></div>
           <div class="age-label">10–12 YRS</div>
         </a>
@@ -452,7 +450,7 @@
           <div class="cat-track" id="catTrack">
 
             <div class="cat-wrap cat-wrap--yellow">
-              <a href="products.html?interest=Story%20Books" class="cat-card">
+              <a href="products?interest=Story%20Books" class="cat-card">
                 <img src="photos/1-story-book.jpeg" alt="Story books for children — MindFuels Publisher" loading="lazy">
                 <div class="cat-card-label">
                   <span>Story Books</span>
@@ -464,7 +462,7 @@
             </div>
 
             <div class="cat-wrap cat-wrap--mint">
-              <a href="products.html?interest=All-Subject%20Activity%20Books" class="cat-card">
+              <a href="products?interest=All-Subject%20Activity%20Books" class="cat-card">
                 <img src="photos/2-activity-book.jpeg" alt="Activity books for kids — MindFuels Publisher" loading="lazy">
                 <div class="cat-card-label">
                   <span>Activity Books</span>
@@ -476,7 +474,7 @@
             </div>
 
             <div class="cat-wrap cat-wrap--pink">
-              <a href="products.html?subject=English" class="cat-card">
+              <a href="products?subject=English" class="cat-card">
                 <img src="photos/3-subject-book.jpeg" alt="Subject-wise educational books — English, Hindi, Maths" loading="lazy">
                 <div class="cat-card-label">
                   <span>Subject Books</span>
@@ -488,7 +486,7 @@
             </div>
 
             <div class="cat-wrap cat-wrap--yellow">
-              <a href="products.html?interest=Worksheets" class="cat-card">
+              <a href="products?interest=Worksheets" class="cat-card">
                 <img src="photos/4-worksheet.jpeg" alt="Practice worksheets for kids — writing, math, and more" loading="lazy">
                 <div class="cat-card-label">
                   <span>Practice Worksheets</span>
@@ -500,7 +498,7 @@
             </div>
 
             <div class="cat-wrap cat-wrap--mint">
-              <a href="products.html?interest=Coloring%20Books" class="cat-card">
+              <a href="products?interest=Coloring%20Books" class="cat-card">
                 <img src="photos/5-coloring-book.jpeg" alt="Coloring books for children — creative learning" loading="lazy">
                 <div class="cat-card-label">
                   <span>Coloring Books</span>
@@ -512,7 +510,7 @@
             </div>
 
             <div class="cat-wrap cat-wrap--pink">
-              <a href="products.html?subject=Computer" class="cat-card">
+              <a href="products?subject=Computer" class="cat-card">
                 <img src="photos/6-IT-and-fundamental-book.jpeg" alt="IT and fundamentals books for school children" loading="lazy">
                 <div class="cat-card-label">
                   <span>IT &amp; Fundamentals Books</span>
@@ -539,7 +537,7 @@
       <div class="footer-main">
 
         <div class="footer-left">
-          <a href="index.html" class="footer-logo" style="margin-bottom: 5px; display: inline-block;">
+          <a href="/" class="footer-logo" style="margin-bottom: 5px; display: inline-block;">
             <img src="photos/logo.png" alt="Mind fuels Logo" style="height:60px; width:auto; display:block;">
           </a>
 
@@ -568,40 +566,40 @@
           <div class="footer-col">
             <h4>About</h4>
             <ul>
-              <li><a href="legal_pages.html#about">About us</a></li>
+              <li><a href="legal_pages#about">About us</a></li>
             </ul>
           </div>
 
           <div class="footer-col">
             <h4>Collection</h4>
             <ul>
-              <li><a href="products.html?class=Early%20Foundation%20(Pre%20Nursery%20%26%20Nursery)">Pre-Nursery</a></li>
-              <li><a href="products.html?class=Early%20Foundation%20(Pre%20Nursery%20%26%20Nursery)">Nursery</a></li>
-              <li><a href="products.html?class=Kindergarten%20Years%20(U.K.G%20%26%20L.K.G)">LKG</a></li>
-              <li><a href="products.html?class=Kindergarten%20Years%20(U.K.G%20%26%20L.K.G)">UKG</a></li>
-              <li><a href="products.html?class=Lower%20Primary%20(Class%201%20%26%202)">Class 1</a></li>
-              <li><a href="products.html?class=Lower%20Primary%20(Class%201%20%26%202)">Class 2</a></li>
-              <li><a href="products.html?class=Upper%20Primary%20(Class%203%20%26%204)">Class 3</a></li>
-              <li><a href="products.html?class=Upper%20Primary%20(Class%203%20%26%204)">Class 4</a></li>
-              <li><a href="products.html?class=Middle%20School%20(Class%205%20%26%206)">Class 5</a></li>
-              <li><a href="products.html?class=Middle%20School%20(Class%205%20%26%206)">Class 6</a></li>
+              <li><a href="products?class=Early%20Foundation%20(Pre%20Nursery%20%26%20Nursery)">Pre-Nursery</a></li>
+              <li><a href="products?class=Early%20Foundation%20(Pre%20Nursery%20%26%20Nursery)">Nursery</a></li>
+              <li><a href="products?class=Kindergarten%20Years%20(U.K.G%20%26%20L.K.G)">LKG</a></li>
+              <li><a href="products?class=Kindergarten%20Years%20(U.K.G%20%26%20L.K.G)">UKG</a></li>
+              <li><a href="products?class=Lower%20Primary%20(Class%201%20%26%202)">Class 1</a></li>
+              <li><a href="products?class=Lower%20Primary%20(Class%201%20%26%202)">Class 2</a></li>
+              <li><a href="products?class=Upper%20Primary%20(Class%203%20%26%204)">Class 3</a></li>
+              <li><a href="products?class=Upper%20Primary%20(Class%203%20%26%204)">Class 4</a></li>
+              <li><a href="products?class=Middle%20School%20(Class%205%20%26%206)">Class 5</a></li>
+              <li><a href="products?class=Middle%20School%20(Class%205%20%26%206)">Class 6</a></li>
             </ul>
           </div>
 
           <div class="footer-col">
             <h4>Support</h4>
             <ul>
-              <li><a href="legal_pages.html#shipping">Shipping Policy</a></li>
-              <li><a href="legal_pages.html#contact">Contact Us</a></li>
-              <li><a href="legal_pages.html#contact">Locate Us</a></li>
+              <li><a href="legal_pages#shipping">Shipping Policy</a></li>
+              <li><a href="legal_pages#contact">Contact Us</a></li>
+              <li><a href="legal_pages#contact">Locate Us</a></li>
             </ul>
           </div>
 
           <div class="footer-col">
             <h4>Legal</h4>
             <ul>
-              <li><a href="legal_pages.html#privacy">Privacy Policy</a></li>
-              <li><a href="legal_pages.html#terms">Terms &amp; Conditions</a></li>
+              <li><a href="legal_pages#privacy">Privacy Policy</a></li>
+              <li><a href="legal_pages#terms">Terms &amp; Conditions</a></li>
             </ul>
           </div>
 
@@ -679,36 +677,36 @@
       <button id="closeDrawer">✕</button>
     </div>
 
-    <a href="products.html" class="drawer-link">📚 All Products</a>
+    <a href="products" class="drawer-link">📚 All Products</a>
 
     <div class="drawer-accordion">
       <button class="accordion-head">Class <span>▾</span></button>
       <div class="accordion-body">
-        <a href="products.html?class=Early Foundation (Pre Nursery %26 Nursery)">Early Foundation (Pre-Nursery & Nursery)</a>
-        <a href="products.html?class=Kindergarten Years (U.K.G %26 L.K.G)">Kindergarten (UKG & LKG)</a>
-        <a href="products.html?class=Lower Primary (Class 1 %26 2)">Lower Primary (Class 1 & 2)</a>
-        <a href="products.html?class=Upper Primary (Class 3 %26 4)">Upper Primary (Class 3 & 4)</a>
-        <a href="products.html?class=Middle School (Class 5 %26 6)">Middle School (Class 5 & 6)</a>
+        <a href="products?class=Early Foundation (Pre Nursery %26 Nursery)">Early Foundation (Pre-Nursery & Nursery)</a>
+        <a href="products?class=Kindergarten Years (U.K.G %26 L.K.G)">Kindergarten (UKG & LKG)</a>
+        <a href="products?class=Lower Primary (Class 1 %26 2)">Lower Primary (Class 1 & 2)</a>
+        <a href="products?class=Upper Primary (Class 3 %26 4)">Upper Primary (Class 3 & 4)</a>
+        <a href="products?class=Middle School (Class 5 %26 6)">Middle School (Class 5 & 6)</a>
       </div>
     </div>
 
     <div class="drawer-accordion">
       <button class="accordion-head">Interest <span>▾</span></button>
       <div class="accordion-body">
-        <a href="products.html?interest=All-Subject Activity Books">All-Subject Activity Books</a>
-        <a href="products.html?interest=Phonetics">Phonetics</a>
-        <a href="products.html?interest=Calligraphy %26 Cursive">Calligraphy & Cursive</a>
-        <a href="products.html?interest=All-in-One">All-in-One</a>
+        <a href="products?interest=All-Subject Activity Books">All-Subject Activity Books</a>
+        <a href="products?interest=Phonetics">Phonetics</a>
+        <a href="products?interest=Calligraphy %26 Cursive">Calligraphy & Cursive</a>
+        <a href="products?interest=All-in-One">All-in-One</a>
       </div>
     </div>
 
     <div class="drawer-accordion">
       <button class="accordion-head">Subject <span>▾</span></button>
       <div class="accordion-body">
-        <a href="products.html?subject=English">English</a>
-        <a href="products.html?subject=Hindi">Hindi</a>
-        <a href="products.html?subject=Mathematics">Mathematics</a>
-        <a href="products.html?subject=Mental Ability %26 GK">Mental Ability & GK</a>
+        <a href="products?subject=English">English</a>
+        <a href="products?subject=Hindi">Hindi</a>
+        <a href="products?subject=Mathematics">Mathematics</a>
+        <a href="products?subject=Mental Ability %26 GK">Mental Ability & GK</a>
       </div>
     </div>
   </div>

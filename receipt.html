@@ -263,7 +263,7 @@
 <body>
 
   <div class="actions-bar">
-    <a href="products.html" class="back-link">
+    <a href="products" class="back-link">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
       Back to Shop
     </a>
@@ -396,7 +396,7 @@
               <h4>Shipping Information</h4>
               <p class="addr-text">Delivery Partner: <span style="font-weight: 600;">${order.courier_name || 'Processing...'}</span></p>
               ${order.awb_code && order.awb_code !== 'PENDING' ? 
-                `<p class="addr-text">Tracking ID: <a href="#" onclick="alert('Tracking ID: ${order.awb_code}\\nPlease track on Fship or your order history page.')" style="color: var(--primary); text-decoration: underline; font-weight: 600; cursor: pointer;">${order.awb_code}</a></p>` : 
+                `<p class="addr-text">Tracking ID: <a href="https://track.fship.in/${order.awb_code}" target="_blank" style="color: var(--primary); text-decoration: underline; font-weight: 600; cursor: pointer;">${order.awb_code} (Track)</a></p>` : 
                 `<p class="addr-text">Tracking ID: <span style="font-weight: 600;">Generating...</span></p>`
               }
             </div>
@@ -404,8 +404,8 @@
           <div class="totals-section">
             <h4>Payment Summary</h4>
             <div class="totals-list">
-              <div class="total-line"><span class="label">Item Subtotal</span> <span>${fmt(order.total_amount)}</span></div>
-              <div class="total-line"><span class="label">Shipping Fee</span> <span>Free</span></div>
+              <div class="total-line"><span class="label">Item Subtotal</span> <span>${fmt(order.total_amount - (order.shipping_charge || 0))}</span></div>
+              <div class="total-line"><span class="label">Shipping Fee</span> <span style="${(order.shipping_charge || 0) === 0 ? 'color:#2E7D32; font-weight:600;' : ''}">${(order.shipping_charge || 0) > 0 ? fmt(order.shipping_charge) : 'FREE'}</span></div>
               <div class="total-line final"><span>Amount Paid</span> <span>${fmt(order.total_amount)}</span></div>
             </div>
           </div>

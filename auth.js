@@ -125,6 +125,6 @@ window.logout = function () {
   if (window.auth0Client) {
     window.auth0Client.logout({ logoutParams: { returnTo: window.location.origin } });
   } else {
-    window.location.href = 'index.html';
+    window.location.href = 'index';
   }
 };

@@ -118,20 +118,20 @@
   <!-- Header -->
   <header class="header" id="header">
     <div class="header-inner">
-      <a href="index.html" class="logo">
+      <a href="/" class="logo">
         <img src="photos/logo.png" alt="Mind fuels Logo" style="height:36px; width:auto; display:block;">
       </a>
       <div class="header-icons">
-        <a href="products.html" style="text-decoration:none; color:#1a1a1a; font-weight:600; font-size:14px; margin-right:15px;">Shop</a>
+        <a href="products" style="text-decoration:none; color:#1a1a1a; font-weight:600; font-size:14px; margin-right:15px;">Shop</a>
         <div class="account-wrapper" id="accountWrapper">
-          <a href="login.html" id="accountBtn" aria-label="Account">
+          <a href="login" id="accountBtn" aria-label="Account">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
             </svg>
           </a>
           <div id="accountDropdown" class="account-dropdown"></div>
         </div>
-        <a href="cart.html" class="cart-icon" aria-label="Cart">
+        <a href="cart" class="cart-icon" aria-label="Cart">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
             <path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6" />
@@ -155,7 +155,7 @@
 
     <!-- Details View -->
     <div id="orderDetailView">
-      <button class="back-btn" onclick="showDashboard()">
+      <button class="back-btn" onclick="showDashboard()" style="margin-top: 30px;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
         Back to Orders
       </button>
@@ -215,6 +215,14 @@
               <div class="info-value">Online (Razorpay)</div>
             </div>
             <div class="info-group">
+              <div class="info-label">Item Subtotal</div>
+              <div class="info-value" id="detailSubtotal" style="font-size:16px; font-weight:600;"></div>
+            </div>
+            <div class="info-group" id="shippingChargeGroup">
+              <div class="info-label">Shipping Charge</div>
+              <div class="info-value" id="detailShippingCharge" style="font-size:16px; font-weight:600;"></div>
+            </div>
+            <div class="info-group">
               <div class="info-label">Order Total</div>
               <div class="info-value" id="detailTotal" style="font-size:20px; font-weight:800;"></div>
             </div>
@@ -230,10 +238,10 @@
           <div class="detail-section" style="background:transparent; border:none; box-shadow:none; padding:0;">
             <div class="action-btn-list">
               <button class="btn-block btn-primary" id="trackBtn" style="display:none;">Track Package</button>
-              <button class="btn-block btn-secondary" onclick="window.location.href='receipt.html?orderId=' + window.currentViewingOrderId">Download Invoice</button>
+              <button class="btn-block btn-secondary" onclick="window.location.href = 'receipt?orderId=' + window.currentViewingOrderId">Download Invoice</button>
 
               <button class="btn-block btn-danger" id="cancelBtn" style="display:none;">Cancel Order</button>
-              <a class="btn-block btn-secondary" href="legal_pages.html#contact" style="display:block; text-decoration:none; box-sizing:border-box;">Need Help? Contact Us</a>
+              <a class="btn-block btn-secondary" href="legal_pages#contact" style="display:block; text-decoration:none; box-sizing:border-box;">Need Help? Contact Us</a>
             </div>
           </div>
 
@@ -264,7 +272,7 @@
           <div class="state-msg">
             <h2>Please Sign In</h2>
             <p>You need to be signed in to view your orders.</p>
-            <a href="login.html" style="display:inline-block; margin-top:16px; color:#F6AB06; font-weight:600;">Sign In</a>
+            <a href="login" style="display:inline-block; margin-top:16px; color:#F6AB06; font-weight:600;">Sign In</a>
           </div>`;
         return;
       }
@@ -295,7 +303,7 @@
             <svg style="width:64px; height:64px; color:#ccc; margin-bottom:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
             <h2>No Orders Yet</h2>
             <p>Looks like you haven't placed any orders.</p>
-            <a href="products.html" style="display:inline-block; margin-top:20px; background:#F6AB06; color:#111; padding:12px 24px; border-radius:8px; text-decoration:none; font-weight:700;">Start Shopping</a>
+            <a href="products" style="display:inline-block; margin-top:20px; background:#F6AB06; color:#111; padding:12px 24px; border-radius:8px; text-decoration:none; font-weight:700;">Start Shopping</a>
           </div>`;
         return;
       }
@@ -314,6 +322,12 @@
         const statusStr = order.status || 'Processing';
         const stClass = getStatusClass(statusStr);
         const thumb = order.thumbnail ? `<img src="${order.thumbnail}" class="order-thumb" alt="Product">` : `<div class="order-thumb" style="background:#eee; display:flex; align-items:center; justify-content:center;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg></div>`;
+
+        const trackingHtml = order.awb_code ? `
+              <div style="display:flex; align-items:center; gap:6px; margin-top:6px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1a73e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                <a href="https://fship.in/tracking/${order.awb_code}" target="_blank" onclick="event.stopPropagation();" style="color:#1a73e8; font-size:13px; font-weight:600; text-decoration:none;">${order.awb_code} ↗</a>
+              </div>` : '';
 
         return `
           <div class="order-card" onclick="viewOrderDetails(${order.id})">
@@ -343,6 +357,7 @@
                 <div style="display:flex; flex-direction:column; gap:8px;">
                   <span style="font-weight:700; font-size:15px; color:#111;">Order Snapshot</span>
                   <span class="${stClass} order-status-badge">${statusStr}</span>
+                  ${trackingHtml}
                 </div>
               </div>
               <div>
@@ -441,7 +456,12 @@
         `).join('');
         document.getElementById('detailItemsList').innerHTML = itemsHtml;
 
-        // Sidebar Info
+        // Sidebar — subtotal, shipping, total
+        const shippingCharge = parseFloat(order.shipping_charge) || 0;
+        const itemSubtotal = parseFloat(order.total_amount) - shippingCharge;
+        document.getElementById('detailSubtotal').innerText = fmt(itemSubtotal);
+        document.getElementById('detailShippingCharge').innerText = shippingCharge > 0 ? fmt(shippingCharge) : 'FREE';
+        if (shippingCharge === 0) document.getElementById('detailShippingCharge').style.color = '#1e8e3e';
         document.getElementById('detailTotal').innerText = fmt(order.total_amount);
         document.getElementById('detailShippingInfo').innerHTML = `
           <strong>${order.full_name || ''}</strong><br>
@@ -451,12 +471,15 @@
           Phone: ${order.phone || ''}
         `;
 
+        // Tracking — use Fship tracking URL or fallback
+        const trackingUrl = order.tracking_url || (order.awb_code ? `https://fship.in/tracking/${order.awb_code}` : '');
+
         if(order.awb_code) {
            document.getElementById('trackingGroup').style.display = 'block';
            document.getElementById('detailTrackingId').innerText = order.awb_code;
-           document.getElementById('detailTrackingLink').href = `https://shipment.url/tracking/${order.awb_code}`; // Placeholder tracking link
+           document.getElementById('detailTrackingLink').href = trackingUrl;
            document.getElementById('trackBtn').style.display = 'block';
-           document.getElementById('trackBtn').onclick = () => window.open(`https://shipment.url/tracking/${order.awb_code}`, '_blank');
+           document.getElementById('trackBtn').onclick = () => window.open(trackingUrl, '_blank');
         } else {
            document.getElementById('trackingGroup').style.display = 'none';
            document.getElementById('trackBtn').style.display = 'none';
@@ -489,7 +512,7 @@
       let cart = JSON.parse(localStorage.getItem('mindfuels_cart')) || [];
       const prod = catalogProducts ? catalogProducts.find(p => p.id == productId) : null;
       if(!prod) {
-        window.location.href = 'products.html?search=' + productId;
+        window.location.href = 'products?search=' + productId;
         return;
       }
       const existing = cart.find(i => i.id == productId);
@@ -508,12 +531,12 @@
     window.onload = loadOrders;
   </script>
 
-  <footer class="main-footer">
+  <footer class="footer fade-up" style="background-image: url('photos/footer-banner.svg'); margin-top: 50px;">
     <div class="container">
-      <div class="footer-top">
+      <div class="footer-main">
 
         <div class="footer-left">
-          <a href="index.html" class="footer-logo" style="margin-bottom: 5px; display: inline-block;">
+          <a href="/" class="footer-logo" style="margin-bottom: 5px; display: inline-block;">
             <img src="photos/logo.png" alt="Mind fuels Logo" style="height:60px; width:auto; display:block;">
           </a>
 
@@ -542,40 +565,40 @@
           <div class="footer-col">
             <h4>About</h4>
             <ul>
-              <li><a href="legal_pages.html#about">About us</a></li>
+              <li><a href="legal_pages#about">About us</a></li>
             </ul>
           </div>
 
           <div class="footer-col">
             <h4>Collection</h4>
             <ul>
-              <li><a href="products.html?class=Early%20Foundation%20(Pre%20Nursery%20%26%20Nursery)">Pre-Nursery</a></li>
-              <li><a href="products.html?class=Early%20Foundation%20(Pre%20Nursery%20%26%20Nursery)">Nursery</a></li>
-              <li><a href="products.html?class=Kindergarten%20Years%20(U.K.G%20%26%20L.K.G)">LKG</a></li>
-              <li><a href="products.html?class=Kindergarten%20Years%20(U.K.G%20%26%20L.K.G)">UKG</a></li>
-              <li><a href="products.html?class=Lower%20Primary%20(Class%201%20%26%202)">Class 1</a></li>
-              <li><a href="products.html?class=Lower%20Primary%20(Class%201%20%26%202)">Class 2</a></li>
-              <li><a href="products.html?class=Upper%20Primary%20(Class%203%20%26%204)">Class 3</a></li>
-              <li><a href="products.html?class=Upper%20Primary%20(Class%203%20%26%204)">Class 4</a></li>
-              <li><a href="products.html?class=Middle%20School%20(Class%205%20%26%206)">Class 5</a></li>
-              <li><a href="products.html?class=Middle%20School%20(Class%205%20%26%206)">Class 6</a></li>
+              <li><a href="products?class=Early%20Foundation%20(Pre%20Nursery%20%26%20Nursery)">Pre-Nursery</a></li>
+              <li><a href="products?class=Early%20Foundation%20(Pre%20Nursery%20%26%20Nursery)">Nursery</a></li>
+              <li><a href="products?class=Kindergarten%20Years%20(U.K.G%20%26%20L.K.G)">LKG</a></li>
+              <li><a href="products?class=Kindergarten%20Years%20(U.K.G%20%26%20L.K.G)">UKG</a></li>
+              <li><a href="products?class=Lower%20Primary%20(Class%201%20%26%202)">Class 1</a></li>
+              <li><a href="products?class=Lower%20Primary%20(Class%201%20%26%202)">Class 2</a></li>
+              <li><a href="products?class=Upper%20Primary%20(Class%203%20%26%204)">Class 3</a></li>
+              <li><a href="products?class=Upper%20Primary%20(Class%203%20%26%204)">Class 4</a></li>
+              <li><a href="products?class=Middle%20School%20(Class%205%20%26%206)">Class 5</a></li>
+              <li><a href="products?class=Middle%20School%20(Class%205%20%26%206)">Class 6</a></li>
             </ul>
           </div>
 
           <div class="footer-col">
             <h4>Support</h4>
             <ul>
-              <li><a href="legal_pages.html#shipping">Shipping Policy</a></li>
-              <li><a href="legal_pages.html#contact">Contact Us</a></li>
-              <li><a href="legal_pages.html#contact">Locate Us</a></li>
+              <li><a href="legal_pages#shipping">Shipping Policy</a></li>
+              <li><a href="legal_pages#contact">Contact Us</a></li>
+              <li><a href="legal_pages#contact">Locate Us</a></li>
             </ul>
           </div>
 
           <div class="footer-col">
             <h4>Legal</h4>
             <ul>
-              <li><a href="legal_pages.html#privacy">Privacy Policy</a></li>
-              <li><a href="legal_pages.html#terms">Terms &amp; Conditions</a></li>
+              <li><a href="legal_pages#privacy">Privacy Policy</a></li>
+              <li><a href="legal_pages#terms">Terms &amp; Conditions</a></li>
             </ul>
           </div>
 
