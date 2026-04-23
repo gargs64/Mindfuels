@@ -387,6 +387,7 @@
       let subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
       let discountAmount = Math.round(subtotal * 0.10); // Flat 10% discount
       let total = subtotal - discountAmount;
+      pendingOrderTotal = total; // Store for checkout
 
       let itemsHtml = cart.map((item, index) => `
         <div class="cart-item-row">
@@ -447,17 +448,30 @@
               <span>Discount (10% OFF)</span>
               <span>- ${fmt(discountAmount)}</span>
             </div>
-            <div class="summary-row" id="shippingRow" style="color: #555;">
-              <span>Shipping</span>
-              <span id="shippingValue" style="font-weight:600;">Calculated at checkout</span>
+            <div style="padding:12px 0; border-top:1px dashed #e0e0e0; margin-top:4px;">
+              <div class="summary-row" style="color:#555; margin-bottom:10px;">
+                <span>Shipping</span>
+                <span id="shippingValue" style="font-weight:600; font-size:13px; color:#888;">Enter pincode below</span>
+              </div>
+              <div style="display:flex; gap:8px; align-items:center;">
+                <input type="text" id="cartPincodeInput" maxlength="6" placeholder="Delivery pincode"
+                  oninput="this.value=this.value.replace(/[^0-9]/g,''); if(this.value.length===6) checkShippingFromCart();"
+                  style="flex:1; padding:9px 12px; border:1px solid #ddd; border-radius:6px; font-size:13px; font-family:'Lato',sans-serif; outline:none; transition:border 0.2s;"
+                  onfocus="this.style.borderColor='var(--primary,#F6AB06)'" onblur="this.style.borderColor='#ddd'">
+                <button onclick="checkShippingFromCart()" id="checkShippingBtn"
+                  style="background:var(--primary,#F6AB06); color:#1a1a1a; border:none; padding:9px 16px; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer; white-space:nowrap; transition:0.2s;">
+                  CHECK
+                </button>
+              </div>
+              <div id="cartPincodeMsg" style="font-size:11px; margin-top:6px; color:#888; display:none;"></div>
             </div>
             
-            <div class="summary-row total-row">
-              <span>Subtotal</span>
+            <div class="summary-row total-row" style="margin-top:12px;">
+              <span>Total</span>
               <span id="grandTotalValue">${fmt(total)}</span>
             </div>
             
-            <button class="checkout-btn" onclick="openShippingModal(${total})" id="checkoutBtn">PROCEED TO CHECKOUT</button>
+            <button class="checkout-btn" onclick="openShippingModal()" id="checkoutBtn">PROCEED TO CHECKOUT</button>
           </div>
           
           <!-- Share Link -->
@@ -471,6 +485,11 @@
         </div>
       `;
 
+      // Restore pincode if previously entered
+      if (window._savedCartPincode) {
+        const inp = document.getElementById('cartPincodeInput');
+        if (inp) { inp.value = window._savedCartPincode; checkShippingFromCart(); }
+      }
       if (typeof updateCartBadge === 'function') updateCartBadge();
     }
 
@@ -523,21 +542,109 @@
     let currentShippingCharge = 0;
     let shippingFetched = false;
 
-    function openShippingModal(totalAmount) {
+    // Estimate shipping from cart page pincode input
+    async function checkShippingFromCart() {
+      const input = document.getElementById('cartPincodeInput');
+      const pincode = input ? input.value.trim() : '';
+      const msgEl = document.getElementById('cartPincodeMsg');
+      const shippingVal = document.getElementById('shippingValue');
+      const grandTotalEl = document.getElementById('grandTotalValue');
+
+      if (!/^\d{6}$/.test(pincode)) {
+        if (msgEl) { msgEl.style.display = 'block'; msgEl.style.color = '#e53935'; msgEl.textContent = 'Please enter a valid 6-digit pincode'; }
+        return;
+      }
+
+      window._savedCartPincode = pincode;
+      if (shippingVal) { shippingVal.innerHTML = '<span style="color:#888;">Checking...</span>'; }
+      if (msgEl) { msgEl.style.display = 'block'; msgEl.style.color = '#888'; msgEl.textContent = 'Fetching shipping rate...'; }
+
+      const cart = JSON.parse(localStorage.getItem('mindfuels_cart')) || [];
+      const subtotal = cart.reduce((s, i) => s + (i.price * i.qty), 0);
+      const discountAmt = Math.round(subtotal * 0.10);
+      const itemTotal = subtotal - discountAmt;
+      pendingOrderTotal = itemTotal;
+
+      try {
+        if (!window.auth0Client || !window.isUserLoggedIn) {
+          // Not logged in — use fallback estimate
+          const itemSubtotal = cart.reduce((s, i) => s + ((i.price || 0) * (i.qty || 1)), 0);
+          currentShippingCharge = itemSubtotal >= 500 ? 0 : 50;
+          shippingFetched = true;
+          if (msgEl) { msgEl.style.display = 'block'; msgEl.style.color = '#FF9800'; msgEl.textContent = 'Sign in for exact shipping. Showing estimate.'; }
+        } else {
+          const token = await window.auth0Client.getTokenSilently();
+          const BASE_API = 'https://mindfuels-backend-aopx.onrender.com/api';
+          const res = await fetch(`${BASE_API}/shipments/estimate-rate`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+            body: JSON.stringify({ destination_pincode: pincode, items: cart })
+          });
+          const data = await res.json();
+          currentShippingCharge = data.shipping_charge || 0;
+          shippingFetched = true;
+        }
+      } catch (err) {
+        console.error('Cart shipping estimate error:', err);
+        currentShippingCharge = 0;
+        shippingFetched = true;
+      }
+
+      // Update cart page UI
+      if (currentShippingCharge === 0) {
+        if (shippingVal) shippingVal.innerHTML = '<span style="color:#4CAF50; font-weight:700;">FREE</span>';
+      } else {
+        if (shippingVal) shippingVal.innerHTML = '<span style="color:#333; font-weight:700;">' + fmt(currentShippingCharge) + '</span>';
+      }
+      const grandTotal = itemTotal + currentShippingCharge;
+      if (grandTotalEl) grandTotalEl.textContent = fmt(grandTotal);
+      if (msgEl) { msgEl.style.display = 'block'; msgEl.style.color = '#4CAF50'; msgEl.textContent = currentShippingCharge === 0 ? 'Free shipping on this order!' : 'Shipping via ' + (shippingFetched ? 'standard courier' : ''); }
+    }
+
+    function openShippingModal() {
       if (!window.isUserLoggedIn) {
         alert('Please sign in to proceed to checkout.');
         window.location.href = 'login';
         return;
       }
-      pendingOrderTotal = totalAmount;
-      currentShippingCharge = 0;
-      shippingFetched = false;
 
-      // Reset the modal price breakdown
+      // If shipping not estimated yet, reset shipping state
+      if (!shippingFetched) {
+        currentShippingCharge = 0;
+      }
+
+      // Pre-fill modal pincode if user already entered one on cart page
+      const cartPin = document.getElementById('cartPincodeInput');
+      const modalPin = document.getElementById('ship_pin');
+      if (cartPin && modalPin && cartPin.value.length === 6) {
+        modalPin.value = cartPin.value;
+      }
+
+      // Show/hide the modal price breakdown based on whether shipping was already fetched
       const breakdown = document.getElementById('modalPriceBreakdown');
-      if (breakdown) breakdown.style.display = 'none';
       const btn = document.getElementById('confirmOrderBtn');
-      if (btn) { btn.textContent = 'CONFIRM & PLACE ORDER'; btn.disabled = false; }
+
+      if (shippingFetched) {
+        // Pre-populate the modal breakdown with already-fetched values
+        if (breakdown) breakdown.style.display = 'block';
+        const cart = JSON.parse(localStorage.getItem('mindfuels_cart')) || [];
+        const subtotal = cart.reduce((s, i) => s + (i.price * i.qty), 0);
+        const discountAmt = Math.round(subtotal * 0.10);
+        const itemTotal = subtotal - discountAmt;
+        document.getElementById('modalItemTotal').innerText = fmt(subtotal);
+        document.getElementById('modalDiscount').innerText = '- ' + fmt(discountAmt);
+        document.getElementById('modalShipping').innerHTML = currentShippingCharge === 0
+          ? '<span style="color:#4CAF50; font-weight:700;">FREE</span>'
+          : fmt(currentShippingCharge);
+        const grandTotal = itemTotal + currentShippingCharge;
+        document.getElementById('modalGrandTotal').innerText = fmt(grandTotal);
+        if (btn) { btn.textContent = 'PAY ' + fmt(grandTotal); btn.disabled = false; }
+        // Auto-fill city/state if pincode is there
+        if (modalPin && modalPin.value.length === 6) fetchLocationDetails(modalPin.value);
+      } else {
+        if (breakdown) breakdown.style.display = 'none';
+        if (btn) { btn.textContent = 'CONFIRM & PLACE ORDER'; btn.disabled = false; }
+      }
 
       document.getElementById('shippingModal').style.display = 'flex';
     }
@@ -658,8 +765,14 @@
       if (sideShipping) {
         sideShipping.innerHTML = currentShippingCharge === 0
           ? '<span style="color:#4CAF50; font-weight:700;">FREE</span>'
-          : fmt(currentShippingCharge);
+          : '<span style="color:#333; font-weight:700;">' + fmt(currentShippingCharge) + '</span>';
       }
+      const sideGrandTotal = document.getElementById('grandTotalValue');
+      if (sideGrandTotal) sideGrandTotal.textContent = fmt(grandTotal);
+
+      // Sync pincode back to cart page input
+      const cartPinInput = document.getElementById('cartPincodeInput');
+      if (cartPinInput) { cartPinInput.value = pincode; window._savedCartPincode = pincode; }
     }
 
     // Connects Checkout UI to the Database Endpoint
