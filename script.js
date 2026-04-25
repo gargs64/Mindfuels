@@ -1291,15 +1291,21 @@ window.renderModalCartActions = function () {
 
   if (existing) {
     container.innerHTML = `
-      <div class="qty-selector" style="width: 100%; display: flex; justify-content: space-between; align-items: center; background: #F9A826; border-radius: var(--radius-pill); height: 50px; padding: 0;">
-        <button class="qty-btn" style="flex:1; height: 100%; font-size: 24px; color: #fff; background: transparent; border: none; cursor: pointer; border-top-left-radius: var(--radius-pill); border-bottom-left-radius: var(--radius-pill);" onclick="changeModalQty(-1)">−</button>
-        <span style="flex: 2; text-align: center; font-weight: 700; font-size: 18px; color: #fff;">${existing.qty} in cart</span>
-        <button class="qty-btn" style="flex:1; height: 100%; font-size: 24px; color: #fff; background: transparent; border: none; cursor: pointer; border-top-right-radius: var(--radius-pill); border-bottom-right-radius: var(--radius-pill);" onclick="changeModalQty(1)">+</button>
+      <div class="qty-selector">
+        <button class="qty-btn" onclick="changeModalQty(-1)">−</button>
+        <div class="qty-text">
+          ${existing.qty}
+          <span>In Cart</span>
+        </div>
+        <button class="qty-btn" onclick="changeModalQty(1)">+</button>
       </div>
     `;
   } else {
     container.innerHTML = `
-      <button class="add-to-cart-btn" style="width: 100%; background-color: #F9A826; color: #fff; border: none; border-radius: var(--radius-pill); font-size: 16px; padding: 15px; font-weight: 700; cursor: pointer; text-transform: uppercase;" onclick="addToCartModal(this)">ADD TO CART</button>
+      <button class="add-to-cart-btn" onclick="addToCartModal(this)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+        ADD TO CART
+      </button>
     `;
   }
 };

@@ -1567,8 +1567,7 @@ input {
   align-items: center;
   padding: 80px 0 100px;
   overflow: hidden;
-  background-color: #ECEDE7;
-  /* New lavender background replaced with user request */
+  background-color: #fcf8ff; /* Very light lavender background */
 }
 
 /* Decorative Icons for Age Section */
@@ -1659,14 +1658,15 @@ input {
   font-family: var(--font-heading);
   font-size: 45px;
   font-weight: 700;
-  color: #5a0d6e;
+  color: #E0B0FF; /* User requested color */
   margin-bottom: 4px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
 }
 
 .age-subtitle {
   font-family: var(--font-body);
   font-size: 15px;
-  color: #7a3a8a;
+  color: #b18ec4; /* A shade of E0B0FF */
   margin: 0;
 }
 
@@ -1707,16 +1707,16 @@ input {
   height: 220px;
   /* Increased size even more */
   border-radius: 50%;
-  background: linear-gradient(135deg, #ead4f7 0%, #c878e8 50%, #831692 100%);
+  background: linear-gradient(135deg, #f3e5ff 0%, #E0B0FF 50%, #b18ec4 100%);
   border: 6px solid #fff;
-  box-shadow: 0 0 0 4px rgba(131, 22, 146, 0.15), 0 15px 45px rgba(131, 22, 146, 0.3);
+  box-shadow: 0 0 0 4px rgba(224, 176, 255, 0.15), 0 15px 45px rgba(224, 176, 255, 0.3);
   transition: all 0.4s ease;
   position: relative;
   overflow: hidden;
 }
 
 .age-card:hover .age-circle {
-  box-shadow: 0 0 0 5px rgba(131, 22, 146, 0.35), 0 16px 40px rgba(131, 22, 146, 0.35);
+  box-shadow: 0 0 0 5px rgba(224, 176, 255, 0.35), 0 16px 40px rgba(224, 176, 255, 0.35);
 }
 
 .age-circle img {
@@ -1737,7 +1737,7 @@ input {
   font-family: var(--font-heading);
   font-size: 18px;
   font-weight: 700;
-  color: #5a0d6e; /* Using the theme's purple color */
+  color: #8c57a3; /* A deeper shade for readability */
   text-align: center;
   line-height: 1.2;
 }
@@ -1750,10 +1750,93 @@ input {
   text-align: center;
   letter-spacing: 0.5px;
   padding: 4px 16px;
-  background: rgba(131, 22, 146, 0.65);
+  background: rgba(224, 176, 255, 0.85); /* E0B0FF with opacity */
   border-radius: 999px;
   backdrop-filter: blur(4px);
   border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* ============================================================
+   ADD TO CART & QTY SELECTOR (Premium Designs)
+   ============================================================ */
+.add-to-cart-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #f9a826 0%, #f7941d 100%);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  padding: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(249, 168, 38, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.add-to-cart-btn:hover {
+  background: linear-gradient(135deg, #f7941d 0%, #f9a826 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(249, 168, 38, 0.4);
+}
+
+.add-to-cart-btn:active {
+  transform: translateY(0);
+}
+
+.qty-selector {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border: 2px solid #f9a826;
+  border-radius: 50px;
+  height: 54px;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.qty-btn {
+  flex: 1;
+  height: 100%;
+  font-size: 20px;
+  color: #f9a826;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.qty-btn:hover {
+  background: #fff9f0;
+  color: #f7941d;
+}
+
+.qty-text {
+  flex: 2;
+  text-align: center;
+  font-weight: 700;
+  font-size: 16px;
+  color: #333;
+}
+
+.qty-text span {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: #888;
+  text-transform: uppercase;
 }
 
 

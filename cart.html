@@ -157,78 +157,7 @@
     <h1 class="sr-only" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;">Your Shopping Cart — MindFuels Publisher</h1>
     <div class="cart-page-wrapper" id="cartContent">
       <!-- Dynamic cart content goes here -->
-    </div>
-
-    <!-- Shipping Modal -->
-    <div id="shippingModal" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; padding: 20px;">
-      <div style="background: white; border-radius: 12px; width: 100%; max-width: 500px; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
-        <div style="padding: 20px; border-bottom: 1px solid #ebebeb; display: flex; justify-content: space-between; align-items: center;">
-          <h3 style="margin: 0; font-family: 'Playfair Display', serif; font-size: 20px;">Shipping Details</h3>
-          <button onclick="closeShippingModal()" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #888;">&times;</button>
-        </div>
-        <div style="padding: 20px; overflow-y: auto;">
-          <form id="shippingForm" onsubmit="submitOrder(event)">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
-              <div>
-                <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: #555;">Full Name *</label>
-                <input type="text" id="ship_name" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-family: 'Lato', sans-serif;">
-              </div>
-              <div>
-                <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: #555;">Phone *</label>
-                <input type="tel" id="ship_phone" required pattern="[6-9]\d{9}" maxlength="10" title="Please enter a valid 10-digit phone number starting with 6, 7, 8, or 9" placeholder="10-digit mobile number" oninput="this.value = this.value.replace(/[^0-9]/g, '')" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-family: 'Lato', sans-serif;">
-              </div>
-            </div>
-            
-            <div style="margin-bottom: 15px;">
-              <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: #555;">Address Line 1 *</label>
-              <input type="text" id="ship_addr1" required placeholder="House No., Building Name, Street" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-family: 'Lato', sans-serif;">
-            </div>
-            
-            <div style="margin-bottom: 15px;">
-              <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: #555;">Address Line 2 *</label>
-              <input type="text" id="ship_addr2" required placeholder="Colony, Landmark, Area" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-family: 'Lato', sans-serif;">
-            </div>
-            
-            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-bottom: 20px;">
-              <div>
-                <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: #555;">Pincode *</label>
-                <input type="text" id="ship_pin" required maxlength="6" pattern="\d{6}" placeholder="6-digit PIN" oninput="fetchLocationDetails(this.value)" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-family: 'Lato', sans-serif;">
-              </div>
-              <div>
-                <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: #555;">City *</label>
-                <input type="text" id="ship_city" required readonly placeholder="Auto-filled" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-family: 'Lato', sans-serif; background-color: #f7f7f7; color: #777;">
-              </div>
-              <div>
-                <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: #555;">State *</label>
-                <input type="text" id="ship_state" required readonly placeholder="Auto-filled" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-family: 'Lato', sans-serif; background-color: #f7f7f7; color: #777;">
-              </div>
-            </div>
-
-            <!-- Price Breakdown (appears after pincode validation) -->
-            <div id="modalPriceBreakdown" style="display:none; background:#f9f9f4; border:1px solid #e8e8e0; border-radius:10px; padding:16px 18px; margin-bottom:18px;">
-              <div style="font-weight:700; font-size:15px; color:#222; margin-bottom:12px; font-family:'Playfair Display',serif;">Order Summary</div>
-              <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:14px; color:#555;">
-                <span>Item Total</span>
-                <span id="modalItemTotal">₹0</span>
-              </div>
-              <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:14px; color:#4CAF50; font-weight:600;">
-                <span>Discount (10% OFF)</span>
-                <span id="modalDiscount">- ₹0</span>
-              </div>
-              <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:14px; color:#555;">
-                <span>Shipping</span>
-                <span id="modalShipping" style="font-weight:600;">Calculating...</span>
-              </div>
-              <div style="border-top:1px dashed #ccc; padding-top:10px; margin-top:6px; display:flex; justify-content:space-between; font-size:17px; font-weight:800; color:#111;">
-                <span>Grand Total</span>
-                <span id="modalGrandTotal">₹0</span>
-              </div>
-            </div>
-            
-            <button type="submit" id="confirmOrderBtn" style="width: 100%; background: var(--primary, #F6AB06); color: #1a1a1a; border: none; padding: 14px; border-radius: 8px; font-weight: 700; font-family: 'Lato', sans-serif; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">CONFIRM & PLACE ORDER</button>
-          </form>
-        </div>
-      </div>
+      <!-- Shipping form is now embedded in the cart flow instead of a modal --></div>
     </div>
   </main>
 
@@ -412,77 +341,110 @@
       `).join('');
 
       cartContainer.innerHTML = `
-        <div class="cart-left-col">
+        <form id="shippingForm" onsubmit="submitOrder(event)" style="display: contents;">
+          <div class="cart-left-col">
+            <!-- Items List -->
+            <div class="cart-box">
+              <div class="cart-header">Your Bag <span style="text-transform:none; font-weight:400; color:var(--text-muted); font-size:14px; margin-left:5px;">(${cart.length} item${cart.length !== 1 ? 's' : ''})</span></div>
+              <div class="cart-items-list">
+                ${itemsHtml}
+              </div>
+            </div>
 
-          <!-- Items List -->
-          <div class="cart-box">
-            <div class="cart-header">Your Bag <span style="text-transform:none; font-weight:400; color:var(--text-muted); font-size:14px; margin-left:5px;">(${cart.length} item${cart.length !== 1 ? 's' : ''})</span></div>
-            <div class="cart-items-list">
-              ${itemsHtml}
-            </div>
-          </div>
-        </div>
-        
-        <div class="cart-right-col">
-          <!-- Coupons -->
-          <div class="cart-box" style="padding: 15px 20px;">
-            <div class="cart-header" style="margin-bottom: 10px; border: none; font-size: 12px; color: var(--text-muted);">Coupons Applied</div>
-            <div class="coupon-box" style="background:#e8f5e9; border:1px solid #c8e6c9;">
-              <div class="coupon-icon" style="background:#4CAF50; color:#fff;">✓</div>
-              <div class="coupon-texts">
-                <div style="font-size: 13px; font-weight: 700; color:#2e7d32;">10% Discount Applied</div>
-                <div style="font-size: 11px; font-weight: 400; color: #4CAF50; margin-top:2px;">Special customer discount</div>
+            <!-- Embedded Shipping Details Form -->
+            <div class="cart-box" style="margin-top: 20px;">
+              <div class="cart-header" style="border-bottom: 1px solid #ebebeb; margin-bottom: 20px; font-size: 18px;">Shipping Details</div>
+              
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                <div>
+                  <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: #555;">Full Name *</label>
+                  <input type="text" id="ship_name" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-family: 'Lato', sans-serif;">
+                </div>
+                <div>
+                  <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: #555;">Phone *</label>
+                  <input type="tel" id="ship_phone" required pattern="[6-9]\\d{9}" maxlength="10" title="Please enter a valid 10-digit phone number starting with 6, 7, 8, or 9" placeholder="10-digit mobile number" oninput="this.value = this.value.replace(/[^0-9]/g, '')" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-family: 'Lato', sans-serif;">
+                </div>
+              </div>
+              
+              <div style="margin-bottom: 15px;">
+                <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: #555;">Address Line 1 *</label>
+                <input type="text" id="ship_addr1" required placeholder="House No., Building Name, Street" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-family: 'Lato', sans-serif;">
+              </div>
+              
+              <div style="margin-bottom: 15px;">
+                <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: #555;">Address Line 2 *</label>
+                <input type="text" id="ship_addr2" required placeholder="Colony, Landmark, Area" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-family: 'Lato', sans-serif;">
+              </div>
+              
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-bottom: 5px;">
+                <div>
+                  <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: #555;">Pincode *</label>
+                  <input type="text" id="ship_pin" required maxlength="6" pattern="\\d{6}" placeholder="6-digit PIN" oninput="fetchLocationDetails(this.value)" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-family: 'Lato', sans-serif;">
+                </div>
+                <div>
+                  <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: #555;">City *</label>
+                  <input type="text" id="ship_city" required readonly placeholder="Auto-filled" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-family: 'Lato', sans-serif; background-color: #f7f7f7; color: #777;">
+                </div>
+                <div>
+                  <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: #555;">State *</label>
+                  <input type="text" id="ship_state" required readonly placeholder="Auto-filled" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-family: 'Lato', sans-serif; background-color: #f7f7f7; color: #777;">
+                </div>
               </div>
             </div>
           </div>
           
-          <!-- Price Summary -->
-          <div class="cart-box">
-            <div class="cart-header" style="margin-bottom: 15px; border: none;">Price Summary <span style="text-transform:none; font-weight:400; color:var(--text-muted); font-size:13px; margin-left:5px;">( ${cart.length} ITEM${cart.length !== 1 ? 'S' : ''} )</span></div>
-            
-            <div class="summary-row">
-              <span>Total MRP</span>
-              <span>${fmt(subtotal)}</span>
-            </div>
-            <div class="summary-row" style="color: #4CAF50; font-weight: 600;">
-              <span>Discount (10% OFF)</span>
-              <span>- ${fmt(discountAmount)}</span>
-            </div>
-            <div style="padding:12px 0; border-top:1px dashed #e0e0e0; margin-top:4px;">
-              <div class="summary-row" style="color:#555; margin-bottom:10px;">
-                <span>Shipping</span>
-                <span id="shippingValue" style="font-weight:600; font-size:13px; color:#888;">Enter pincode below</span>
+          <div class="cart-right-col">
+            <!-- Coupons -->
+            <div class="cart-box" style="padding: 15px 20px;">
+              <div class="cart-header" style="margin-bottom: 10px; border: none; font-size: 12px; color: var(--text-muted);">Coupons Applied</div>
+              <div class="coupon-box" style="background:#e8f5e9; border:1px solid #c8e6c9;">
+                <div class="coupon-icon" style="background:#4CAF50; color:#fff;">✓</div>
+                <div class="coupon-texts">
+                  <div style="font-size: 13px; font-weight: 700; color:#2e7d32;">10% Discount Applied</div>
+                  <div style="font-size: 11px; font-weight: 400; color: #4CAF50; margin-top:2px;">Special customer discount</div>
+                </div>
               </div>
-              <div style="display:flex; gap:8px; align-items:center;">
-                <input type="text" id="cartPincodeInput" maxlength="6" placeholder="Delivery pincode"
-                  oninput="this.value=this.value.replace(/[^0-9]/g,''); if(this.value.length===6) checkShippingFromCart();"
-                  style="flex:1; padding:9px 12px; border:1px solid #ddd; border-radius:6px; font-size:13px; font-family:'Lato',sans-serif; outline:none; transition:border 0.2s;"
-                  onfocus="this.style.borderColor='var(--primary,#F6AB06)'" onblur="this.style.borderColor='#ddd'">
-                <button onclick="checkShippingFromCart()" id="checkShippingBtn"
-                  style="background:var(--primary,#F6AB06); color:#1a1a1a; border:none; padding:9px 16px; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer; white-space:nowrap; transition:0.2s;">
-                  CHECK
-                </button>
+            </div>
+            
+            <!-- Price Summary -->
+            <div class="cart-box">
+              <div class="cart-header" style="margin-bottom: 20px; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px;">
+                Price Details <span style="text-transform:none; font-weight:400; color:var(--text-muted); font-size:13px; margin-left:5px;">(${cart.length} Item${cart.length !== 1 ? 's' : ''})</span>
               </div>
-              <div id="cartPincodeMsg" style="font-size:11px; margin-top:6px; color:#888; display:none;"></div>
+              
+              <div class="summary-row" style="margin-bottom: 12px;">
+                <span style="color: #555;">Total MRP</span>
+                <span style="color: #333;">${fmt(subtotal)}</span>
+              </div>
+              <div class="summary-row" style="color: #4CAF50; font-weight: 600; margin-bottom: 12px;">
+                <span>Discount (10% OFF)</span>
+                <span>- ${fmt(discountAmount)}</span>
+              </div>
+              <div class="summary-row" style="margin-bottom: 15px; padding-top: 10px; border-top: 1px dashed #e0e0e0;">
+                <span style="color: #555;">Shipping Fee</span>
+                <span id="shippingValue" style="font-weight:700; color: #333;">${shippingFetched ? (currentShippingCharge === 0 ? 'FREE' : fmt(currentShippingCharge)) : '<span style="font-weight:400; color:#999; font-size:12px;">Calculated at next step</span>'}</span>
+              </div>
+
+              <div id="cartPincodeMsg" style="font-size:11px; margin-bottom: 15px; color:#888; background: #f9f9f9; padding: 6px 10px; border-radius: 4px; display:none;"></div>
+              
+              <div class="summary-row total-row" style="padding-top: 15px; border-top: 1px solid #eee; margin-top: 10px;">
+                <span style="font-size: 18px; font-weight: 700; color: #222;">Total Amount</span>
+                <span id="grandTotalValue" style="font-size: 18px; font-weight: 800; color: #222;">${fmt(total + (shippingFetched ? currentShippingCharge : 0))}</span>
+              </div>
+              
+              <button type="submit" form="shippingForm" class="checkout-btn" id="confirmOrderBtn" style="margin-top: 20px; height: 50px; font-size: 16px; letter-spacing: 1px;">PLACE ORDER</button>
             </div>
             
-            <div class="summary-row total-row" style="margin-top:12px;">
-              <span>Total</span>
-              <span id="grandTotalValue">${fmt(total)}</span>
+            <!-- Share Link -->
+            <div class="share-row" style="cursor:pointer;" title="Click to share your cart on WhatsApp" onclick="shareCartToWhatsApp()">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                <span>SHARE CART ON WHATSAPP</span>
+              </div>
+              <span>SHARE</span>
             </div>
-            
-            <button class="checkout-btn" onclick="openShippingModal()" id="checkoutBtn">PROCEED TO CHECKOUT</button>
           </div>
-          
-          <!-- Share Link -->
-          <div class="share-row" style="cursor:pointer;" title="Click to share your cart on WhatsApp" onclick="shareCartToWhatsApp()">
-            <div style="display:flex; align-items:center; gap:8px;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-              <span>SHARE CART ON WHATSAPP</span>
-            </div>
-            <span>SHARE</span>
-          </div>
-        </div>
+        </form>
       `;
 
       // Restore pincode if previously entered
@@ -545,7 +507,20 @@
     // Estimate shipping from cart page pincode input
     async function checkShippingFromCart() {
       const input = document.getElementById('cartPincodeInput');
-      const pincode = input ? input.value.trim() : '';
+      const formPinInput = document.getElementById('ship_pin');
+      const pincode = (input && input.value.trim().length === 6) ? input.value.trim() : 
+                      (formPinInput && formPinInput.value.trim().length === 6 ? formPinInput.value.trim() : '');
+                      
+      // Sync the inputs so they both show the same value
+      if (pincode) {
+        if (input && input.value !== pincode) input.value = pincode;
+        if (formPinInput && formPinInput.value !== pincode) {
+          formPinInput.value = pincode;
+          // Only fetch location details if city is empty to avoid infinite loop
+          const cityInput = document.getElementById('ship_city');
+          if (cityInput && !cityInput.value) fetchLocationDetails(pincode);
+        }
+      }
       const msgEl = document.getElementById('cartPincodeMsg');
       const shippingVal = document.getElementById('shippingValue');
       const grandTotalEl = document.getElementById('grandTotalValue');
@@ -599,60 +574,12 @@
       const grandTotal = itemTotal + currentShippingCharge;
       if (grandTotalEl) grandTotalEl.textContent = fmt(grandTotal);
       if (msgEl) { msgEl.style.display = 'block'; msgEl.style.color = '#4CAF50'; msgEl.textContent = currentShippingCharge === 0 ? 'Free shipping on this order!' : 'Shipping via ' + (shippingFetched ? 'standard courier' : ''); }
-    }
-
-    function openShippingModal() {
-      if (!window.isUserLoggedIn) {
-        alert('Please sign in to proceed to checkout.');
-        window.location.href = 'login';
-        return;
-      }
-
-      // If shipping not estimated yet, reset shipping state
-      if (!shippingFetched) {
-        currentShippingCharge = 0;
-      }
-
-      // Pre-fill modal pincode if user already entered one on cart page
-      const cartPin = document.getElementById('cartPincodeInput');
-      const modalPin = document.getElementById('ship_pin');
-      if (cartPin && modalPin && cartPin.value.length === 6) {
-        modalPin.value = cartPin.value;
-      }
-
-      // Show/hide the modal price breakdown based on whether shipping was already fetched
-      const breakdown = document.getElementById('modalPriceBreakdown');
+      
       const btn = document.getElementById('confirmOrderBtn');
-
-      if (shippingFetched) {
-        // Pre-populate the modal breakdown with already-fetched values
-        if (breakdown) breakdown.style.display = 'block';
-        const cart = JSON.parse(localStorage.getItem('mindfuels_cart')) || [];
-        const subtotal = cart.reduce((s, i) => s + (i.price * i.qty), 0);
-        const discountAmt = Math.round(subtotal * 0.10);
-        const itemTotal = subtotal - discountAmt;
-        document.getElementById('modalItemTotal').innerText = fmt(subtotal);
-        document.getElementById('modalDiscount').innerText = '- ' + fmt(discountAmt);
-        document.getElementById('modalShipping').innerHTML = currentShippingCharge === 0
-          ? '<span style="color:#4CAF50; font-weight:700;">FREE</span>'
-          : fmt(currentShippingCharge);
-        const grandTotal = itemTotal + currentShippingCharge;
-        document.getElementById('modalGrandTotal').innerText = fmt(grandTotal);
-        if (btn) { btn.textContent = 'PAY ' + fmt(grandTotal); btn.disabled = false; }
-        // Auto-fill city/state if pincode is there
-        if (modalPin && modalPin.value.length === 6) fetchLocationDetails(modalPin.value);
-      } else {
-        if (breakdown) breakdown.style.display = 'none';
-        if (btn) { btn.textContent = 'CONFIRM & PLACE ORDER'; btn.disabled = false; }
-      }
-
-      document.getElementById('shippingModal').style.display = 'flex';
+      if (btn) { btn.textContent = 'PAY ' + fmt(grandTotal); btn.disabled = false; }
     }
 
-    function closeShippingModal() {
-      document.getElementById('shippingModal').style.display = 'none';
-    }
-
+    // Modal functions removed since shipping form is now embedded
     // Auto-fill City and State via India Post API
     async function fetchLocationDetails(pincode) {
       const cityInput = document.getElementById('ship_city');
@@ -676,8 +603,13 @@
         if (data && data[0].Status === "Success" && data[0].PostOffice && data[0].PostOffice.length > 0) {
           cityInput.value = data[0].PostOffice[0].District;
           stateInput.value = data[0].PostOffice[0].State;
+          
+          // Sync pincode to summary input if it exists
+          const cartPin = document.getElementById('cartPincodeInput');
+          if (cartPin) cartPin.value = pincode;
+          
           // Auto-fetch shipping rate after pincode is validated
-          fetchShippingRate(pincode);
+          checkShippingFromCart();
         } else {
           cityInput.value = '';
           stateInput.value = '';
@@ -696,88 +628,16 @@
       }
     }
 
-    // Fetch shipping rate from Fship via backend
-    async function fetchShippingRate(pincode) {
-      const modalShipping = document.getElementById('modalShipping');
-      const breakdown = document.getElementById('modalPriceBreakdown');
-      const btn = document.getElementById('confirmOrderBtn');
-
-      // Show the breakdown with "Calculating..."
-      if (breakdown) breakdown.style.display = 'block';
-
-      // Populate known values immediately
-      const cart = JSON.parse(localStorage.getItem('mindfuels_cart')) || [];
-      const subtotal = cart.reduce((s, i) => s + (i.price * i.qty), 0);
-      const discountAmt = Math.round(subtotal * 0.10);
-      const itemTotal = subtotal - discountAmt;
-
-      document.getElementById('modalItemTotal').innerText = fmt(subtotal);
-      document.getElementById('modalDiscount').innerText = '- ' + fmt(discountAmt);
-      if (modalShipping) modalShipping.innerHTML = '<span style="color:#888;">Calculating...</span>';
-      document.getElementById('modalGrandTotal').innerText = fmt(itemTotal);
-      if (btn) { btn.textContent = 'Fetching shipping rate...'; btn.disabled = true; }
-
-      try {
-        const token = await window.auth0Client.getTokenSilently();
-        const BASE_API = 'https://mindfuels-backend-aopx.onrender.com/api';
-
-        const res = await fetch(`${BASE_API}/shipments/estimate-rate`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify({
-            destination_pincode: pincode,
-            items: cart
-          })
-        });
-
-        const data = await res.json();
-        currentShippingCharge = data.shipping_charge || 0;
-        shippingFetched = true;
-
-      } catch (err) {
-        console.error('Shipping rate error:', err);
-        currentShippingCharge = 0;
-        shippingFetched = true;
-      }
-
-      // Update modal UI with final values
-      if (currentShippingCharge === 0) {
-        if (modalShipping) modalShipping.innerHTML = '<span style="color:#4CAF50; font-weight:700;">FREE</span>';
-      } else {
-        if (modalShipping) modalShipping.innerText = fmt(currentShippingCharge);
-      }
-
-      const grandTotal = itemTotal + currentShippingCharge;
-      pendingOrderTotal = itemTotal; // Ensure this is the discounted item total
-      document.getElementById('modalGrandTotal').innerText = fmt(grandTotal);
-
-      // Update button to show the payable amount
-      if (btn) {
-        btn.textContent = `PAY ${fmt(grandTotal)}`;
-        btn.disabled = false;
-      }
-
-      // Also update the cart sidebar
-      const sideShipping = document.getElementById('shippingValue');
-      if (sideShipping) {
-        sideShipping.innerHTML = currentShippingCharge === 0
-          ? '<span style="color:#4CAF50; font-weight:700;">FREE</span>'
-          : '<span style="color:#333; font-weight:700;">' + fmt(currentShippingCharge) + '</span>';
-      }
-      const sideGrandTotal = document.getElementById('grandTotalValue');
-      if (sideGrandTotal) sideGrandTotal.textContent = fmt(grandTotal);
-
-      // Sync pincode back to cart page input
-      const cartPinInput = document.getElementById('cartPincodeInput');
-      if (cartPinInput) { cartPinInput.value = pincode; window._savedCartPincode = pincode; }
-    }
-
+    // Duplicate fetchShippingRate function removed
     // Connects Checkout UI to the Database Endpoint
     async function submitOrder(e) {
       e.preventDefault();
+      
+      if (!window.isUserLoggedIn) {
+        alert('Please sign in to proceed to checkout.');
+        window.location.href = 'login';
+        return;
+      }
       
       const btn = document.getElementById('confirmOrderBtn');
       btn.innerHTML = "PREPARING PAYMENT...";
