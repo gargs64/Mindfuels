@@ -204,7 +204,7 @@
         const user = await auth0Client.getUser();
         const token = await auth0Client.getTokenSilently();
         
-        await fetch('https://mindfuels-backend.onrender.com/api/users/sync', {
+        await fetch('https://mindfuels-backend-aopx.onrender.com/api/users/sync', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
           body: JSON.stringify({ name, email: user.email, picture: user.picture })
