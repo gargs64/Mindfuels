@@ -657,10 +657,25 @@ input {
   background: #fff;
 }
 
-.suggestion-img {
-  width: 40px;
+/* Simple Static Hero */
+.hero-simple {
+  width: 100%;
+  margin-top: 80px; /* Space for the floating fixed header */
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.hero-static-img {
+  width: 100%;
   height: auto;
-  border-radius: 4px;
+  display: block;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .hero-simple {
+    margin-top: 60px; /* Smaller gap for mobile header */
+  }
 }
 
 .suggestion-info {
