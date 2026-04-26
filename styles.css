@@ -1567,7 +1567,7 @@ input {
   align-items: center;
   padding: 80px 0 100px;
   overflow: hidden;
-  background-color: transparent; /* Matches entire website background */
+  background-color: #ECEDE7;
 }
 
 /* Decorative Icons for Age Section */
@@ -1659,7 +1659,6 @@ input {
   font-size: 45px;
   font-weight: 700;
   color: var(--primary); /* Mindfuels logo yellow */
-  -webkit-text-stroke: 1.5px #3A0B4B; /* Deep purple outline */
   margin-bottom: 4px;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.15); /* Slight shadow to make the yellow pop */
 }
