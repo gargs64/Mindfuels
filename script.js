@@ -2,26 +2,16 @@
  * =============================================================================
  * MINDFUELS — MAIN SCRIPT
  * =============================================================================
- *
- * TABLE OF CONTENTS
- * -----------------
- *  1. STICKY HEADER SHADOW
- *  2. MOBILE MENU TOGGLE
- *  3. SCROLL ANIMATIONS  (Fade-up on scroll)
- *  4. HERO CAROUSEL
- *  5. TAB SWITCHING      (Parents / Teachers)
- *  6. PRODUCT SCROLL     (Horizontal product rows + Category carousel)
- *  7. TESTIMONIAL CAROUSEL
- *  8. WISHLIST TOGGLE
- *  9. PRODUCT CATALOG
- *     9a. Raw product data (TSV)
- *     9b. Filter metadata  (interests, subjects, classes)
- *     9c. Product parser
- *     9d. Render / filter / sort
- * 10. PRODUCT MODAL
- * 11. SIDEBAR (Filter panel toggle)
- * =============================================================================
  */
+
+// URL CLEANUP: Strip .html from the address bar
+(function() {
+  if (window.location.pathname.endsWith('.html')) {
+    const cleanUrl = window.location.pathname.replace(/\.html$/, '') + window.location.search + window.location.hash;
+    window.history.replaceState({}, document.title, cleanUrl);
+  }
+})();
+
 
 // API Configuration
 const API_BASE_URL = 'https://mindfuels-backend-aopx.onrender.com/api'; // Correct Render URL

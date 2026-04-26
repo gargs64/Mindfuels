@@ -352,7 +352,7 @@
             </div>
 
             <!-- Embedded Shipping Details Form -->
-            <div class="cart-box" style="margin-top: 20px;">
+            <div id="shipping-box" class="cart-box" style="margin-top: 20px;">
               <div class="cart-header" style="border-bottom: 1px solid #ebebeb; margin-bottom: 20px; font-size: 18px;">Shipping Details</div>
               
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
@@ -389,6 +389,14 @@
                   <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: #555;">State *</label>
                   <input type="text" id="ship_state" required readonly placeholder="Auto-filled" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-family: 'Lato', sans-serif; background-color: #f7f7f7; color: #777;">
                 </div>
+              </div>
+            </div>
+
+            <!-- Payment Details Section -->
+            <div id="payment-box" class="cart-box" style="margin-top: 20px;">
+              <div class="cart-header" style="border-bottom: 1px solid #ebebeb; margin-bottom: 20px; font-size: 18px;">Payment Details</div>
+              <div style="padding: 10px; background: #fff8e1; border: 1px solid #ffe082; border-radius: 6px; color: #795548; font-size: 13px;">
+                Payment will be collected via Razorpay after clicking the Pay button.
               </div>
             </div>
           </div>
@@ -432,7 +440,7 @@
                 <span id="grandTotalValue" style="font-size: 18px; font-weight: 800; color: #222;"><span style="font-size: 14px; color: #999; font-weight: 400;">--</span></span>
               </div>
               
-              <button type="submit" form="shippingForm" class="checkout-btn" id="confirmOrderBtn" style="margin-top: 20px; height: 50px; font-size: 16px; letter-spacing: 1px;" disabled>ENTER SHIPPING DETAILS</button>
+              <button type="button" class="checkout-btn" id="confirmOrderBtn" onclick="handleCartButtonClick()" style="margin-top: 20px; height: 50px; font-size: 16px; letter-spacing: 1px;">ENTER SHIPPING DETAILS</button>
             </div>
             
             <!-- Share Link -->
@@ -505,29 +513,74 @@
     let shippingFetched = false;
 
     // Estimate shipping from cart page pincode input
+    function handleCartButtonClick() {
+      const form = document.getElementById('shippingForm');
+      const btn = document.getElementById('confirmOrderBtn');
+      const shippingBox = document.getElementById('shipping-box');
+      const paymentBox = document.getElementById('payment-box');
+
+      if (!form || !form.checkValidity()) {
+        // Form is invalid, scroll to shipping details
+        if (shippingBox) {
+          shippingBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          // Highlight the first invalid field or just let browser handle it? 
+          // Browser will handle if we trigger submit, but we want smooth scroll.
+          // Let's just scroll.
+        }
+        return;
+      }
+
+      // If form is valid, check if we are at "ENTER SHIPPING DETAILS" or "PAY" state
+      // Actually, if form is valid, the text should already be "PAY ..."
+      if (btn && btn.textContent.includes('PAY')) {
+        // Proceed with order submission
+        submitOrder(new Event('submit'));
+      } else {
+        // Form is valid but maybe shipping not fetched yet? Scroll to payment box anyway
+        if (paymentBox) {
+          paymentBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    }
+
     async function checkShippingFromCart() {
+      const form = document.getElementById('shippingForm');
       const input = document.getElementById('cartPincodeInput');
       const formPinInput = document.getElementById('ship_pin');
       const pincode = (input && input.value.trim().length === 6) ? input.value.trim() : 
                       (formPinInput && formPinInput.value.trim().length === 6 ? formPinInput.value.trim() : '');
+
+      const msgEl = document.getElementById('cartPincodeMsg');
+      const shippingVal = document.getElementById('shippingValue');
+      const grandTotalEl = document.getElementById('grandTotalValue');
+      const btn = document.getElementById('confirmOrderBtn');
+
+      if (!form || !form.checkValidity() || !/^\d{6}$/.test(pincode)) {
+        shippingFetched = false;
+        if (shippingVal) shippingVal.innerHTML = '<span style="font-weight:400; color:#999; font-size:12px;">Calculated after shipping details</span>';
+        if (grandTotalEl) grandTotalEl.innerHTML = '<span style="font-size: 14px; color: #999; font-weight: 400;">--</span>';
+        if (msgEl) { msgEl.style.display = 'none'; }
+        if (btn) { btn.textContent = 'ENTER SHIPPING DETAILS'; btn.disabled = false; }
+        
+        if (pincode && /^\d{6}$/.test(pincode)) {
+          if (input && input.value !== pincode) input.value = pincode;
+          if (formPinInput && formPinInput.value !== pincode) {
+            formPinInput.value = pincode;
+            const cityInput = document.getElementById('ship_city');
+            if (cityInput && !cityInput.value) fetchLocationDetails(pincode);
+          }
+        }
+        return;
+      }
                       
       // Sync the inputs so they both show the same value
       if (pincode) {
         if (input && input.value !== pincode) input.value = pincode;
         if (formPinInput && formPinInput.value !== pincode) {
           formPinInput.value = pincode;
-          // Only fetch location details if city is empty to avoid infinite loop
           const cityInput = document.getElementById('ship_city');
           if (cityInput && !cityInput.value) fetchLocationDetails(pincode);
         }
-      }
-      const msgEl = document.getElementById('cartPincodeMsg');
-      const shippingVal = document.getElementById('shippingValue');
-      const grandTotalEl = document.getElementById('grandTotalValue');
-
-      if (!/^\d{6}$/.test(pincode)) {
-        if (msgEl) { msgEl.style.display = 'block'; msgEl.style.color = '#e53935'; msgEl.textContent = 'Please enter a valid 6-digit pincode'; }
-        return;
       }
 
       window._savedCartPincode = pincode;
@@ -542,7 +595,6 @@
 
       try {
         if (!window.auth0Client || !window.isUserLoggedIn) {
-          // Not logged in — use fallback estimate
           const itemSubtotal = cart.reduce((s, i) => s + ((i.price || 0) * (i.qty || 1)), 0);
           currentShippingCharge = itemSubtotal >= 500 ? 0 : 50;
           shippingFetched = true;
@@ -565,7 +617,6 @@
         shippingFetched = true;
       }
 
-      // Update cart page UI
       if (currentShippingCharge === 0) {
         if (shippingVal) shippingVal.innerHTML = '<span style="color:#4CAF50; font-weight:700;">FREE</span>';
       } else {
@@ -575,11 +626,8 @@
       if (grandTotalEl) grandTotalEl.textContent = fmt(grandTotal);
       if (msgEl) { msgEl.style.display = 'block'; msgEl.style.color = '#4CAF50'; msgEl.textContent = currentShippingCharge === 0 ? 'Free shipping on this order!' : ''; }
       
-      const btn = document.getElementById('confirmOrderBtn');
       if (btn) { btn.textContent = 'PAY ' + fmt(grandTotal); btn.disabled = false; }
-    }
-
-    // Modal functions removed since shipping form is now embedded
+    }\n\n        // Modal functions removed since shipping form is now embedded
     // Auto-fill City and State via India Post API
     async function fetchLocationDetails(pincode) {
       const cityInput = document.getElementById('ship_city');
