@@ -1,28 +1,38 @@
 /**
  * =============================================================================
- * MINDFUELS — MAIN SCRIPT
+ * MINDFUELS â€” MAIN SCRIPT
+ * =============================================================================
+ *
+ * TABLE OF CONTENTS
+ * -----------------
+ *  1. STICKY HEADER SHADOW
+ *  2. MOBILE MENU TOGGLE
+ *  3. SCROLL ANIMATIONS  (Fade-up on scroll)
+ *  4. HERO CAROUSEL
+ *  5. TAB SWITCHING      (Parents / Teachers)
+ *  6. PRODUCT SCROLL     (Horizontal product rows + Category carousel)
+ *  7. TESTIMONIAL CAROUSEL
+ *  8. WISHLIST TOGGLE
+ *  9. PRODUCT CATALOG
+ *     9a. Raw product data (TSV)
+ *     9b. Filter metadata  (interests, subjects, classes)
+ *     9c. Product parser
+ *     9d. Render / filter / sort
+ * 10. PRODUCT MODAL
+ * 11. SIDEBAR (Filter panel toggle)
  * =============================================================================
  */
 
-// URL CLEANUP: Strip .html from the address bar
-(function() {
-  if (window.location.pathname.endsWith('.html')) {
-    const cleanUrl = window.location.pathname.replace(/\.html$/, '') + window.location.search + window.location.hash;
-    window.history.replaceState({}, document.title, cleanUrl);
-  }
-})();
-
-
 // API Configuration
-const API_BASE_URL = 'https://mindfuels-backend-aopx.onrender.com/api'; // Correct Render URL
+const API_BASE_URL = 'https://mindfuels-backend.onrender.com/api'; // REPLACE THIS with your Render URL
 // const API_BASE_URL = 'http://localhost:5000/api'; 
 let catalogProducts = [];
 
 
-/* ─────────────────────────────────────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    1. STICKY HEADER SHADOW
    Adds / removes a CSS class on the header as the user scrolls.
-───────────────────────────────────────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 const header = document.getElementById('header');
 
@@ -32,31 +42,41 @@ window.addEventListener('scroll', () => {
 
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   2. MOBILE NAVIGATION DRAWER & ACCORDION
+   2. MOBILE NAVIGATION (APPLE STYLE)
 ───────────────────────────────────────────────────────────────────────────── */
 
-const hamburgerBtn = document.getElementById('hamburgerBtn');
-const mobileDrawer = document.getElementById('mobileDrawer');
-const mobileOverlay = document.getElementById('mobileOverlay');
-const closeDrawerBtn = document.getElementById('closeDrawer');
-
-if (hamburgerBtn && mobileDrawer && mobileOverlay && closeDrawerBtn) {
-  function openDrawer() {
-    mobileDrawer.classList.add('active');
-    mobileOverlay.classList.add('active');
-    document.body.style.overflow = 'hidden'; // Prevent background scrolling
-  }
-
-  function closeDrawer() {
-    mobileDrawer.classList.remove('active');
-    mobileOverlay.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-
-  hamburgerBtn.addEventListener('click', openDrawer);
-  closeDrawerBtn.addEventListener('click', closeDrawer);
-  mobileOverlay.addEventListener('click', closeDrawer);
+function openMenu() {
+  const nav = document.getElementById('mainNav');
+  const hamburger = document.getElementById('hamburgerBtn');
+  const overlay = document.getElementById('navOverlay');
+  
+  if (nav) nav.classList.add('open');
+  if (hamburger) hamburger.classList.add('active');
+  if (overlay) overlay.classList.add('active');
+  
+  document.body.style.overflow = 'hidden';
 }
+
+function closeMenu() {
+  const nav = document.getElementById('mainNav');
+  const hamburger = document.getElementById('hamburgerBtn');
+  const overlay = document.getElementById('navOverlay');
+  
+  if (nav) nav.classList.remove('open');
+  if (hamburger) hamburger.classList.remove('active');
+  if (overlay) overlay.classList.remove('active');
+  
+  document.body.style.overflow = '';
+}
+
+function forceCloseAll() {
+  closeMenu();
+  const searchPopup = document.getElementById('searchPopUp');
+  if (searchPopup) searchPopup.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+window.addEventListener('load', forceCloseAll);
 
 // Accordion Logic inside Drawer
 const accordions = document.querySelectorAll('.accordion-head');
@@ -77,15 +97,16 @@ accordions.forEach(acc => {
   });
 });
 
-/* ─────────────────────────────────────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    MOBILE FILTER BOTTOM SHEET
-───────────────────────────────────────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const mobileFilterBtn = document.getElementById('mobileFilterBtn');
 const filterSheet = document.getElementById('filterSheet');
 const filterOverlay = document.getElementById('filterOverlay');
 const closeFilterSheet = document.getElementById('closeFilterSheet');
 
 if (mobileFilterBtn && filterSheet && filterOverlay && closeFilterSheet) {
+  mobileFilterBtn._fBound = true;
   window.openFilterSheet = function() {
     filterSheet.classList.add('active');
     filterOverlay.classList.add('active');
@@ -103,6 +124,19 @@ if (mobileFilterBtn && filterSheet && filterOverlay && closeFilterSheet) {
   filterOverlay.addEventListener('click', window.closeSheet);
 }
 
+// Fallback: re-bind filter on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function() {
+  var btn = document.getElementById('mobileFilterBtn');
+  var sheet = document.getElementById('filterSheet');
+  var overlay = document.getElementById('filterOverlay');
+  var cls = document.getElementById('closeFilterSheet');
+  if (btn && sheet && overlay && cls && !btn._fBound) {
+    btn._fBound = true;
+    btn.addEventListener('click', function() { sheet.classList.add('active'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; });
+    cls.addEventListener('click', function() { sheet.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = ''; });
+    overlay.addEventListener('click', function() { sheet.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = ''; });
+  }
+});
 // Mobile Sort Button logic
 const mobileSortBtn = document.getElementById('mobileSortBtn');
 if (mobileSortBtn) {
@@ -116,11 +150,11 @@ if (mobileSortBtn) {
 }
 
 
-/* ─────────────────────────────────────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    3. SCROLL ANIMATIONS  (Fade-up on scroll)
    Uses IntersectionObserver to trigger a .visible class when elements
    with the class .fade-up enter the viewport.
-───────────────────────────────────────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 const fadeElements = document.querySelectorAll('.fade-up');
 
@@ -139,10 +173,10 @@ const observer = new IntersectionObserver(
 fadeElements.forEach(el => observer.observe(el));
 
 
-/* ─────────────────────────────────────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    4. HERO CAROUSEL
    Auto-plays every 4 s, pauses on hover, and supports touch / swipe.
-───────────────────────────────────────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 let currentSlide = 0;
 const totalSlides = document.querySelectorAll('.hero-slide').length;
@@ -196,10 +230,10 @@ if (heroSection) {
 }
 
 
-/* ─────────────────────────────────────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    5. TAB SWITCHING  (Parents / Teachers)
    Shows the correct product section and marks the active tab button.
-───────────────────────────────────────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 function switchTab(tab) {
   const parentsProducts = document.getElementById('parentsProducts');
@@ -215,10 +249,10 @@ function switchTab(tab) {
 }
 
 
-/* ─────────────────────────────────────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    6. PRODUCT SCROLL  (Horizontal rows + Category carousel)
-   Clones children 3× so scrolling loops seamlessly.
-───────────────────────────────────────────────────────────────────────────── */
+   Clones children 3Ã— so scrolling loops seamlessly.
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 /**
  * Scroll a product row left (-1) or right (+1).
@@ -231,7 +265,7 @@ function scrollProducts(scrollId, direction) {
   const scrollAmount = 480;
   container.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
 
-  // Seamless infinite wrap — re-centre in the middle clone after scroll settles
+  // Seamless infinite wrap â€” re-centre in the middle clone after scroll settles
   setTimeout(() => {
     const oneSetWidth = container.scrollWidth / 3;
     const tooFarLeft = container.scrollLeft < oneSetWidth / 2;
@@ -289,21 +323,21 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-/* ─────────────────────────────────────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    7. TESTIMONIAL CAROUSEL
    Renders video testimonial cards, auto-scrolls, and handles video play/pause.
-───────────────────────────────────────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 const testimonialData = [
-  { video: "videos/vid1.mp4", quote: "A full year of constructive engagement packed into one pad—giving parents their time back and kids their focus", rot: 1 },
-  { video: "videos/vid2.mp4", quote: "Building a community of readers, one visit at a time, through a collection that’s as diverse as the people who visit us.", rot: 2 },
+  { video: "videos/vid1.mp4", quote: "A full year of constructive engagement packed into one padâ€”giving parents their time back and kids their focus", rot: 1 },
+  { video: "videos/vid2.mp4", quote: "Building a community of readers, one visit at a time, through a collection thatâ€™s as diverse as the people who visit us.", rot: 2 },
   { video: "videos/vid3.mp4", quote: "Big worlds from the little dreamers.", rot: 3 },
   { video: "videos/vid4.mp4", quote: "The ultimate travel companion: keeping kids constructively engaged from takeoff to landing.", rot: 1 },
-  { video: "videos/vid5.mp4", quote: "Trusted by educators and proven in the classroom; take the challenge and see the impact on your child’s progress for yourself.", rot: 2 },
+  { video: "videos/vid5.mp4", quote: "Trusted by educators and proven in the classroom; take the challenge and see the impact on your childâ€™s progress for yourself.", rot: 2 },
   { video: "videos/vid6.mp4", quote: "The head start they need to lead the class.", rot: 3 },
-  { video: "videos/vid7.mp4", quote: "The ultimate exam-day advantage: our worksheets align so closely with the syllabus that they’ve become the go-to secret for top marks.", rot: 1 },
-  { video: "videos/vid8.mp4", quote: "More than just a purchase, it’s a three-year partnership in learning; delivering the practical tools kids need to turn lessons into life skills.", rot: 2 },
-  { video: "videos/vid9.mp4", quote: "Building the ultimate foundation in Math and English with practice that’s perfectly sized for small hands and big minds.", rot: 3 },
+  { video: "videos/vid7.mp4", quote: "The ultimate exam-day advantage: our worksheets align so closely with the syllabus that theyâ€™ve become the go-to secret for top marks.", rot: 1 },
+  { video: "videos/vid8.mp4", quote: "More than just a purchase, itâ€™s a three-year partnership in learning; delivering the practical tools kids need to turn lessons into life skills.", rot: 2 },
+  { video: "videos/vid9.mp4", quote: "Building the ultimate foundation in Math and English with practice thatâ€™s perfectly sized for small hands and big minds.", rot: 3 },
   { video: "videos/vid10.mp4", quote: "Approved by the classroom and chosen by the child.", rot: 1 },
   { video: "videos/vid11.mp4", quote: "Six years of making memories out of milestones - delivering a wonderful variety of resources to our loyal community", rot: 2 },
 ];
@@ -410,10 +444,10 @@ if (testimonialTrack) {
 }
 
 
-/* ─────────────────────────────────────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    8. WISHLIST TOGGLE
    Toggles the heart icon between hollow ♡ and filled ♥.
-───────────────────────────────────────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 let wishlist = JSON.parse(localStorage.getItem('mindfuels_wishlist')) || [];
 
@@ -464,8 +498,8 @@ window.loadUserWishlist = async function loadUserWishlist() {
 
 window.toggleWishlist = async function (btn, productId) {
   if (!window.isUserLoggedIn) {
-    alert("Please sign in to add products to your wishlist.");
-    window.location.href = 'login';
+    if (typeof window.showToast === 'function') window.showToast("Please sign in to add products to your wishlist.", "error");
+    setTimeout(() => window.location.href = "login.html", 1500);
     return;
   }
 
@@ -520,14 +554,14 @@ window.toggleModalWishlist = function (btn) {
 };
 
 
-/* ─────────────────────────────────────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    9. PRODUCT CATALOG
-───────────────────────────────────────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
-/* ── 9a. Product data is now loaded from data.js ── */
+/* â”€â”€ 9a. Product data is now loaded from data.js â”€â”€ */
 
 
-/* ── 9d. Render / filter / sort ─────────────────────────────────────────── */
+/* â”€â”€ 9d. Render / filter / sort â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 /**
  * Read all active filters from the sidebar and re-render the product grid.
@@ -618,21 +652,37 @@ function renderProducts() {
 
   // Render
   if (filtered.length === 0) {
-    grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:40px;color:#888;font-size:18px;">No products found matching your criteria.</p>';
+    grid.innerHTML = `
+      <div class="empty-state" style="grid-column: 1 / -1;">
+        <div class="empty-state-icon" style="background: linear-gradient(135deg, #f1f5f9, #e2e8f0); border: 2px solid #cbd5e1;">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="M21 21l-4.3-4.3"></path>
+          </svg>
+        </div>
+        <h2>No Products Found</h2>
+        <p>We couldn't find any items matching your current filters or search query.</p>
+        <button onclick="window.location.href='products.html'" class="btn-primary" style="margin-top:20px; display:inline-flex; padding: 14px 32px; border-radius: 30px; text-decoration: none; color: #1e293b; font-weight: 600; box-shadow: 0 4px 15px var(--primary-glow); transition: all 0.3s ease; border:none; cursor:pointer;">Clear All Filters</button>
+      </div>
+    `;
     return;
   }
 
   const currentCart = JSON.parse(localStorage.getItem('mindfuels_cart')) || [];
 
   grid.innerHTML = filtered.map(p => {
-    const discountPercent = Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100);
+    let discountPercent = 0;
+    if (p.originalPrice && p.price && p.originalPrice > p.price) {
+      discountPercent = Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100);
+    }
     const showBadge = discountPercent > 0;
+    const imgUrl = (p.images && p.images.length > 0) ? p.images[0] : 'photos/logo.png';
 
     return `
       <div class="product-card" onclick="window.openModalById('${p.id}')" itemscope itemtype="https://schema.org/Product">
         <meta itemprop="description" content="${(p.description || p.name).replace(/"/g, '&quot;')}">
         <div class="product-img">
-          <img src="${p.images[0]}" alt="${p.name}" itemprop="image" loading="lazy">
+          <img src="${imgUrl}" alt="${p.name}" itemprop="image" loading="lazy" class="img-blur-up" onload="this.classList.add('img-loaded')">
           ${showBadge ? `<span class="product-badge">${discountPercent}% OFF</span>` : ''}
           <button class="product-wishlist" aria-label="Wishlist" data-product-id="${p.id}"
                   style="color: ${wishlist.includes(p.id) ? '#F93549' : ''};"
@@ -644,9 +694,9 @@ function renderProducts() {
           <div class="product-name" itemprop="name">${p.name}</div>
           <div class="product-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
             <meta itemprop="priceCurrency" content="INR">
-            <span class="price-current" itemprop="price" content="${p.price}">₹${p.price}</span>
+            <span class="price-current" itemprop="price" content="${p.price}">\u20B9${p.price}</span>
             ${showBadge ? `
-              <span class="price-original">₹${p.originalPrice}</span>
+              <span class="price-original">\u20B9${p.originalPrice}</span>
               <span class="price-discount">(${discountPercent}% OFF)</span>
             ` : ''}
           </div>
@@ -677,12 +727,6 @@ window.updatePriceDisplaySheet = function (val) {
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.filter-list input[type="checkbox"]').forEach(cb => {
     cb.addEventListener('change', (e) => {
-      // Enforce global single-selection
-      if (e.target.checked) {
-        document.querySelectorAll('.filter-list input[type="checkbox"]').forEach(otherCb => {
-          if (otherCb !== e.target) otherCb.checked = false;
-        });
-      }
       renderProducts();
       window.scrollTo(0, 0);
     });
@@ -798,8 +842,15 @@ async function loadProducts() {
     renderHomeBestsellers();
   } catch (err) {
     console.error('Failed to load products from API:', err);
-    // If API fails, we could fallback to local data if needed, 
-    // or show an error state.
+    // FALLBACK for local development / CORS issues
+    catalogProducts = [
+      { id: 1, name: "The Magical Forest", price: 299, images: ["photos/1-story-book.jpeg"], subject: "English", interest: "Story Books", ageGroup: "Early Foundation" },
+      { id: 2, name: "Math Adventures", price: 349, images: ["photos/2-activity-book.jpeg"], subject: "Mathematics", interest: "Activity Books", ageGroup: "Kindergarten" },
+      { id: 3, name: "Creative Writing", price: 199, images: ["photos/3-subject-book.jpeg"], subject: "English", interest: "Calligraphy & Cursive", ageGroup: "Lower Primary" },
+      { id: 4, name: "Science Quest", price: 450, images: ["photos/4-worksheet.jpeg"], subject: "Science & Computer", interest: "All-in-One", ageGroup: "Middle School" }
+    ];
+    renderProducts();
+    renderHomeBestsellers();
   }
 }
 
@@ -824,50 +875,93 @@ window.toggleSidebar = function () {
 };
 
 window.toggleSearchInput = function () {
-  const wrapper = document.getElementById('navSearchWrapper');
-  const input = document.getElementById('searchInput');
-  if (wrapper) {
-    wrapper.classList.toggle('open');
-    if (wrapper.classList.contains('open') && input) {
-      input.focus();
-    } else if (input && input.value.trim() !== '') {
-      input.value = '';
-      hideSearchSuggestions();
-      if (window.renderProducts) renderProducts();
+  const overlay = document.getElementById('searchOverlay');
+  if (overlay) {
+    toggleSearchOverlay();
+  } else {
+    // Fallback to old behavior if overlay doesn't exist (unlikely)
+    const wrapper = document.getElementById('navSearchWrapper');
+    const input = document.getElementById('searchInput');
+    if (wrapper) {
+      wrapper.classList.toggle('open');
+      if (wrapper.classList.contains('open') && input) {
+        input.focus();
+      } else if (input && input.value.trim() !== '') {
+        input.value = '';
+        hideSearchSuggestions();
+        if (window.renderProducts) renderProducts();
+      }
     }
   }
 };
 
-/** Show search suggestions dropdown */
-window.showSearchSuggestions = function (query) {
-  const dropdown = document.getElementById('searchSuggestions');
+window.toggleSearchOverlay = function () {
+  const overlay = document.getElementById('searchOverlay');
+  const input = document.getElementById('overlaySearchInput');
+  const trending = document.getElementById('trendingSearches');
+  const results = document.getElementById('overlaySearchSuggestions');
+
+  if (overlay) {
+    const isActive = overlay.classList.toggle('active');
+    if (isActive) {
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => input && input.focus(), 300);
+      if (trending) trending.style.display = 'block';
+      if (results) results.style.display = 'block';
+    } else {
+      document.body.style.overflow = '';
+      if (input) input.value = '';
+    }
+  }
+};
+
+window.overlaySearch = function(query) {
+  const input = document.getElementById('overlaySearchInput');
+  if (input) {
+    input.value = query;
+    window.showSearchSuggestions(query, 'overlaySearchSuggestions');
+  }
+}
+
+window.showSearchSuggestions = function (query, targetId = 'searchSuggestions') {
+  const dropdown = document.getElementById(targetId);
   if (!dropdown) return;
 
+  const resultList = document.getElementById('searchResultList');
+  const trending = document.getElementById('trendingSearches');
+  const container = resultList || dropdown;
+
   query = (query || '').toLowerCase().trim();
-  if (!query || query.length < 2 || !catalogProducts || catalogProducts.length === 0) {
-    dropdown.innerHTML = '';
-    dropdown.style.display = 'none';
+  
+  if (!query) {
+    container.innerHTML = '';
+    if (trending) trending.style.display = 'block';
+    dropdown.style.display = (targetId === 'searchSuggestions') ? 'none' : 'block';
     return;
   }
+  
+  if (trending) trending.style.display = 'none';
+
+  if (!catalogProducts || catalogProducts.length === 0) return;
 
   const matches = catalogProducts.filter(p => {
     const haystack = [p.name, p.description, p.subject, p.interest, p.ageGroup]
       .filter(Boolean).join(' ').toLowerCase();
     return haystack.includes(query);
-  }).slice(0, 6);
+  }).slice(0, 8);
 
   if (matches.length === 0) {
-    dropdown.innerHTML = '<div class="search-suggestion-item no-result">No results found</div>';
+    container.innerHTML = '<div class="search-suggestion-item no-result">No results found</div>';
     dropdown.style.display = 'block';
     return;
   }
 
-  dropdown.innerHTML = matches.map(p => `
+  container.innerHTML = matches.map(p => `
     <div class="search-suggestion-item" onclick="selectSearchSuggestion('${p.name.replace(/'/g, "\\'")}')">
-      <img src="${p.images && p.images[0] ? p.images[0] : ''}" alt="" class="suggestion-img">
+      <img src="${p.images && p.images[0] ? p.images[0] : 'photos/logo.png'}" alt="" class="suggestion-img">
       <div class="suggestion-info">
         <div class="suggestion-name">${p.name}</div>
-        <div class="suggestion-price">₹${p.price}</div>
+        <div class="suggestion-price">\u20B9${p.price}</div>
       </div>
     </div>
   `).join('');
@@ -882,19 +976,18 @@ window.hideSearchSuggestions = function () {
 };
 
 window.selectSearchSuggestion = function (name) {
-  const input = document.getElementById('searchInput');
-  if (input) {
-    input.value = name;
-    // If we're on the products page (which has productGrid), filter in-place; otherwise navigate to it
-    const grid = document.getElementById('productGrid');
-    if (grid) {
-      if (window.renderProducts) renderProducts();
-    } else {
-      window.location.href = 'products?search=' + encodeURIComponent(name);
-      return;
-    }
-    hideSearchSuggestions();
-  }
+  const overlayInput = document.getElementById('overlaySearchInput');
+  const navInput = document.getElementById('searchInput');
+  
+  if (overlayInput) overlayInput.value = name;
+  if (navInput) navInput.value = name;
+  
+  // Navigate to products with search query
+  window.location.href = 'products.html?search=' + encodeURIComponent(name);
+  
+  hideSearchSuggestions();
+  const overlay = document.getElementById('searchOverlay');
+  if (overlay) overlay.classList.remove('active');
 };
 
 // Close suggestions on outside click
@@ -918,14 +1011,18 @@ function renderHomeBestsellers() {
   const wishlist = JSON.parse(localStorage.getItem('mindfuels_wishlist')) || [];
 
   function makeCard(p) {
-    const discountPercent = Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100);
+    let discountPercent = 0;
+    if (p.originalPrice && p.price && p.originalPrice > p.price) {
+      discountPercent = Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100);
+    }
     const showBadge = discountPercent > 0;
+    const imgUrl = (p.images && p.images.length > 0) ? p.images[0] : 'photos/logo.png';
 
     return `
       <div class="product-card bs-product-card" onclick="window.openModalById('${p.id}')" itemscope itemtype="https://schema.org/Product">
         <meta itemprop="description" content="${(p.description || p.name).replace(/"/g, '&quot;')}">
         <div class="product-img">
-          <img src="${p.images[0]}" alt="${p.name}" itemprop="image" loading="lazy">
+          <img src="${imgUrl}" alt="${p.name}" itemprop="image" loading="lazy">
           ${showBadge ? `<span class="product-badge">${discountPercent}% OFF</span>` : ''}
           <button class="product-wishlist" aria-label="Wishlist" data-product-id="${p.id}"
                   style="color: ${wishlist.includes(p.id) ? '#F93549' : ''};"
@@ -937,9 +1034,9 @@ function renderHomeBestsellers() {
           <div class="product-name" itemprop="name">${p.name}</div>
           <div class="product-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
             <meta itemprop="priceCurrency" content="INR">
-            <span class="price-current" itemprop="price" content="${p.price}">₹${p.price}</span>
+            <span class="price-current" itemprop="price" content="${p.price}">\u20B9${p.price}</span>
             ${showBadge ? `
-              <span class="price-original">₹${p.originalPrice}</span>
+              <span class="price-original">\u20B9${p.originalPrice}</span>
               <span class="price-discount">(${discountPercent}% OFF)</span>
             ` : ''}
           </div>
@@ -979,10 +1076,10 @@ function renderHomeBestsellers() {
 }
 
 
-/* ─────────────────────────────────────────────────────────────────────────────
+/* ——————————————————————————————————————————————————————————————————————————————————————————————————
    10. PRODUCT MODAL
    Opens a detail popup for a product with image gallery, price, and description.
-───────────────────────────────────────────────────────────────────────────── */
+—————————————————————————————————————————————————————————————————————————————————————————————————— */
 
 let currentModalImages = [];
 let currentImageIndex = 0;
@@ -1005,14 +1102,14 @@ window.openModal = function (product) {
   currentImageIndex = 0;
 
   document.getElementById('modalProductName').innerText = product.name;
-  document.getElementById('modalPrice').innerText = '₹' + product.price;
+  document.getElementById('modalPrice').innerText = '\u20B9' + product.price;
 
   const originalPriceEl = document.getElementById('modalOriginalPrice');
   const discountEl = document.getElementById('modalDiscount');
   const discountPercent = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
 
   if (discountPercent > 0) {
-    originalPriceEl.innerText = '₹' + product.originalPrice;
+    originalPriceEl.innerText = '\u20B9' + product.originalPrice;
     originalPriceEl.style.display = 'inline-block';
     discountEl.innerText = discountPercent + '% OFF';
     discountEl.style.display = 'inline-block';
@@ -1116,9 +1213,9 @@ function renderThumbnails() {
 }
 
 
-/* ─────────────────────────────────────────────────────────────────────────────
+/* ——————————————————————————————————————————————————————————————————————————————————————————————————
    11. SIDEBAR  (Filter panel toggle)
-───────────────────────────────────────────────────────────────────────────── */
+—————————————————————————————————————————————————————————————————————————————————————————————————— */
 
 /** Open the sidebar if closed, close it if open. */
 window.toggleSidebar = function () {
@@ -1137,10 +1234,10 @@ window.closeSidebar = function () {
 };
 
 
-/* ─────────────────────────────────────────────────────────────────────────────
+/* ——————————————————————————————————————————————————————————————————————————————————————————————————
    12. CART MANAGEMENT
    Handles adding to cart and persisting to localStorage.
-───────────────────────────────────────────────────────────────────────────── */
+—————————————————————————————————————————————————————————————————————————————————————————————————— */
 
 let cart = JSON.parse(localStorage.getItem('mindfuels_cart')) || [];
 
@@ -1186,8 +1283,8 @@ window.syncItemToBackend = async function syncItemToBackend(productId, absoluteQ
 /** Add to cart directly from product card (without opening modal) */
 window.addToCartFromCard = function (productId) {
   if (!window.isUserLoggedIn) {
-    alert('Please sign in to add items to your cart.');
-    window.location.href = 'login';
+    if (typeof window.showToast === 'function') window.showToast('Please sign in to add items to your cart.', 'error');
+    setTimeout(() => window.location.href = 'login.html', 1500);
     return;
   }
   const product = catalogProducts.find(p => p.id == productId);
@@ -1281,29 +1378,23 @@ window.renderModalCartActions = function () {
 
   if (existing) {
     container.innerHTML = `
-      <div class="qty-selector">
-        <button class="qty-btn" onclick="changeModalQty(-1)">−</button>
-        <div class="qty-text">
-          ${existing.qty}
-          <span>In Cart</span>
-        </div>
-        <button class="qty-btn" onclick="changeModalQty(1)">+</button>
+      <div class="qty-selector" style="width: 100%; display: flex; justify-content: space-between; align-items: center; background: #F9A826; border-radius: var(--radius-pill); height: 50px; padding: 0;">
+        <button class="qty-btn" style="flex:1; height: 100%; font-size: 24px; color: #fff; background: transparent; border: none; cursor: pointer; border-top-left-radius: var(--radius-pill); border-bottom-left-radius: var(--radius-pill);" onclick="changeModalQty(-1)">−</button>
+        <span style="flex: 2; text-align: center; font-weight: 700; font-size: 18px; color: #fff;">${existing.qty} in cart</span>
+        <button class="qty-btn" style="flex:1; height: 100%; font-size: 24px; color: #fff; background: transparent; border: none; cursor: pointer; border-top-right-radius: var(--radius-pill); border-bottom-right-radius: var(--radius-pill);" onclick="changeModalQty(1)">+</button>
       </div>
     `;
   } else {
     container.innerHTML = `
-      <button class="add-to-cart-btn" onclick="addToCartModal(this)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-        ADD TO CART
-      </button>
+      <button class="add-to-cart-btn" style="width: 100%; background-color: #F9A826; color: #fff; border: none; border-radius: var(--radius-pill); font-size: 16px; padding: 15px; font-weight: 700; cursor: pointer; text-transform: uppercase;" onclick="addToCartModal(this)">ADD TO CART</button>
     `;
   }
 };
 
 window.addToCartModal = function () {
   if (!window.isUserLoggedIn) {
-    alert("Please sign in to add items to your cart.");
-    window.location.href = 'login';
+    if (typeof window.showToast === 'function') window.showToast("Please sign in to add items to your cart.", "error");
+    setTimeout(() => window.location.href = "login.html", 1500);
     return;
   }
   let currentCart = JSON.parse(localStorage.getItem('mindfuels_cart')) || [];
@@ -1343,8 +1434,8 @@ window.changeModalQty = function (delta) {
 
 window.addToCart = function (btnElem) {
   if (!window.isUserLoggedIn) {
-    alert("Please sign in to add items to your cart.");
-    window.location.href = 'login';
+    if (typeof window.showToast === 'function') window.showToast("Please sign in to add items to your cart.", "error");
+    setTimeout(() => window.location.href = "login.html", 1500);
     return;
   }
 
@@ -1387,22 +1478,30 @@ window.addToCart = function (btnElem) {
 
 // Wishlist Dropdown Logic
 window.updateWishlistDropdown = function () {
-  const badge = document.getElementById('wishlistBadge');
+  const badges = document.querySelectorAll('.wishlist-badge');
   const dropdown = document.getElementById('wishlistDropdown');
-  if (!dropdown) return;
+  if (!dropdown) {
+    // If no dropdown, we still update badges if they exist
+    const wishlist = JSON.parse(localStorage.getItem('mindfuels_wishlist')) || [];
+    badges.forEach(badge => {
+      badge.innerText = wishlist.length;
+      badge.style.display = wishlist.length === 0 ? 'none' : 'flex';
+    });
+    return;
+  }
 
-  wishlist = JSON.parse(localStorage.getItem('mindfuels_wishlist')) || [];
+  const wishlist = JSON.parse(localStorage.getItem('mindfuels_wishlist')) || [];
 
   if (wishlist.length === 0) {
-    if (badge) badge.style.display = 'none';
+    badges.forEach(badge => badge.style.display = 'none');
     dropdown.innerHTML = '<div class="wishlist-empty">Your wishlist is empty.</div>';
     return;
   }
 
-  if (badge) {
+  badges.forEach(badge => {
     badge.innerText = wishlist.length;
     badge.style.display = 'flex';
-  }
+  });
 
   let html = '';
   wishlist.forEach((id) => {
@@ -1416,7 +1515,7 @@ window.updateWishlistDropdown = function () {
         <img src="${imageUrl}" class="wishlist-item-img" alt="${product.name}">
         <div class="wishlist-item-info">
           <div class="wishlist-item-title">${product.name}</div>
-          <div class="wishlist-item-price">₹${product.price ? product.price.toLocaleString('en-IN') : ''}</div>
+          <div class="wishlist-item-price">\u20B9${product.price ? product.price.toLocaleString('en-IN') : ''}</div>
         </div>
         <div class="wishlist-item-btn-group" style="display: flex; align-items: center; gap: 8px;">
           <button class="wishlist-move-btn" onclick="moveToCartFromWishlist('${product.id}', event)" aria-label="Move to cart" title="Move to Cart">
@@ -1442,8 +1541,8 @@ window.moveToCartFromWishlist = function (productId, e) {
   if (!product) return;
 
   if (!window.isUserLoggedIn) {
-    alert("Please sign in to add items to your cart.");
-    window.location.href = 'login';
+    if (typeof window.showToast === 'function') window.showToast("Please sign in to add items to your cart.", "error");
+    setTimeout(() => window.location.href = "login.html", 1500);
     return;
   }
 
@@ -1561,5 +1660,188 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+/* ============================================================
+   TOAST NOTIFICATIONS
+   ============================================================ */
+window.showToast = function(message, type = 'info') {
+  let container = document.getElementById('toast-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'toast-container';
+    document.body.appendChild(container);
+  }
 
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
 
+  let icon = '';
+  if (type === 'success') icon = '✓ ';
+  if (type === 'error') icon = '✕ ';
+  if (type === 'info') icon = 'â„¹ ';
+
+  toast.innerHTML = `<span>${icon}</span> <span>${message}</span>`;
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    toast.classList.add('toast-closing');
+    toast.addEventListener('animationend', () => toast.remove());
+  }, 3000);
+};
+
+/* Override native alert to use toast dynamically if possible */
+const originalAlert = window.alert;
+window.alert = function(message) {
+  if (typeof message === 'string' && message.toLowerCase().includes('error')) {
+    window.showToast(message, 'error');
+  } else if (typeof message === 'string' && message.toLowerCase().includes('success')) {
+    window.showToast(message, 'success');
+  } else {
+    window.showToast(message, 'info');
+  }
+};
+
+/* ============================================================
+   DARK MODE
+   ============================================================ */
+function initTheme() {
+  const savedTheme = localStorage.getItem('mindfuels_theme');
+  if (savedTheme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  } else if (savedTheme === 'light') {
+    document.documentElement.removeAttribute('data-theme');
+  } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+}
+initTheme();
+
+window.toggleTheme = function() {
+  if (document.documentElement.getAttribute('data-theme') === 'dark') {
+    document.documentElement.removeAttribute('data-theme');
+    localStorage.setItem('mindfuels_theme', 'light');
+  } else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    localStorage.setItem('mindfuels_theme', 'dark');
+  }
+};
+
+/* ============================================================
+   3D TILT EFFECT FOR PRODUCT CARDS
+   ============================================================ */
+document.addEventListener('mousemove', (e) => {
+  if (window.innerWidth < 1024) return;
+  const card = e.target.closest('.product-card');
+  if (!card) return;
+  
+  const rect = card.getBoundingClientRect();
+  const x = e.clientX - rect.left; // x position within the element.
+  const y = e.clientY - rect.top;  // y position within the element.
+  
+  const centerX = rect.width / 2;
+  const centerY = rect.height / 2;
+  
+  const rotateX = ((y - centerY) / centerY) * -5; // max 5 deg
+  const rotateY = ((x - centerX) / centerX) * 5;  // max 5 deg
+  
+  card.style.transform = `translateY(-5px) scale(1.02) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+});
+
+document.addEventListener('mouseout', (e) => {
+  if (window.innerWidth < 1024) return;
+  const card = e.target.closest('.product-card');
+  if (!card) return;
+  // If moving out of the card, reset it
+  if (!card.contains(e.relatedTarget)) {
+    card.style.transform = '';
+  }
+});
+
+/* ============================================================
+   INTELLIGENT PREFETCHING
+   ============================================================ */
+function initPrefetcher() {
+  const prefetchCache = new Set();
+  
+  function prefetchUrl(url) {
+    if (prefetchCache.has(url)) return;
+    prefetchCache.add(url);
+    
+    const link = document.createElement('link');
+    link.rel = 'prefetch';
+    link.href = url;
+    document.head.appendChild(link);
+  }
+
+  document.addEventListener('mouseover', (e) => {
+    const target = e.target.closest('a');
+    if (!target || !target.href) return;
+    
+    const url = target.href;
+    // Only prefetch internal HTTP(S) links
+    if (url.startsWith(window.location.origin) && !url.includes('#')) {
+      // Small timeout to prevent accidental hover prefetching
+      target.prefetchTimeout = setTimeout(() => {
+        prefetchUrl(url);
+      }, 50);
+    }
+  });
+
+  document.addEventListener('mouseout', (e) => {
+    const target = e.target.closest('a');
+    if (target && target.prefetchTimeout) {
+      clearTimeout(target.prefetchTimeout);
+    }
+  });
+}
+
+// Initialize prefetcher on load
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initPrefetcher);
+} else {
+  initPrefetcher();
+}
+
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   PINCODE CHECKER LOGIC
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+window.checkPincode = function() {
+  const pincode = document.getElementById('pincodeInput').value;
+  const resultDiv = document.getElementById('pincodeResult');
+  
+  if (!pincode || pincode.length !== 6 || isNaN(pincode)) {
+    resultDiv.innerHTML = '<span class="error">Please enter a valid 6-digit pincode.</span>';
+    return;
+  }
+
+  resultDiv.innerHTML = 'Checking...';
+  
+  // Simulate API call
+  setTimeout(() => {
+    // Basic simulation: if pincode starts with 1-4, it's deliverable
+    const deliverable = ['1', '2', '3', '4'].includes(pincode[0]);
+    if (deliverable) {
+      resultDiv.innerHTML = '<span class="success">✓ Fast Delivery available to ' + pincode + '. Estimated delivery: 3-5 days.</span>';
+    } else {
+      resultDiv.innerHTML = '<span class="success">✓ Delivery available to ' + pincode + '. Estimated delivery: 5-7 days.</span>';
+    }
+  }, 1000);
+}
+
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   FOOTER ACCORDION ON MOBILE
+   Clicking a footer column heading toggles its link list open/closed.
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.innerWidth <= 768) {
+    document.querySelectorAll('.footer-col h4').forEach(heading => {
+      heading.addEventListener('click', () => {
+        const col = heading.parentElement;
+        // Close other columns
+        document.querySelectorAll('.footer-col').forEach(other => {
+          if (other !== col) other.classList.remove('open');
+        });
+        col.classList.toggle('open');
+      });
+    });
+  }
+});
