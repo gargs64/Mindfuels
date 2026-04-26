@@ -657,6 +657,15 @@ input {
   margin-top: 60px; /* Aligned with header height */
   overflow: hidden;
   background-color: #fff;
+  display: block;
+  min-height: 100px;
+}
+
+.hero-static-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
 }
 
 .hero-static-img {
@@ -4485,7 +4494,7 @@ body.no-scroll {
   }
 
   /* Prevent hero/banner overlap */
-  .hero, .products-hero, .product-header-banner {
+  .hero, .hero-simple, .products-hero, .product-header-banner {
     margin-top: 60px !important;
   }
   
