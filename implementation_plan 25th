@@ -1,0 +1,75 @@
+# Implementation Plan: Enhancements & Fixes
+
+This plan outlines the changes to elevate the homepage's premium feel, fix the product filtering logic, update the mobile navbar, remove the delivery checker, and address the newly identified product modal errors (currency encoding and layout).
+
+## User Review Required
+
+> [!IMPORTANT]
+> **Filter Logic Change:** The current filter logic enforces "global single-selection" (you can only select *one* filter across the entire sidebar). The plan is to remove this restriction, enabling **multi-selection** (e.g., selecting "English" AND "Class 1" AND "Story Books" simultaneously). 
+> 
+> **Navbar Search Replacement:** On the homepage (`index.html`) mobile view, the magnifying glass search icon will be replaced with a "Shop" icon linking directly to `products.html`. On `products.html`, the search icon will remain so users can still search.
+
+## Proposed Changes
+
+### 1. Product Info Pop-Up Fixes (Encoding & Layout)
+Address the layout bug where "Add to Cart" appears in the wrong place and the currency symbol renders as `â,¹`.
+
+#### [MODIFY] [script.js](file:///d:/Projects/mindfuels-master/script.js)
+- Fix the currency symbol encoding by replacing the corrupted `',1'` string with the standard Unicode Indian Rupee symbol (`\u20B9`).
+- Delete the `<div class="pincode-checker">` block from the dynamic HTML template string used to render the modal.
+- Remove the `window.checkPincode` function and its associated logic.
+
+#### [MODIFY] [index.html](file:///d:/Projects/mindfuels-master/index.html)
+- Sync the modal HTML structure with `products.html` by wrapping `#modalCartActions` in `<div class="modal-actions-bar">`. This ensures the sticky "Add to Cart" CSS styling applies correctly on mobile, preventing layout breakages.
+- Delete the `<div class="pincode-checker">` block.
+
+#### [MODIFY] [products.html](file:///d:/Projects/mindfuels-master/products.html)
+- Delete the `<div class="pincode-checker">` block.
+
+---
+
+### 2. Mobile "Shop by Age" Carousel
+Convert the grid of age circles into a swipeable carousel on mobile devices to save vertical space.
+
+#### [MODIFY] [styles.css](file:///d:/Projects/mindfuels-master/styles.css)
+- Update `.age-sides` within a mobile media query (`@media (max-width: 768px)`) to use `display: flex`, `overflow-x: auto`, `scroll-snap-type: x mandatory`, and hide the scrollbar (`::-webkit-scrollbar { display: none; }`).
+- Update `.age-card` on mobile to use `flex: 0 0 calc(50% - 15px)` and `scroll-snap-align: start` for smooth snapping behavior.
+
+---
+
+### 3. Premium Homepage Upgrades
+Enhance the heading and "Shop All" button to look high-end.
+
+#### [MODIFY] [styles.css](file:///d:/Projects/mindfuels-master/styles.css)
+- **Headings (`.bestsellers-title`, `.age-title`)**: Apply a subtle, elegant text gradient (e.g., deep indigo to rich purple) and a refined font weight to make them stand out as premium elements.
+- **Button (`.shop-all-btn`)**: Redesign with a dynamic gradient background, a soft box-shadow, and a smooth hover animation that scales the button slightly and enhances the gradient colors.
+
+---
+
+### 4. Product Page Filters Fix
+Allow users to combine filters to narrow down products effectively.
+
+#### [MODIFY] [script.js](file:///d:/Projects/mindfuels-master/script.js)
+- Locate the `change` event listener attached to the filter checkboxes.
+- Remove the block of code that enforces single-selection (which loops through all checkboxes and sets `otherCb.checked = false`).
+- Keep the `renderProducts()` call so the grid updates instantly when multiple filters are selected.
+
+---
+
+### 5. Homepage Mobile Navbar "Shop" Icon
+Replace the mobile search icon on the homepage.
+
+#### [MODIFY] [index.html](file:///d:/Projects/mindfuels-master/index.html)
+- Add a new "Shop" icon link (e.g., a storefront or shopping bag SVG) next to the search wrapper.
+- Add CSS utility classes to hide the search wrapper on mobile and show the new Shop icon on mobile.
+
+#### [MODIFY] [styles.css](file:///d:/Projects/mindfuels-master/styles.css)
+- Add `@media (max-width: 768px)` rules to toggle the visibility of the new Shop icon and the existing Search icon specifically for the homepage context.
+
+## Verification Plan
+### Manual Verification
+- Resize the browser to mobile viewport and verify the "Shop by Age" section scrolls horizontally and snaps into place.
+- Open a product modal and verify the `₹` symbol displays correctly (no `â,¹`), the "Add to Cart" button is styled and positioned at the bottom, and the delivery checker is gone.
+- On mobile, verify the homepage header shows a "Shop" icon that links to `products.html`, and `products.html` retains its search icon.
+- Navigate to `products.html`, click multiple checkboxes, and confirm the grid filters accurately based on all selected criteria.
+- View the homepage on desktop to ensure the "Trusted Favorites" heading and "Shop All" button look premium.

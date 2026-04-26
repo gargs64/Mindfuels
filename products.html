@@ -33,7 +33,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Lato:wght@300;400;700;900&family=Playfair+Display:wght@400;600;700&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=7">
+  <link rel="stylesheet" href="styles.css?v=19">
 
   <!-- Structured Data: BreadcrumbList -->
   <script type="application/ld+json">
@@ -73,50 +73,53 @@
     <div class="header-inner">
 
       <!-- Logo -->
-      <a href="/" class="logo">
+      <a href="index.html" class="logo">
         <img src="photos/logo.png" alt="Mind fuels Logo" style="height:36px; width:auto; display:block;">
       </a>
 
       <!-- Hamburger (mobile menu toggle) -->
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" onclick="openMenu()">
+        &#9776;
+      </button>
 
-
-      <!-- Primary navigation -->
+      <!-- Primary navigation (Drawer on Mobile) -->
       <nav class="main-nav" id="mainNav">
-        <a href="products">All Products</a>
+        <button class="close-menu" onclick="closeMenu()" aria-label="Close menu">&times;</button>
+        <a href="products.html">All Products</a>
         <div class="nav-item">
           <a href="#">Class <span class="nav-arrow">▾</span></a>
           <div class="dropdown-menu">
-            <a href="products?class=Early Foundation (Pre Nursery %26 Nursery)">Early Foundation (Pre Nursery &
-              Nursery)</a>
-            <a href="products?class=Kindergarten Years (U.K.G %26 L.K.G)">Kindergarten Years (U.K.G & L.K.G)</a>
-            <a href="products?class=Lower Primary (Class 1 %26 2)">Lower Primary (Class 1 & 2)</a>
-            <a href="products?class=Upper Primary (Class 3 %26 4)">Upper Primary (Class 3 & 4)</a>
-            <a href="products?class=Middle School (Class 5 %26 6)">Middle School (Class 5 & 6)</a>
+            <a href="products.html?class=Early Foundation (Pre Nursery %26 Nursery)">Early Foundation (Pre Nursery & Nursery)</a>
+            <a href="products.html?class=Kindergarten Years (U.K.G %26 L.K.G)">Kindergarten Years (U.K.G & L.K.G)</a>
+            <a href="products.html?class=Lower Primary (Class 1 %26 2)">Lower Primary (Class 1 & 2)</a>
+            <a href="products.html?class=Upper Primary (Class 3 %26 4)">Upper Primary (Class 3 & 4)</a>
+            <a href="products.html?class=Middle School (Class 5 %26 6)">Middle School (Class 5 & 6)</a>
           </div>
         </div>
         <div class="nav-item">
           <a href="#">Interest <span class="nav-arrow">▾</span></a>
           <div class="dropdown-menu">
-            <a href="products?interest=All-Subject Activity Books">All-Subject Activity Books</a>
-            <a href="products?interest=Phonetics">Phonetics</a>
-            <a href="products?interest=Calligraphy %26 Cursive">Calligraphy & Cursive</a>
-            <a href="products?subject=All%20in%20One">All-in-One</a>
+            <a href="products.html?interest=All-Subject Activity Books">All-Subject Activity Books</a>
+            <a href="products.html?interest=Phonetics">Phonetics</a>
+            <a href="products.html?interest=Calligraphy %26 Cursive">Calligraphy & Cursive</a>
+            <a href="products.html?interest=All-in-One">All-in-One</a>
           </div>
         </div>
         <div class="nav-item">
           <a href="#">Subject <span class="nav-arrow">▾</span></a>
           <div class="dropdown-menu">
-            <a href="products?subject=English">English</a>
-            <a href="products?subject=Hindi">Hindi</a>
-            <a href="products?subject=Mathematics">Mathematics</a>
-            <a href="products?subject=Mental Ability %26 GK">Mental Ability & GK</a>
+            <a href="products.html?subject=English">English</a>
+            <a href="products.html?subject=Hindi">Hindi</a>
+            <a href="products.html?subject=Mathematics">Mathematics</a>
+            <a href="products.html?subject=Mental Ability %26 GK">Mental Ability & GK</a>
           </div>
         </div>
       </nav>
 
-      <!-- Icon bar -->
-      <div class="header-icons">
+      <div class="nav-overlay" id="navOverlay" onclick="closeMenu()"></div>
 
+      <!-- Right Icons -->
+      <div class="header-icons">
         <!-- Search -->
         <div class="nav-search-wrapper" id="navSearchWrapper">
           <input type="text" id="searchInput" class="nav-search-input" placeholder="Search books..."
@@ -125,6 +128,39 @@
             onfocus="showSearchSuggestions(this.value)"
             autocomplete="off">
           <div class="search-suggestions" id="searchSuggestions"></div>
+          <button aria-label="Search" onclick="toggleSearchInput()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.3-4.3"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Account -->
+        <div class="account-wrapper" id="accountWrapper">
+          <a href="login.html" id="accountBtn" aria-label="Account">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </a>
+          <div id="accountDropdown" class="account-dropdown"></div>
+        </div>
+
+        <!-- Cart -->
+        <a href="cart.html" class="cart-icon" aria-label="Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"></path>
+          </svg>
+          <span class="cart-badge cart-count">0</span>
+        </a>
+
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" onclick="openMenu()">
+          &#9776;
+        </button>
+      </div>
           <button aria-label="Search" onclick="toggleSearchInput()">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
               stroke-linecap="round" stroke-linejoin="round">
@@ -136,7 +172,7 @@
 
         <!-- Account -->
         <div class="account-wrapper" id="accountWrapper">
-          <a href="login" id="accountBtn" aria-label="Account">
+          <a href="login.html" id="accountBtn" aria-label="Account">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
               stroke-linecap="round" stroke-linejoin="round">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
@@ -154,7 +190,7 @@
               <path
                 d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21.3l7.8-7.8 1-1.1a5.5 5.5 0 0 0 0-7.8z" />
             </svg>
-            <span class="cart-badge" id="wishlistBadge" style="display:none; right:-8px; top:-5px;">0</span>
+            <span class="wishlist-badge" style="display:none; right:-8px; top:-5px;">0</span>
           </a>
           <div id="wishlistDropdown" class="account-dropdown"
             style="width: 320px; max-height: 480px; overflow-y: auto;">
@@ -163,7 +199,7 @@
         </div>
 
         <!-- Cart -->
-        <a href="cart" class="cart-icon" aria-label="Cart">
+        <a href="cart.html" class="cart-icon" aria-label="Cart">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round">
             <circle cx="9" cy="21" r="1" />
@@ -279,6 +315,12 @@
 
 
     </section>
+
+    <!-- Banner Bottom -->
+    <section class="banner-bottom" style="width: 100%; display: block;">
+      <img src="photos/product-page-banner.jpeg" alt="Mindfuels Collection"
+        style="width: 100%; height: auto; display: block;">
+    </section>
   </main>
 
   <!-- Footer -->
@@ -287,15 +329,25 @@
       <div class="footer-main">
 
         <div class="footer-left">
-          <a href="/" class="footer-logo" style="margin-bottom: 5px; display: inline-block;">
+          <a href="index.html" class="footer-logo" style="margin-bottom: 5px; display: inline-block;">
             <img src="photos/logo.png" alt="Mind fuels Logo" style="height:60px; width:auto; display:block;">
           </a>
 
           <p
-            style="margin-top: 5px; margin-bottom: 24px; color: var(--text-secondary); font-size: 14px; line-height: 1.6;">
+            style="margin-top: 5px; margin-bottom: 15px; color: var(--text-secondary); font-size: 14px; line-height: 1.6;">
             Fueling curiosity through every page. Discover our curated collection of educational books designed to
             inspire young minds.
           </p>
+          <div class="footer-contact">
+            <a href="tel:+919899923670" aria-label="Call Us">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              +91 98999 23670
+            </a>
+            <a href="mailto:mindfuelspublisher@gmail.com" aria-label="Email Us">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              mindfuelspublisher@gmail.com
+            </a>
+          </div>
           <div class="footer-follow">
             <p class="follow-label">Follow us on</p>
             <div class="footer-social">
@@ -316,32 +368,32 @@
           <div class="footer-col">
             <h4>About</h4>
             <ul>
-              <li><a href="legal_pages#about">About us</a></li>
+              <li><a href="legal_pages.html#about">About us</a></li>
             </ul>
           </div>
 
           <div class="footer-col">
             <h4>Collection</h4>
             <ul>
-              <li><a href="products?class=Early%20Foundation%20(Pre%20Nursery%20%26%20Nursery)">Pre-Nursery</a></li>
-              <li><a href="products?class=Early%20Foundation%20(Pre%20Nursery%20%26%20Nursery)">Nursery</a></li>
-              <li><a href="products?class=Kindergarten%20Years%20(U.K.G%20%26%20L.K.G)">LKG</a></li>
-              <li><a href="products?class=Kindergarten%20Years%20(U.K.G%20%26%20L.K.G)">UKG</a></li>
-              <li><a href="products?class=Lower%20Primary%20(Class%201%20%26%202)">Class 1</a></li>
-              <li><a href="products?class=Lower%20Primary%20(Class%201%20%26%202)">Class 2</a></li>
-              <li><a href="products?class=Upper%20Primary%20(Class%203%20%26%204)">Class 3</a></li>
-              <li><a href="products?class=Upper%20Primary%20(Class%203%20%26%204)">Class 4</a></li>
-              <li><a href="products?class=Middle%20School%20(Class%205%20%26%206)">Class 5</a></li>
-              <li><a href="products?class=Middle%20School%20(Class%205%20%26%206)">Class 6</a></li>
+              <li><a href="products.html?class=Early%20Foundation%20(Pre%20Nursery%20%26%20Nursery)">Pre-Nursery</a></li>
+              <li><a href="products.html?class=Early%20Foundation%20(Pre%20Nursery%20%26%20Nursery)">Nursery</a></li>
+              <li><a href="products.html?class=Kindergarten%20Years%20(U.K.G%20%26%20L.K.G)">LKG</a></li>
+              <li><a href="products.html?class=Kindergarten%20Years%20(U.K.G%20%26%20L.K.G)">UKG</a></li>
+              <li><a href="products.html?class=Lower%20Primary%20(Class%201%20%26%202)">Class 1</a></li>
+              <li><a href="products.html?class=Lower%20Primary%20(Class%201%20%26%202)">Class 2</a></li>
+              <li><a href="products.html?class=Upper%20Primary%20(Class%203%20%26%204)">Class 3</a></li>
+              <li><a href="products.html?class=Upper%20Primary%20(Class%203%20%26%204)">Class 4</a></li>
+              <li><a href="products.html?class=Middle%20School%20(Class%205%20%26%206)">Class 5</a></li>
+              <li><a href="products.html?class=Middle%20School%20(Class%205%20%26%206)">Class 6</a></li>
             </ul>
           </div>
 
           <div class="footer-col">
             <h4>Support</h4>
             <ul>
-              <li><a href="legal_pages#refund">Returns &amp; Exchanges</a></li>
-              <li><a href="legal_pages#shipping">Shipping Policy</a></li>
-              <li><a href="legal_pages#contact">Contact Us</a></li>
+              <li><a href="legal_pages.html#refund">Returns &amp; Exchanges</a></li>
+              <li><a href="legal_pages.html#shipping">Shipping Policy</a></li>
+              <li><a href="legal_pages.html#contact">Contact Us</a></li>
               <li><a href="#">FAQ</a></li>
             </ul>
           </div>
@@ -349,8 +401,8 @@
           <div class="footer-col">
             <h4>Legal</h4>
             <ul>
-              <li><a href="legal_pages#privacy">Privacy Policy</a></li>
-              <li><a href="legal_pages#terms">Terms &amp; Conditions</a></li>
+              <li><a href="legal_pages.html#privacy">Privacy Policy</a></li>
+              <li><a href="legal_pages.html#terms">Terms &amp; Conditions</a></li>
             </ul>
           </div>
 
@@ -409,8 +461,9 @@
           <span id="modalLength"></span>
         </div>
         <div class="modal-description" id="modalDesc">
-          A wonderful product perfect for your child's educational development.
+          Product description goes here. This product is amazing and perfect for your kid's educational development.
         </div>
+
         <div class="modal-actions-bar">
           <div id="modalCartActions" class="modal-cart-actions"></div>
           <button class="modal-wishlist-btn" id="modalWishlistBtn" aria-label="Add to Wishlist" onclick="toggleModalWishlist(this)">
@@ -431,50 +484,63 @@
       <button id="closeDrawer">✕</button>
     </div>
 
-    <a href="products" class="drawer-link">📚 All Products</a>
+    <a href="products.html" class="drawer-link">
+      <svg class="drawer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+      All Products
+    </a>
+
+    <a href="cart.html" class="drawer-link">
+      <svg class="drawer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+      My Cart <span class="cart-badge drawer-badge">0</span>
+    </a>
+    
+    <a href="javascript:void(0)" class="drawer-link" onclick="toggleMenu(); setTimeout(() => document.getElementById('wishlistBtn').click(), 400);">
+      <svg class="drawer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+      Wishlist <span class="wishlist-badge drawer-badge">0</span>
+    </a>
+
+    <a href="login.html" class="drawer-link" id="drawerAccountLink">
+      <svg class="drawer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+      My Account
+    </a>
+
+    <div class="drawer-divider"></div>
 
     <div class="drawer-accordion">
-      <button class="accordion-head">Class <span>▾</span></button>
+      <button class="accordion-head">Class <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
       <div class="accordion-body">
-        <a href="products?class=Early Foundation (Pre Nursery %26 Nursery)">Early Foundation (Pre-Nursery & Nursery)</a>
-        <a href="products?class=Kindergarten Years (U.K.G %26 L.K.G)">Kindergarten (UKG & LKG)</a>
-        <a href="products?class=Lower Primary (Class 1 %26 2)">Lower Primary (Class 1 & 2)</a>
-        <a href="products?class=Upper Primary (Class 3 %26 4)">Upper Primary (Class 3 & 4)</a>
-        <a href="products?class=Middle School (Class 5 %26 6)">Middle School (Class 5 & 6)</a>
+        <a href="products.html?class=Early Foundation (Pre Nursery %26 Nursery)">Early Foundation (Pre-Nursery & Nursery)</a>
+        <a href="products.html?class=Kindergarten Years (U.K.G %26 L.K.G)">Kindergarten (UKG & LKG)</a>
+        <a href="products.html?class=Lower Primary (Class 1 %26 2)">Lower Primary (Class 1 & 2)</a>
+        <a href="products.html?class=Upper Primary (Class 3 %26 4)">Upper Primary (Class 3 & 4)</a>
+        <a href="products.html?class=Middle School (Class 5 %26 6)">Middle School (Class 5 & 6)</a>
       </div>
     </div>
 
     <div class="drawer-accordion">
-      <button class="accordion-head">Interest <span>▾</span></button>
+      <button class="accordion-head">Interest <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg><span>▾</span></button>
       <div class="accordion-body">
-        <a href="products?interest=All-Subject Activity Books">All-Subject Activity Books</a>
-        <a href="products?interest=Phonetics">Phonetics</a>
-        <a href="products?interest=Calligraphy %26 Cursive">Calligraphy & Cursive</a>
-        <a href="products?subject=All%20in%20One">All-in-One</a>
+        <a href="products.html?interest=All-Subject Activity Books">All-Subject Activity Books</a>
+        <a href="products.html?interest=Phonetics">Phonetics</a>
+        <a href="products.html?interest=Calligraphy %26 Cursive">Calligraphy & Cursive</a>
+        <a href="products.html?interest=All-in-One">All-in-One</a>
       </div>
     </div>
 
     <div class="drawer-accordion">
-      <button class="accordion-head">Subject <span>▾</span></button>
+      <button class="accordion-head">Subject <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg><span>▾</span></button>
       <div class="accordion-body">
-        <a href="products?subject=English">English</a>
-        <a href="products?subject=Hindi">Hindi</a>
-        <a href="products?subject=Mathematics">Mathematics</a>
-        <a href="products?subject=Mental Ability %26 GK">Mental Ability & GK</a>
+        <a href="products.html?subject=English">English</a>
+        <a href="products.html?subject=Hindi">Hindi</a>
+        <a href="products.html?subject=Mathematics">Mathematics</a>
+        <a href="products.html?subject=Mental Ability %26 GK">Mental Ability & GK</a>
       </div>
     </div>
+
   </div>
 
   <div class="mobile-bottom-bar">
-    <button class="bottom-bar-btn" id="mobileSortBtn">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <line x1="3" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
-        <line x1="13" y1="18" x2="21" y2="18"/>
-      </svg>
-      SORT
-    </button>
-    <div class="bottom-bar-divider"></div>
-    <button class="bottom-bar-btn" id="mobileFilterBtn">
+    <button class="bottom-bar-btn" id="mobileFilterBtn" style="width:100%; justify-content:center;" onclick="var s=document.getElementById('filterSheet');var o=document.getElementById('filterOverlay');if(s&&o){s.classList.add('active');o.classList.add('active');document.body.style.overflow='hidden';}">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
       </svg>
@@ -483,11 +549,11 @@
   </div>
 
   <!-- Filter bottom sheet -->
-  <div class="filter-overlay" id="filterOverlay"></div>
+  <div class="filter-overlay" id="filterOverlay" onclick="this.classList.remove('active');document.getElementById('filterSheet').classList.remove('active');document.body.style.overflow='';"></div>
   <div class="filter-sheet" id="filterSheet">
     <div class="filter-sheet-header">
       <h3>Filters</h3>
-      <button id="closeFilterSheet">✕</button>
+      <button id="closeFilterSheet" onclick="document.getElementById('filterSheet').classList.remove('active');document.getElementById('filterOverlay').classList.remove('active');document.body.style.overflow='';">✕</button>
     </div>
     <div class="filter-sheet-body" id="filterSheetBody">
       <div class="filter-group">
@@ -535,89 +601,96 @@
       <button class="filter-apply-btn" id="applyFilters">APPLY</button>
     </div>
   </div>
+  
+  <!-- Search Overlay -->
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-overlay-header">
+      <input type="text" id="overlaySearchInput" class="search-overlay-input" placeholder="Search for books, classes, or subjects..."
+        oninput="showSearchSuggestions(this.value, 'overlaySearchSuggestions');">
+      <button class="search-close-btn" onclick="toggleSearchOverlay()">✕</button>
+    </div>
+    <div class="search-overlay-results" id="overlaySearchSuggestions">
+      <!-- Trending Searches -->
+      <div class="trending-searches" id="trendingSearches">
+        <h4>Trending Searches</h4>
+        <div class="trending-tags">
+          <span onclick="overlaySearch('Story Books')">Story Books</span>
+          <span onclick="overlaySearch('Nursery')">Nursery</span>
+          <span onclick="overlaySearch('Math')">Math</span>
+          <span onclick="overlaySearch('Coloring')">Coloring</span>
+          <span onclick="overlaySearch('Class 1')">Class 1</span>
+        </div>
+      </div>
+      <div id="searchResultList"></div>
+    </div>
+  </div>
 
-  <footer class="footer fade-up" style="background-image: url('photos/footer-banner.svg'); margin-top: 50px;">
+  <!-- Footer -->
+  <footer class="footer">
     <div class="container">
       <div class="footer-main">
-
         <div class="footer-left">
-          <a href="/" class="footer-logo" style="margin-bottom: 5px; display: inline-block;">
+          <a href="index.html" class="footer-logo" style="margin-bottom: 5px; display: inline-block;">
             <img src="photos/logo.png" alt="Mind fuels Logo" style="height:60px; width:auto; display:block;">
           </a>
-
-          <p
-            style="margin-top: 5px; margin-bottom: 24px; color: var(--text-secondary); font-size: 14px; line-height: 1.6;">
-            Fueling curiosity through every page. Discover our curated collection of educational books designed to
-            inspire young minds.
+          <p style="margin-top: 5px; margin-bottom: 15px; color: var(--text-secondary); font-size: 14px; line-height: 1.6;">
+            Fueling curiosity through every page. Discover our curated collection of educational books designed to inspire young minds.
           </p>
-          <div class="footer-follow">
-            <p class="follow-label">Follow us on</p>
-            <div class="footer-social">
-              <a href="https://www.instagram.com/mindfuels_publisher" aria-label="Instagram" target="_blank" rel="noopener">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                  stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                </svg>
-              </a>
-            </div>
+          <div class="footer-contact">
+            <a href="tel:+919899923670" aria-label="Call Us">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              +91 98999 23670
+            </a>
+            <a href="mailto:mindfuelspublisher@gmail.com" aria-label="Email Us">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              mindfuelspublisher@gmail.com
+            </a>
           </div>
         </div>
-
         <div class="footer-links" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px;">
-
           <div class="footer-col">
             <h4>About</h4>
-            <ul>
-              <li><a href="legal_pages#about">About us</a></li>
-            </ul>
+            <ul><li><a href="legal_pages.html#about">About us</a></li></ul>
           </div>
-
           <div class="footer-col">
             <h4>Collection</h4>
             <ul>
-              <li><a href="products?class=Early%20Foundation%20(Pre%20Nursery%20%26%20Nursery)">Pre-Nursery</a></li>
-              <li><a href="products?class=Early%20Foundation%20(Pre%20Nursery%20%26%20Nursery)">Nursery</a></li>
-              <li><a href="products?class=Kindergarten%20Years%20(U.K.G%20%26%20L.K.G)">LKG</a></li>
-              <li><a href="products?class=Kindergarten%20Years%20(U.K.G%20%26%20L.K.G)">UKG</a></li>
-              <li><a href="products?class=Lower%20Primary%20(Class%201%20%26%202)">Class 1</a></li>
-              <li><a href="products?class=Lower%20Primary%20(Class%201%20%26%202)">Class 2</a></li>
-              <li><a href="products?class=Upper%20Primary%20(Class%203%20%26%204)">Class 3</a></li>
-              <li><a href="products?class=Upper%20Primary%20(Class%203%20%26%204)">Class 4</a></li>
-              <li><a href="products?class=Middle%20School%20(Class%205%20%26%206)">Class 5</a></li>
-              <li><a href="products?class=Middle%20School%20(Class%205%20%26%206)">Class 6</a></li>
+              <li><a href="products.html?class=Early%20Foundation%20(Pre%20Nursery%20%26%20Nursery)">Pre-Nursery</a></li>
+              <li><a href="products.html?class=Kindergarten%20Years%20(U.K.G%20%26%20L.K.G)">LKG</a></li>
+              <li><a href="products.html?class=Lower%20Primary%20(Class%201%20%26%202)">Class 1</a></li>
+              <li><a href="products.html?class=Middle%20School%20(Class%205%20%26%206)">Class 6</a></li>
             </ul>
           </div>
-
           <div class="footer-col">
             <h4>Support</h4>
             <ul>
-              <li><a href="legal_pages#shipping">Shipping Policy</a></li>
-              <li><a href="legal_pages#contact">Contact Us</a></li>
-              <li><a href="legal_pages#contact">Locate Us</a></li>
+              <li><a href="legal_pages.html#refund">Returns & Exchanges</a></li>
+              <li><a href="legal_pages.html#shipping">Shipping Policy</a></li>
+              <li><a href="legal_pages.html#contact">Contact Us</a></li>
             </ul>
           </div>
-
           <div class="footer-col">
             <h4>Legal</h4>
             <ul>
-              <li><a href="legal_pages#privacy">Privacy Policy</a></li>
-              <li><a href="legal_pages#terms">Terms &amp; Conditions</a></li>
+              <li><a href="legal_pages.html#privacy">Privacy Policy</a></li>
+              <li><a href="legal_pages.html#terms">Terms & Conditions</a></li>
             </ul>
           </div>
-
         </div>
       </div>
-      <div class="footer-bottom">
-        &copy; 2002, Mindfuels Publishers and Distributors.
-      </div>
+      <div class="footer-bottom">&copy; 2002, Mindfuels Publishers and Distributors.</div>
     </div>
   </footer>
 
-  <script src="script.js?v=10"></script>
+  <script src="script.js?v=18"></script>
   <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
-  <script src="auth.js?v=13"></script>
+  <script src="auth.js?v=9"></script>
+  <!-- WhatsApp Sticky Button -->
+  <a href="https://wa.me/919899923670" class="whatsapp-sticky" aria-label="Chat with us on WhatsApp" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M17.472 14.38c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a5.8 5.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.015-1.04 2.475 0 1.46 1.065 2.87 1.213 3.07.149.198 2.095 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.575-.085 1.758-.718 2.006-1.412.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+    </svg>
+  </a>
 </body>
 
 </html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found | MindFuels Publisher</title>
+  <link rel="icon" href="photos/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Lato:wght@300;400;700;900&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Premium 404 Styles */
+    .not-found-wrapper {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+      animation: fadeUp 0.6s ease;
+    }
+    
+    .error-code {
+      font-family: 'Playfair Display', serif;
+      font-size: 150px;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1;
+      margin-bottom: 20px;
+      text-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      background: linear-gradient(135deg, var(--primary), #eab308);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .not-found-wrapper h1 {
+      font-size: 36px;
+      color: var(--text-main);
+      margin-bottom: 15px;
+    }
+    
+    .not-found-wrapper p {
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 500px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+    
+    .not-found-actions {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+    }
+    
+    [data-theme="dark"] .error-code {
+      text-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    
+    @media (max-width: 600px) {
+      .error-code {
+        font-size: 100px;
+      }
+      .not-found-wrapper h1 {
+        font-size: 28px;
+      }
+      .not-found-actions {
+        flex-direction: column;
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+  </style>
+</head>
+<body class="page-bg-cream">
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <img src="photos/logo.png" alt="Mind fuels Logo" style="height: 36px; width: auto; display: block;">
+      </a>
+
+      <div class="header-icons">
+
+      </div>
+    </div>
+  </header>
+
+  <main class="not-found-wrapper">
+    <div class="error-code">404</div>
+    <h1>Oops! Page Not Found</h1>
+    <p>The page you are looking for might have been removed, had its name changed, or is temporarily unavailable. Let's get you back on track.</p>
+    <div class="not-found-actions">
+      <a href="index.html" class="btn-primary" style="display:inline-flex; justify-content:center; padding: 14px 32px; border-radius: 30px; text-decoration: none; color: var(--text-main); font-weight: 600; background: transparent; border: 2px solid var(--border); box-shadow: none;">Go to Homepage</a>
+      <a href="products.html" class="btn-primary" style="display:inline-flex; justify-content:center; padding: 14px 32px; border-radius: 30px; text-decoration: none; color: #1e293b; font-weight: 600; box-shadow: 0 4px 15px var(--primary-glow); border: 2px solid var(--primary);">Explore Books</a>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
