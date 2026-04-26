@@ -1658,7 +1658,7 @@ input {
   font-family: var(--font-heading);
   font-size: 45px;
   font-weight: 700;
-  color: var(--primary); /* Mindfuels logo yellow */
+  color: #F4DF0C; /* Exact yellow color requested */
   margin-bottom: 4px;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.15); /* Slight shadow to make the yellow pop */
 }
