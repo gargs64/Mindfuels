@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,112 +8,478 @@
   <link rel="icon" href="photos/favicon.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Lato:wght@300;400;700;900&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Lato:wght@300;400;700;900&family=Playfair+Display:wght@400;600;700&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=11">
 
   <style>
-    body { background: #f9f9f9; font-family: 'Inter', sans-serif; align-items: stretch !important; }
-    .page-wrapper { width: 100%; max-width: 1000px; margin: 40px auto; padding: 0 20px; min-height: 60vh; display: block; }
-    .page-title { font-family: 'Playfair Display', serif; font-size: 32px; color: #1a1a1a; margin-bottom: 24px; text-align: left; }
-    
+    body {
+      background: #f9f9f9;
+      font-family: 'Inter', sans-serif;
+      align-items: stretch !important;
+    }
+
+    .page-wrapper {
+      width: 100%;
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+      min-height: 60vh;
+      display: block;
+    }
+
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      color: #1a1a1a;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+
     /* Loading & Error */
-    .state-msg { text-align: center; padding: 60px 20px; background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); width: 100%; }
-    .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #F6AB06; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 16px; }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .state-msg {
+      text-align: center;
+      padding: 60px 20px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      width: 100%;
+    }
+
+    .spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #F6AB06;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 16px;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
 
     /* Orders List View */
-    #ordersList { display: flex; flex-direction: column; gap: 20px; width: 100%; }
-    .order-card { 
-      background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.04); 
-      border: 1px solid #eaeaea; overflow: hidden;
-      display: flex; flex-direction: column; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
-      width: 100%; text-align: left;
+    #ordersList {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
     }
-    .order-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.08); border-color:#e0e0e0; }
-    
-    .order-card-header { 
-      padding: 16px 24px; background: #fafafa; border-bottom: 1px solid #eaeaea;
-      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
-    }
-    .order-header-info { display: flex; gap: 32px; flex-wrap: wrap; }
-    .header-col { display: flex; flex-direction: column; font-size: 13px; }
-    .header-col-label { color: #555; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;}
-    .header-col-value { color: #111; font-weight: 700; font-size: 15px; }
-    .order-id-badge { color: #111; font-weight: 800; font-size: 15px; }
 
-    .order-card-body { padding: 24px; display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; width: 100%; box-sizing: border-box;}
-    .order-item-peek { display: flex; align-items: center; gap: 20px; flex: 1; }
-    .order-thumb { width: 80px; height: 80px; border-radius: 8px; object-fit: cover; border: 1px solid #eee; flex-shrink: 0; }
-    
-    .order-status-badge { 
-      padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 800; text-transform: uppercase;
-      display: inline-block; letter-spacing: 0.5px;
+    .order-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+      border: 1px solid #eaeaea;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      width: 100%;
+      text-align: left;
     }
-    .status-delivered { background-color: #e6f4ea; color: #1e8e3e; }
-    .status-processing { background-color: #fef7e0; color: #b06000; }
-    .status-shipped { background-color: #e8f0fe; color: #1a73e8; }
-    .status-cancelled { background-color: #fce8e6; color: #c5221f; }
+
+    .order-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      border-color: #e0e0e0;
+    }
+
+    .order-card-header {
+      padding: 16px 24px;
+      background: #fafafa;
+      border-bottom: 1px solid #eaeaea;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .order-header-info {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .header-col {
+      display: flex;
+      flex-direction: column;
+      font-size: 13px;
+    }
+
+    .header-col-label {
+      color: #555;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+
+    .header-col-value {
+      color: #111;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .order-id-badge {
+      color: #111;
+      font-weight: 800;
+      font-size: 15px;
+    }
+
+    .order-card-body {
+      padding: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .order-item-peek {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex: 1;
+    }
+
+    .order-thumb {
+      width: 80px;
+      height: 80px;
+      border-radius: 8px;
+      object-fit: cover;
+      border: 1px solid #eee;
+      flex-shrink: 0;
+    }
+
+    .order-status-badge {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      display: inline-block;
+      letter-spacing: 0.5px;
+    }
+
+    .status-delivered {
+      background-color: #e6f4ea;
+      color: #1e8e3e;
+    }
+
+    .status-processing {
+      background-color: #fef7e0;
+      color: #b06000;
+    }
+
+    .status-shipped {
+      background-color: #e8f0fe;
+      color: #1a73e8;
+    }
+
+    .status-cancelled {
+      background-color: #fce8e6;
+      color: #c5221f;
+    }
 
     /* Detailed View */
-    #orderDetailView { display: none; width: 100%; }
-    .back-btn { 
-      background: none; border: none; font-size: 15px; font-weight: 600; color: #555; 
-      cursor: pointer; display: flex; align-items: center; gap: 6px; margin-bottom: 24px; padding: 0;
+    #orderDetailView {
+      display: none;
+      width: 100%;
     }
-    .back-btn:hover { color: #F6AB06; }
-    
-    .detail-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; align-items: start; }
-    
-    .detail-section { background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.04); border: 1px solid #eaeaea; padding: 24px; margin-bottom: 24px; text-align: left; }
-    .section-title { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
-    
+
+    .back-btn {
+      background: none;
+      border: none;
+      font-size: 15px;
+      font-weight: 600;
+      color: #555;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 24px;
+      padding: 0;
+    }
+
+    .back-btn:hover {
+      color: #F6AB06;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .detail-section {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+      border: 1px solid #eaeaea;
+      padding: 24px;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
     /* Timeline */
-    .timeline { position: relative; margin: 20px 0 40px; display: flex; justify-content: space-between; }
-    .timeline::before { content:''; position:absolute; top:12px; left:0; width:100%; height:4px; background:#eee; z-index:1; }
-    .timeline-progress { position:absolute; top:12px; left:0; height:4px; background:#1e8e3e; z-index:2; transition: width 0.3s; }
-    .timeline-step { position:relative; z-index:3; display:flex; flex-direction:column; align-items:center; width: 60px; }
-    .step-circle { width:28px; height:28px; border-radius:50%; background:#eee; border: 4px solid white; display:flex; align-items:center; justify-content:center; }
-    .step-label { font-size:12px; font-weight:700; color:#888; margin-top:8px; text-align:center; }
-    .timeline-step.active .step-circle { background:#1e8e3e; }
-    .timeline-step.active .step-label { color:#111; }
+    .timeline {
+      position: relative;
+      margin: 20px 0 40px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 12px;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: #eee;
+      z-index: 1;
+    }
+
+    .timeline-progress {
+      position: absolute;
+      top: 12px;
+      left: 0;
+      height: 4px;
+      background: #1e8e3e;
+      z-index: 2;
+      transition: width 0.3s;
+    }
+
+    .timeline-step {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 60px;
+    }
+
+    .step-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #eee;
+      border: 4px solid white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #888;
+      margin-top: 8px;
+      text-align: center;
+    }
+
+    .timeline-step.active .step-circle {
+      background: #1e8e3e;
+    }
+
+    .timeline-step.active .step-label {
+      color: #111;
+    }
 
     /* Items */
-    .detail-item { display:flex; align-items:center; gap:20px; padding-bottom:20px; margin-bottom:20px; border-bottom:1px solid #f0f0f0; }
-    .detail-item:last-child { border-bottom:0; padding-bottom:0; margin-bottom:0; }
-    .detail-item-img { width:80px; height:80px; border-radius:8px; object-fit:cover; border:1px solid #eee; }
-    .detail-item-info { flex:1; }
-    .detail-item-title { font-size:15px; font-weight:600; color:#111; margin-bottom:4px; }
-    .detail-item-qty { font-size:14px; color:#666; font-weight:500;}
-    .detail-item-price { font-size:16px; font-weight:700; color:#111; }
-    .buy-again-btn { background:#fff; border:1px solid #ccc; color:#333; padding:8px 16px; border-radius:6px; font-size:13px; font-weight:600; cursor:pointer; }
-    .buy-again-btn:hover { border-color:#111; }
+    .detail-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .detail-item:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+
+    .detail-item-img {
+      width: 80px;
+      height: 80px;
+      border-radius: 8px;
+      object-fit: cover;
+      border: 1px solid #eee;
+    }
+
+    .detail-item-info {
+      flex: 1;
+    }
+
+    .detail-item-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 4px;
+    }
+
+    .detail-item-qty {
+      font-size: 14px;
+      color: #666;
+      font-weight: 500;
+    }
+
+    .detail-item-price {
+      font-size: 16px;
+      font-weight: 700;
+      color: #111;
+    }
+
+    .buy-again-btn {
+      background: #fff;
+      border: 1px solid #ccc;
+      color: #333;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .buy-again-btn:hover {
+      border-color: #111;
+    }
 
     /* Info Grid */
-    .info-group { margin-bottom: 24px; }
-    .info-label { font-size:13px; color:#666; text-transform:uppercase; font-weight:600; margin-bottom:8px; }
-    .info-value { font-size:15px; color:#111; line-height:1.5; font-weight:500; }
-    .tracking-link { color: #1a73e8; text-decoration: none; font-weight:600; display:inline-flex; align-items:center; gap:4px; }
-    .tracking-link:hover { text-decoration:underline; }
-    
+    .info-group {
+      margin-bottom: 24px;
+    }
+
+    .info-label {
+      font-size: 13px;
+      color: #666;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .info-value {
+      font-size: 15px;
+      color: #111;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    .tracking-link {
+      color: #1a73e8;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .tracking-link:hover {
+      text-decoration: underline;
+    }
+
     /* Action Buttons */
-    .action-btn-list { display: flex; flex-direction: column; gap: 12px; }
-    .btn-block { width:100%; padding: 14px; border-radius: 8px; font-size: 14px; font-weight: 700; text-align: center; cursor: pointer; border:none; transition:0.2s;}
-    .btn-primary { background: #F6AB06; color: #111; box-shadow: 0 4px 12px rgba(246,171,6,0.3); }
-    .btn-primary:hover { background: #e09800; transform: translateY(-1px); }
-    .btn-secondary { background: white; border: 1px solid #ccc; color: #333; }
-    .btn-secondary:hover { border-color: #111; background: #fafafa; }
-    .btn-danger { background: white; border: 1px solid #fce8e6; color: #c5221f; }
-    .btn-danger:hover { background: #fce8e6; }
+    .action-btn-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn-block {
+      width: 100%;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      text-align: center;
+      cursor: pointer;
+      border: none;
+      transition: 0.2s;
+    }
+
+    .btn-primary {
+      background: #F6AB06;
+      color: #111;
+      box-shadow: 0 4px 12px rgba(246, 171, 6, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: #e09800;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: white;
+      border: 1px solid #ccc;
+      color: #333;
+    }
+
+    .btn-secondary:hover {
+      border-color: #111;
+      background: #fafafa;
+    }
+
+    .btn-danger {
+      background: white;
+      border: 1px solid #fce8e6;
+      color: #c5221f;
+    }
+
+    .btn-danger:hover {
+      background: #fce8e6;
+    }
 
     @media(max-width: 768px) {
-      .detail-grid { grid-template-columns: 1fr; }
-      .order-header-info { gap: 16px; }
-      .order-card-header { align-items: flex-start; justify-content: flex-start; }
-      .header-col { margin-right: 16px; }
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .order-header-info {
+        gap: 16px;
+      }
+
+      .order-card-header {
+        align-items: flex-start;
+        justify-content: flex-start;
+      }
+
+      .header-col {
+        margin-right: 16px;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <!-- Header -->
@@ -122,18 +489,23 @@
         <img src="photos/logo.png" alt="Mind fuels Logo" style="height:36px; width:auto; display:block;">
       </a>
       <div class="header-icons">
-        <a href="products" style="text-decoration:none; color:#1a1a1a; font-weight:600; font-size:14px; margin-right:15px;">Shop</a>
+        <a href="products"
+          style="text-decoration:none; color:#1a1a1a; font-weight:600; font-size:14px; margin-right:15px;">Shop</a>
         <div class="account-wrapper" id="accountWrapper">
           <a href="login" id="accountBtn" aria-label="Account">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
             </svg>
           </a>
           <div id="accountDropdown" class="account-dropdown"></div>
         </div>
         <a href="cart" class="cart-icon" aria-label="Cart">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1" />
+            <circle cx="20" cy="21" r="1" />
             <path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6" />
           </svg>
           <span class="cart-badge cart-count">0</span>
@@ -156,20 +528,24 @@
     <!-- Details View -->
     <div id="orderDetailView">
       <button class="back-btn" onclick="showDashboard()" style="margin-top: 30px;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
         Back to Orders
       </button>
-      
+
       <div class="detail-grid">
         <div class="detail-main">
-          
+
           <div class="detail-section">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
               <h2 id="detailOrderId" style="font-size:22px; font-weight:800;">Order #</h2>
               <span id="detailStatusBadge" class="order-status-badge">Processing</span>
             </div>
             <p style="color:#666; font-size:14px;" id="detailOrderDate">Placed on</p>
-            
+
             <div class="timeline" id="orderTimeline">
               <div class="timeline-progress" id="timelineProgress" style="width: 0%;"></div>
               <div class="timeline-step active" id="step1">
@@ -189,10 +565,12 @@
                 <div class="step-label">Delivered</div>
               </div>
             </div>
-            
-            <div style="background:#f8f9fa; border-radius:8px; padding:16px; margin-top:20px; display:none;" id="deliveryEstimateBox">
+
+            <div style="background:#f8f9fa; border-radius:8px; padding:16px; margin-top:20px; display:none;"
+              id="deliveryEstimateBox">
               <div class="info-label">Estimated Delivery Date</div>
-              <div class="info-value" id="detailDeliveryDate" style="font-weight:700; font-size:18px; color:#1e8e3e;">Soon</div>
+              <div class="info-value" id="detailDeliveryDate" style="font-weight:700; font-size:18px; color:#1e8e3e;">
+                Soon</div>
             </div>
           </div>
 
@@ -204,7 +582,7 @@
         </div>
 
         <div class="detail-sidebar">
-          
+
           <div class="detail-section">
             <div class="info-group">
               <div class="info-label">Shipping & Billing</div>
@@ -230,7 +608,11 @@
               <div class="info-label">Tracking Number</div>
               <a href="#" class="tracking-link" id="detailTrackingLink" target="_blank">
                 <span id="detailTrackingId"></span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
               </a>
             </div>
           </div>
@@ -238,10 +620,13 @@
           <div class="detail-section" style="background:transparent; border:none; box-shadow:none; padding:0;">
             <div class="action-btn-list">
               <button class="btn-block btn-primary" id="trackBtn" style="display:none;">Track Package</button>
-              <button class="btn-block btn-secondary" onclick="window.location.href = 'receipt?orderId=' + window.currentViewingOrderId">Download Invoice</button>
+              <button class="btn-block btn-secondary"
+                onclick="window.location.href = 'receipt?orderId=' + window.currentViewingOrderId">Download
+                Invoice</button>
 
               <button class="btn-block btn-danger" id="cancelBtn" style="display:none;">Cancel Order</button>
-              <a class="btn-block btn-secondary" href="legal_pages#contact" style="display:block; text-decoration:none; box-sizing:border-box;">Need Help? Contact Us</a>
+              <a class="btn-block btn-secondary" href="legal_pages#contact"
+                style="display:block; text-decoration:none; box-sizing:border-box;">Need Help? Contact Us</a>
             </div>
           </div>
 
@@ -282,7 +667,7 @@
         const res = await fetch(`${API_BASE}/orders`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
-        
+
         if (!res.ok) throw new Error("Failed to load orders");
         allOrdersData = await res.json();
         renderOrdersList();
@@ -317,7 +702,7 @@
       };
 
       container.innerHTML = allOrdersData.map(order => {
-        const dateStr = new Date(order.created_at).toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
+        const dateStr = new Date(order.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
         const displayId = `#ORD-${9900 + order.id}`;
         const statusStr = order.status || 'Processing';
         const stClass = getStatusClass(statusStr);
@@ -371,48 +756,48 @@
 
     async function viewOrderDetails(id) {
       window.currentViewingOrderId = id;
-      
+
       const dashboard = document.getElementById('ordersDashboard');
       const detailView = document.getElementById('orderDetailView');
-      
+
       dashboard.style.display = 'none';
       detailView.style.display = 'block';
 
       document.getElementById('detailItemsList').innerHTML = `<div class="spinner" style="margin-top:20px;"></div>`;
-      
+
       try {
         const token = await window.auth0Client.getTokenSilently();
         const res = await fetch(`${API_BASE}/orders/${id}`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
-        if(!res.ok) throw new Error("Order fetch failed");
-        
+        if (!res.ok) throw new Error("Order fetch failed");
+
         const order = await res.json();
-        
+
         // Populate UI
         document.getElementById('detailOrderId').innerText = order.displayId || `#ORD-${9900 + order.id}`;
-        
-        const dateStr = new Date(order.created_at).toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' });
+
+        const dateStr = new Date(order.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
         document.getElementById('detailOrderDate').innerText = `Placed on ${dateStr}`;
-        
+
         const status = (order.status || 'Processing').toUpperCase();
         const badge = document.getElementById('detailStatusBadge');
         badge.innerText = status;
         badge.className = 'order-status-badge';
         let progress = 25;
-        if(status.includes('DELIVER')) {
+        if (status.includes('DELIVER')) {
           badge.className += ' status-delivered';
           progress = 100;
           document.getElementById('step2').classList.add('active');
           document.getElementById('step3').classList.add('active');
           document.getElementById('step4').classList.add('active');
-        } else if(status.includes('SHIP')) {
+        } else if (status.includes('SHIP')) {
           badge.className += ' status-shipped';
           progress = 75;
           document.getElementById('step2').classList.add('active');
           document.getElementById('step3').classList.add('active');
           document.getElementById('step4').classList.remove('active');
-        } else if(status.includes('CANCEL')) {
+        } else if (status.includes('CANCEL')) {
           badge.className += ' status-cancelled';
           progress = 0;
           document.getElementById('step1').classList.remove('active');
@@ -423,23 +808,23 @@
           document.getElementById('step4').classList.remove('active');
           progress = 50;
         }
-        
+
         const timeline = document.getElementById('timelineProgress');
         timeline.style.width = progress + '%';
-        if(status.includes('CANCEL')) {
-           document.getElementById('orderTimeline').style.display = 'none';
+        if (status.includes('CANCEL')) {
+          document.getElementById('orderTimeline').style.display = 'none';
         } else {
-           document.getElementById('orderTimeline').style.display = 'flex';
+          document.getElementById('orderTimeline').style.display = 'flex';
         }
 
         const estBox = document.getElementById('deliveryEstimateBox');
-        if(!status.includes('DELIVER') && !status.includes('CANCEL')) {
-           estBox.style.display = 'block';
-           let estDate = new Date(order.created_at);
-           estDate.setDate(estDate.getDate() + 5);
-           document.getElementById('detailDeliveryDate').innerText = 'By ' + estDate.toLocaleDateString('en-IN', { day:'numeric', month:'short' });
+        if (!status.includes('DELIVER') && !status.includes('CANCEL')) {
+          estBox.style.display = 'block';
+          let estDate = new Date(order.created_at);
+          estDate.setDate(estDate.getDate() + 5);
+          document.getElementById('detailDeliveryDate').innerText = 'By ' + estDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
         } else {
-           estBox.style.display = 'none';
+          estBox.style.display = 'none';
         }
 
         // Items
@@ -474,26 +859,26 @@
         // Tracking — use Fship tracking URL or fallback
         const trackingUrl = order.tracking_url || (order.awb_code ? `https://fship.in/tracking/${order.awb_code}` : '');
 
-        if(order.awb_code) {
-           document.getElementById('trackingGroup').style.display = 'block';
-           document.getElementById('detailTrackingId').innerText = order.awb_code;
-           document.getElementById('detailTrackingLink').href = trackingUrl;
-           document.getElementById('trackBtn').style.display = 'block';
-           document.getElementById('trackBtn').onclick = () => window.open(trackingUrl, '_blank');
+        if (order.awb_code) {
+          document.getElementById('trackingGroup').style.display = 'block';
+          document.getElementById('detailTrackingId').innerText = order.awb_code;
+          document.getElementById('detailTrackingLink').href = trackingUrl;
+          document.getElementById('trackBtn').style.display = 'block';
+          document.getElementById('trackBtn').onclick = () => window.open(trackingUrl, '_blank');
         } else {
-           document.getElementById('trackingGroup').style.display = 'none';
-           document.getElementById('trackBtn').style.display = 'none';
+          document.getElementById('trackingGroup').style.display = 'none';
+          document.getElementById('trackBtn').style.display = 'none';
         }
 
-        if(status.includes('DELIVER')) {
+        if (status.includes('DELIVER')) {
 
-           document.getElementById('cancelBtn').style.display = 'none';
-        } else if(!status.includes('CANCEL') && !status.includes('SHIP')) {
-           document.getElementById('cancelBtn').style.display = 'block';
+          document.getElementById('cancelBtn').style.display = 'none';
+        } else if (!status.includes('CANCEL') && !status.includes('SHIP')) {
+          document.getElementById('cancelBtn').style.display = 'block';
 
         } else {
 
-           document.getElementById('cancelBtn').style.display = 'none';
+          document.getElementById('cancelBtn').style.display = 'none';
         }
 
       } catch (err) {
@@ -504,27 +889,27 @@
     function showDashboard() {
       document.getElementById('ordersDashboard').style.display = 'block';
       document.getElementById('orderDetailView').style.display = 'none';
-      window.scrollTo({top:0, behavior:'smooth'});
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function buyAgain(productId, price) {
-      if(!productId) return;
+      if (!productId) return;
       let cart = JSON.parse(localStorage.getItem('mindfuels_cart')) || [];
       const prod = catalogProducts ? catalogProducts.find(p => p.id == productId) : null;
-      if(!prod) {
+      if (!prod) {
         window.location.href = 'products?search=' + productId;
         return;
       }
       const existing = cart.find(i => i.id == productId);
-      if(existing) existing.qty += 1;
+      if (existing) existing.qty += 1;
       else {
         cart.push({
-          id: prod.id, name: prod.name, price: prod.price, 
+          id: prod.id, name: prod.name, price: prod.price,
           image: prod.images && prod.images[0] ? prod.images[0] : prod.image, qty: 1
         });
       }
       localStorage.setItem('mindfuels_cart', JSON.stringify(cart));
-      if(window.syncItemToBackend) window.syncItemToBackend(productId, existing ? existing.qty : 1);
+      if (window.syncItemToBackend) window.syncItemToBackend(productId, existing ? existing.qty : 1);
       alert('Item added to cart!');
     }
 
@@ -548,7 +933,8 @@
           <div class="footer-follow">
             <p class="follow-label">Follow us on</p>
             <div class="footer-social">
-              <a href="https://www.instagram.com/mindfuels_publisher" aria-label="Instagram" target="_blank" rel="noopener">
+              <a href="https://www.instagram.com/mindfuels_publisher" aria-label="Instagram" target="_blank"
+                rel="noopener">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                   stroke-linecap="round" stroke-linejoin="round">
                   <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
@@ -611,4 +997,5 @@
   </footer>
 
 </body>
+
 </html>

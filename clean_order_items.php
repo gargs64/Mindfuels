@@ -6,7 +6,7 @@
 // ============================================
 
 $host = "localhost";
-$db   = "u241066033_mindfuels";
+$db = "u241066033_mindfuels";
 $user = "u241066033_mindfuels";
 $pass = "Trilochan##22";
 

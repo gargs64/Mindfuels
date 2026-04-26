@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Order Receipt — Mindfuels</title>
   <meta name="description" content="Your Mindfuels order receipt and invoice.">
   <link rel="icon" href="photos/favicon.ico">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&display=swap"
+    rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
     :root {
@@ -18,7 +21,13 @@
       --border-color: #eee;
     }
 
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     body {
       font-family: 'Outfit', sans-serif;
@@ -38,6 +47,7 @@
       align-items: center;
       gap: 15px;
     }
+
     .back-link {
       color: var(--text-light);
       text-decoration: none;
@@ -47,8 +57,16 @@
       align-items: center;
       gap: 8px;
     }
-    .back-link:hover { color: var(--primary); }
-    .action-btns { display: flex; gap: 12px; }
+
+    .back-link:hover {
+      color: var(--primary);
+    }
+
+    .action-btns {
+      display: flex;
+      gap: 12px;
+    }
+
     .btn-action {
       padding: 12px 24px;
       border: none;
@@ -62,17 +80,26 @@
       gap: 8px;
       transition: all 0.2s;
     }
+
     .btn-download {
       background: var(--text-dark);
       color: white;
     }
-    .btn-download:hover { background: #000; transform: translateY(-1px); }
+
+    .btn-download:hover {
+      background: #000;
+      transform: translateY(-1px);
+    }
+
     .btn-print {
       background: white;
       color: var(--text-dark);
       border: 1px solid var(--border-color);
     }
-    .btn-print:hover { background: var(--bg-gray); }
+
+    .btn-print:hover {
+      background: var(--bg-gray);
+    }
 
     /* ── Receipt Styles ── */
     .receipt {
@@ -81,7 +108,7 @@
       background: white;
       border-radius: 24px;
       overflow: hidden;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
       position: relative;
     }
 
@@ -91,7 +118,9 @@
       background: linear-gradient(90deg, #FFD700, var(--primary), #FFD700);
     }
 
-    .receipt-inner { padding: 50px 60px; }
+    .receipt-inner {
+      padding: 50px 60px;
+    }
 
     /* ── Header ── */
     .header-layout {
@@ -100,21 +129,25 @@
       align-items: flex-start;
       margin-bottom: 45px;
     }
+
     .company-logo-section {
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
+
     .logo-main {
       height: 70px;
       width: auto;
       object-fit: contain;
     }
+
     .company-name {
       font-family: 'Playfair Display', serif;
       font-size: 20px;
       color: var(--text-dark);
     }
+
     .company-sub {
       font-size: 12px;
       color: var(--text-light);
@@ -125,6 +158,7 @@
     .meta-section {
       text-align: right;
     }
+
     .invoice-title {
       font-size: 32px;
       font-weight: 800;
@@ -132,18 +166,27 @@
       letter-spacing: -1px;
       margin-bottom: 12px;
     }
+
     .meta-grid {
       display: grid;
       gap: 6px;
     }
+
     .meta-row {
       display: flex;
       justify-content: flex-end;
       gap: 15px;
       font-size: 14px;
     }
-    .label { color: var(--text-light); }
-    .value { font-weight: 600; }
+
+    .label {
+      color: var(--text-light);
+    }
+
+    .value {
+      font-weight: 600;
+    }
+
     .tag-paid {
       background: #E8F5E9;
       color: #2E7D32;
@@ -155,11 +198,15 @@
     }
 
     /* ── Items Table ── */
-    .table-container { margin: 40px 0; }
+    .table-container {
+      margin: 40px 0;
+    }
+
     .receipt-table {
       width: 100%;
       border-collapse: collapse;
     }
+
     .receipt-table th {
       text-align: left;
       padding: 15px 10px;
@@ -169,17 +216,39 @@
       text-transform: uppercase;
       border-bottom: 2px solid var(--text-dark);
     }
+
     .receipt-table td {
       padding: 20px 10px;
       border-bottom: 1px solid var(--border-color);
       font-size: 15px;
     }
-    .prod-cell { display: flex; align-items: center; gap: 15px; }
-    .prod-img { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; background: #f9f9f9; }
-    .prod-name { font-weight: 600; max-width: 300px; }
-    
-    .text-right { text-align: right; }
-    .text-center { text-align: center; }
+
+    .prod-cell {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .prod-img {
+      width: 50px;
+      height: 50px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: #f9f9f9;
+    }
+
+    .prod-name {
+      font-weight: 600;
+      max-width: 300px;
+    }
+
+    .text-right {
+      text-align: right;
+    }
+
+    .text-center {
+      text-align: center;
+    }
 
     /* ── Summary ── */
     .summary-layout {
@@ -188,6 +257,7 @@
       gap: 60px;
       padding-top: 30px;
     }
+
     .info-box h4 {
       font-size: 13px;
       text-transform: uppercase;
@@ -195,17 +265,24 @@
       margin-bottom: 15px;
       color: var(--text-light);
     }
-    .addr-text { font-size: 14px; line-height: 1.6; color: #444; }
-    
+
+    .addr-text {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #444;
+    }
+
     .totals-list {
       display: grid;
       gap: 12px;
     }
+
     .total-line {
       display: flex;
       justify-content: space-between;
       font-size: 15px;
     }
+
     .total-line.final {
       margin-top: 15px;
       padding-top: 15px;
@@ -220,18 +297,25 @@
       padding: 40px 60px;
       text-align: center;
     }
+
     .footer-grid {
       display: flex;
       justify-content: center;
       gap: 40px;
       margin-bottom: 30px;
     }
-    .footer-item { font-size: 13px; color: var(--text-light); }
+
+    .footer-item {
+      font-size: 13px;
+      color: var(--text-light);
+    }
+
     .note-section {
       font-size: 16px;
       font-weight: 600;
       color: var(--text-dark);
     }
+
     .tagline {
       font-size: 12px;
       color: var(--text-light);
@@ -239,32 +323,89 @@
     }
 
     /* ── Loading & Error ── */
-    .loading-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 120px 20px; }
-    .spinner { width: 50px; height: 50px; border: 5px solid #eee; border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 20px;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid #eee;
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
     @media print {
-      body { background: white; padding: 0; }
-      .actions-bar { display: none; }
-      .receipt { box-shadow: none; border-radius: 0; max-width: 100%; }
-      .receipt-inner { padding: 0.5in; }
+      body {
+        background: white;
+        padding: 0;
+      }
+
+      .actions-bar {
+        display: none;
+      }
+
+      .receipt {
+        box-shadow: none;
+        border-radius: 0;
+        max-width: 100%;
+      }
+
+      .receipt-inner {
+        padding: 0.5in;
+      }
     }
 
     @media (max-width: 700px) {
-      .receipt-inner { padding: 30px 25px; }
-      .header-layout { flex-direction: column; gap: 30px; }
-      .meta-section { text-align: left; }
-      .meta-row { justify-content: flex-start; }
-      .summary-layout { grid-template-columns: 1fr; gap: 40px; }
-      .invoice-title { font-size: 26px; }
+      .receipt-inner {
+        padding: 30px 25px;
+      }
+
+      .header-layout {
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      .meta-section {
+        text-align: left;
+      }
+
+      .meta-row {
+        justify-content: flex-start;
+      }
+
+      .summary-layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .invoice-title {
+        font-size: 26px;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <div class="actions-bar">
     <a href="products" class="back-link">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
       Back to Shop
     </a>
     <div class="action-btns">
@@ -294,13 +435,13 @@
     async function loadOrder() {
       // Wait for auth
       let client = await new Promise(r => {
-        const i = setInterval(() => { if(window.auth0Client){ clearInterval(i); r(window.auth0Client); }}, 100);
+        const i = setInterval(() => { if (window.auth0Client) { clearInterval(i); r(window.auth0Client); } }, 100);
       });
 
       const params = new URLSearchParams(window.location.search);
       const orderId = params.get('orderId');
-      
-      if(!orderId) {
+
+      if (!orderId) {
         document.getElementById('loading').innerHTML = "<h2>Order not found</h2>";
         return;
       }
@@ -310,10 +451,10 @@
         const res = await fetch(`${API_BASE}/orders/${orderId}`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
-        if(!res.ok) throw new Error('Failed to fetch');
+        if (!res.ok) throw new Error('Failed to fetch');
         const order = await res.json();
         render(order);
-      } catch(err) {
+      } catch (err) {
         document.getElementById('loading').innerHTML = "<h2>Error loading receipt</h2>";
       }
     }
@@ -321,7 +462,7 @@
     function render(order) {
       const displayId = order.displayId || `#ORD-${9900 + order.id}`;
       currentOrderName = displayId.replace('#', '');
-      
+
       const dateStr = new Date(order.created_at).toLocaleDateString('en-IN', {
         day: '2-digit', month: 'long', year: 'numeric'
       });
@@ -395,10 +536,10 @@
             <div>
               <h4>Shipping Information</h4>
               <p class="addr-text">Delivery Partner: <span style="font-weight: 600;">${order.courier_name || 'Processing...'}</span></p>
-              ${order.awb_code && order.awb_code !== 'PENDING' ? 
-                `<p class="addr-text">Tracking ID: <a href="https://track.fship.in/${order.awb_code}" target="_blank" style="color: var(--primary); text-decoration: underline; font-weight: 600; cursor: pointer;">${order.awb_code} (Track)</a></p>` : 
-                `<p class="addr-text">Tracking ID: <span style="font-weight: 600;">Generating...</span></p>`
-              }
+              ${order.awb_code && order.awb_code !== 'PENDING' ?
+          `<p class="addr-text">Tracking ID: <a href="https://track.fship.in/${order.awb_code}" target="_blank" style="color: var(--primary); text-decoration: underline; font-weight: 600; cursor: pointer;">${order.awb_code} (Track)</a></p>` :
+          `<p class="addr-text">Tracking ID: <span style="font-weight: 600;">Generating...</span></p>`
+        }
             </div>
           </div>
           <div class="totals-section">
@@ -445,4 +586,5 @@
     loadOrder();
   </script>
 </body>
+
 </html>

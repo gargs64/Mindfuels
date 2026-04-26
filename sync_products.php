@@ -80,7 +80,7 @@ try {
             ':img7' => $p['image7'] ?? '',
             ':weight' => is_numeric($p['weight'] ?? '') ? $p['weight'] : 0.50,
             ':length' => is_numeric($p['length'] ?? '') ? $p['length'] : 25.00,
-            ':width'  => is_numeric($p['width'] ?? '') ? $p['width'] : 18.00,
+            ':width' => is_numeric($p['width'] ?? '') ? $p['width'] : 18.00,
             ':height' => is_numeric($p['height'] ?? '') ? $p['height'] : 5.00,
         ]);
     }
