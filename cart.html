@@ -5,7 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Your Shopping Cart | MindFuels Publisher — Educational Books for Kids</title>
-  <meta name="description" content="Review your cart and checkout. MindFuels Publisher — trusted educational books for children, delivered across India.">
+  <meta name="description"
+    content="Review your cart and checkout. MindFuels Publisher — trusted educational books for children, delivered across India.">
   <meta name="author" content="MindFuels Publisher and Distributors">
   <meta name="robots" content="noindex, follow">
 
@@ -16,14 +17,16 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.mindfuelspublisher.com/cart.html">
   <meta property="og:title" content="Your Shopping Cart | MindFuels Publisher">
-  <meta property="og:description" content="Review your cart and checkout. Trusted educational books for children, delivered across India.">
+  <meta property="og:description"
+    content="Review your cart and checkout. Trusted educational books for children, delivered across India.">
   <meta property="og:image" content="https://www.mindfuelspublisher.com/photos/og-share.png">
   <meta property="og:site_name" content="MindFuels Publisher">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Your Shopping Cart | MindFuels Publisher">
-  <meta name="twitter:description" content="Review your cart and checkout. Trusted educational books for children, delivered across India.">
+  <meta name="twitter:description"
+    content="Review your cart and checkout. Trusted educational books for children, delivered across India.">
   <meta name="twitter:image" content="https://www.mindfuelspublisher.com/photos/og-share.png">
 
   <link rel="icon" href="photos/favicon.png" type="image/png">
@@ -39,7 +42,7 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-XXXXXXXXXX');
   </script>
@@ -98,8 +101,7 @@
           <input type="text" id="searchInput" class="nav-search-input" placeholder="Search books..."
             oninput="showSearchSuggestions(this.value);"
             onkeypress="if(event.key === 'Enter') { window.location.href = 'products?search=' + encodeURIComponent(this.value); hideSearchSuggestions(); }"
-            onfocus="showSearchSuggestions(this.value)"
-            autocomplete="off">
+            onfocus="showSearchSuggestions(this.value)" autocomplete="off">
           <div class="search-suggestions" id="searchSuggestions"></div>
           <button aria-label="Search" onclick="toggleSearchInput()">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -154,10 +156,13 @@
   </header>
 
   <main style="min-height: 60vh;">
-    <h1 class="sr-only" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;">Your Shopping Cart — MindFuels Publisher</h1>
+    <h1 class="sr-only"
+      style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;">
+      Your Shopping Cart — MindFuels Publisher</h1>
     <div class="cart-page-wrapper" id="cartContent">
       <!-- Dynamic cart content goes here -->
-      <!-- Shipping form is now embedded in the cart flow instead of a modal --></div>
+      <!-- Shipping form is now embedded in the cart flow instead of a modal -->
+    </div>
     </div>
   </main>
 
@@ -179,7 +184,8 @@
           <div class="footer-follow">
             <p class="follow-label">Follow us on</p>
             <div class="footer-social">
-              <a href="https://www.instagram.com/mindfuels_publisher" aria-label="Instagram" target="_blank" rel="noopener">
+              <a href="https://www.instagram.com/mindfuels_publisher" aria-label="Instagram" target="_blank"
+                rel="noopener">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                   stroke-linecap="round" stroke-linejoin="round">
                   <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
@@ -547,8 +553,8 @@
       const form = document.getElementById('shippingForm');
       const input = document.getElementById('cartPincodeInput');
       const formPinInput = document.getElementById('ship_pin');
-      const pincode = (input && input.value.trim().length === 6) ? input.value.trim() : 
-                      (formPinInput && formPinInput.value.trim().length === 6 ? formPinInput.value.trim() : '');
+      const pincode = (input && input.value.trim().length === 6) ? input.value.trim() :
+        (formPinInput && formPinInput.value.trim().length === 6 ? formPinInput.value.trim() : '');
 
       const msgEl = document.getElementById('cartPincodeMsg');
       const shippingVal = document.getElementById('shippingValue');
@@ -561,7 +567,7 @@
         if (grandTotalEl) grandTotalEl.innerHTML = '<span style="font-size: 14px; color: #999; font-weight: 400;">--</span>';
         if (msgEl) { msgEl.style.display = 'none'; }
         if (btn) { btn.textContent = 'ENTER SHIPPING DETAILS'; btn.disabled = false; }
-        
+
         if (pincode && /^\d{6}$/.test(pincode)) {
           if (input && input.value !== pincode) input.value = pincode;
           if (formPinInput && formPinInput.value !== pincode) {
@@ -572,7 +578,7 @@
         }
         return;
       }
-                      
+
       // Sync the inputs so they both show the same value
       if (pincode) {
         if (input && input.value !== pincode) input.value = pincode;
@@ -625,14 +631,16 @@
       const grandTotal = itemTotal + currentShippingCharge;
       if (grandTotalEl) grandTotalEl.textContent = fmt(grandTotal);
       if (msgEl) { msgEl.style.display = 'block'; msgEl.style.color = '#4CAF50'; msgEl.textContent = currentShippingCharge === 0 ? 'Free shipping on this order!' : ''; }
-      
+
       if (btn) { btn.textContent = 'PAY ' + fmt(grandTotal); btn.disabled = false; }
-    }\n\n        // Modal functions removed since shipping form is now embedded
+    }
+
+    // Modal functions removed since shipping form is now embedded
     // Auto-fill City and State via India Post API
     async function fetchLocationDetails(pincode) {
       const cityInput = document.getElementById('ship_city');
       const stateInput = document.getElementById('ship_state');
-      
+
       if (pincode.length !== 6 || !/^\d{6}$/.test(pincode)) {
         cityInput.value = '';
         stateInput.value = '';
@@ -640,22 +648,22 @@
         stateInput.placeholder = "Auto-filled";
         return;
       }
-      
+
       cityInput.placeholder = "Loading...";
       stateInput.placeholder = "Loading...";
 
       try {
         const response = await fetch(`https://api.postalpincode.in/pincode/${pincode}`);
         const data = await response.json();
-        
+
         if (data && data[0].Status === "Success" && data[0].PostOffice && data[0].PostOffice.length > 0) {
           cityInput.value = data[0].PostOffice[0].District;
           stateInput.value = data[0].PostOffice[0].State;
-          
+
           // Sync pincode to summary input if it exists
           const cartPin = document.getElementById('cartPincodeInput');
           if (cartPin) cartPin.value = pincode;
-          
+
           // Auto-fetch shipping rate after pincode is validated
           checkShippingFromCart();
         } else {
@@ -680,13 +688,13 @@
     // Connects Checkout UI to the Database Endpoint
     async function submitOrder(e) {
       e.preventDefault();
-      
+
       if (!window.isUserLoggedIn) {
         alert('Please sign in to proceed to checkout.');
         window.location.href = 'login';
         return;
       }
-      
+
       const btn = document.getElementById('confirmOrderBtn');
       btn.innerHTML = "PREPARING PAYMENT...";
       btn.disabled = true;
@@ -716,7 +724,7 @@
           },
           body: JSON.stringify({ amount: actualTotal })
         });
-        
+
         if (!rzpOrderResponse.ok) throw new Error("Could not create Razorpay order");
         const rzpOrder = await rzpOrderResponse.json();
 
