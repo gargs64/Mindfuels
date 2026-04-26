@@ -656,7 +656,7 @@ input {
 /* Simple Static Hero */
 .hero-simple {
   width: 100%;
-  margin-top: 60px; /* Aligned with header height */
+  margin-top: 90px; /* Aligned with floating header */
   overflow: hidden;
   background-color: #fff;
   display: block;
@@ -4497,7 +4497,7 @@ body.no-scroll {
 
   /* Prevent hero/banner overlap */
   .hero, .hero-simple, .products-hero, .product-header-banner {
-    margin-top: 60px !important;
+    margin-top: 90px !important;
   }
   
   
