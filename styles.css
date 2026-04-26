@@ -1567,7 +1567,7 @@ input {
   align-items: center;
   padding: 80px 0 100px;
   overflow: hidden;
-  background-color: #fcf8ff; /* Very light lavender background */
+  background-color: transparent; /* Matches entire website background */
 }
 
 /* Decorative Icons for Age Section */
@@ -1658,15 +1658,16 @@ input {
   font-family: var(--font-heading);
   font-size: 45px;
   font-weight: 700;
-  color: #E0B0FF; /* User requested color */
+  color: var(--primary); /* Mindfuels logo yellow */
+  -webkit-text-stroke: 1.5px #3A0B4B; /* Deep purple outline */
   margin-bottom: 4px;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.15); /* Slight shadow to make the yellow pop */
 }
 
 .age-subtitle {
   font-family: var(--font-body);
   font-size: 15px;
-  color: #b18ec4; /* A shade of E0B0FF */
+  color: var(--text-secondary);
   margin: 0;
 }
 
@@ -1737,7 +1738,7 @@ input {
   font-family: var(--font-heading);
   font-size: 18px;
   font-weight: 700;
-  color: #8c57a3; /* A deeper shade for readability */
+  color: #3A0B4B; /* Deep purple to match the title outline */
   text-align: center;
   line-height: 1.2;
 }
