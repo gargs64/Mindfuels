@@ -24,8 +24,8 @@
  */
 
 // API Configuration
-const API_BASE_URL = 'https://mindfuels-backend.onrender.com/api'; // REPLACE THIS with your Render URL
-// const API_BASE_URL = 'http://localhost:5000/api'; 
+// const API_BASE_URL = 'https://mindfuels-backend.onrender.com/api'; // REPLACE THIS with your Render URL
+const API_BASE_URL = 'http://localhost:5000/api'; 
 let catalogProducts = [];
 
 
@@ -49,11 +49,11 @@ function openMenu() {
   const nav = document.getElementById('mainNav');
   const hamburger = document.getElementById('hamburgerBtn');
   const overlay = document.getElementById('navOverlay');
-  
+
   if (nav) nav.classList.add('open');
   if (hamburger) hamburger.classList.add('active');
   if (overlay) overlay.classList.add('active');
-  
+
   document.body.style.overflow = 'hidden';
 }
 
@@ -61,11 +61,11 @@ function closeMenu() {
   const nav = document.getElementById('mainNav');
   const hamburger = document.getElementById('hamburgerBtn');
   const overlay = document.getElementById('navOverlay');
-  
+
   if (nav) nav.classList.remove('open');
   if (hamburger) hamburger.classList.remove('active');
   if (overlay) overlay.classList.remove('active');
-  
+
   document.body.style.overflow = '';
 }
 
@@ -81,10 +81,10 @@ window.addEventListener('load', forceCloseAll);
 // Accordion Logic inside Drawer
 const accordions = document.querySelectorAll('.accordion-head');
 accordions.forEach(acc => {
-  acc.addEventListener('click', function() {
+  acc.addEventListener('click', function () {
     // Toggle active class on button
     this.classList.toggle('active');
-    
+
     // Toggle body visibility
     const body = this.nextElementSibling;
     if (body.style.display === 'block') {
@@ -107,13 +107,13 @@ const closeFilterSheet = document.getElementById('closeFilterSheet');
 
 if (mobileFilterBtn && filterSheet && filterOverlay && closeFilterSheet) {
   mobileFilterBtn._fBound = true;
-  window.openFilterSheet = function() {
+  window.openFilterSheet = function () {
     filterSheet.classList.add('active');
     filterOverlay.classList.add('active');
     document.body.style.overflow = 'hidden';
   };
 
-  window.closeSheet = function() {
+  window.closeSheet = function () {
     filterSheet.classList.remove('active');
     filterOverlay.classList.remove('active');
     document.body.style.overflow = '';
@@ -125,16 +125,16 @@ if (mobileFilterBtn && filterSheet && filterOverlay && closeFilterSheet) {
 }
 
 // Fallback: re-bind filter on DOMContentLoaded
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   var btn = document.getElementById('mobileFilterBtn');
   var sheet = document.getElementById('filterSheet');
   var overlay = document.getElementById('filterOverlay');
   var cls = document.getElementById('closeFilterSheet');
   if (btn && sheet && overlay && cls && !btn._fBound) {
     btn._fBound = true;
-    btn.addEventListener('click', function() { sheet.classList.add('active'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; });
-    cls.addEventListener('click', function() { sheet.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = ''; });
-    overlay.addEventListener('click', function() { sheet.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = ''; });
+    btn.addEventListener('click', function () { sheet.classList.add('active'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; });
+    cls.addEventListener('click', function () { sheet.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = ''; });
+    overlay.addEventListener('click', function () { sheet.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = ''; });
   }
 });
 // Mobile Sort Button logic
@@ -867,7 +867,7 @@ window.toggleSidebar = function () {
     sidebar.classList.toggle('open');
     const isOpen = sidebar.classList.contains('open');
     document.body.classList.toggle('no-scroll', isOpen);
-    
+
     // Toggle overlays
     if (overlay) overlay.classList.toggle('visible', isOpen);
     if (filterOverlay) filterOverlay.classList.toggle('open', isOpen);
@@ -915,7 +915,7 @@ window.toggleSearchOverlay = function () {
   }
 };
 
-window.overlaySearch = function(query) {
+window.overlaySearch = function (query) {
   const input = document.getElementById('overlaySearchInput');
   if (input) {
     input.value = query;
@@ -932,14 +932,14 @@ window.showSearchSuggestions = function (query, targetId = 'searchSuggestions') 
   const container = resultList || dropdown;
 
   query = (query || '').toLowerCase().trim();
-  
+
   if (!query) {
     container.innerHTML = '';
     if (trending) trending.style.display = 'block';
     dropdown.style.display = (targetId === 'searchSuggestions') ? 'none' : 'block';
     return;
   }
-  
+
   if (trending) trending.style.display = 'none';
 
   if (!catalogProducts || catalogProducts.length === 0) return;
@@ -978,13 +978,13 @@ window.hideSearchSuggestions = function () {
 window.selectSearchSuggestion = function (name) {
   const overlayInput = document.getElementById('overlaySearchInput');
   const navInput = document.getElementById('searchInput');
-  
+
   if (overlayInput) overlayInput.value = name;
   if (navInput) navInput.value = name;
-  
+
   // Navigate to products with search query
   window.location.href = 'products.html?search=' + encodeURIComponent(name);
-  
+
   hideSearchSuggestions();
   const overlay = document.getElementById('searchOverlay');
   if (overlay) overlay.classList.remove('active');
@@ -1639,6 +1639,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (wrapper && dropdown) {
     let timeout;
+    // Desktop hover behavior
     wrapper.addEventListener('mouseenter', () => {
       clearTimeout(timeout);
       updateWishlistDropdown();
@@ -1657,13 +1658,31 @@ document.addEventListener('DOMContentLoaded', () => {
         dropdown.classList.remove('visible');
       }, 200);
     });
+
+    // Mobile click/tap toggle
+    const wishlistBtn = document.getElementById('wishlistBtn') || document.getElementById('wishlistBtnDesktop');
+    if (wishlistBtn) {
+      wishlistBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        updateWishlistDropdown();
+        dropdown.classList.toggle('visible');
+      });
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!wrapper.contains(e.target)) {
+        dropdown.classList.remove('visible');
+      }
+    });
   }
 });
 
 /* ============================================================
    TOAST NOTIFICATIONS
    ============================================================ */
-window.showToast = function(message, type = 'info') {
+window.showToast = function (message, type = 'info') {
   let container = document.getElementById('toast-container');
   if (!container) {
     container = document.createElement('div');
@@ -1690,7 +1709,7 @@ window.showToast = function(message, type = 'info') {
 
 /* Override native alert to use toast dynamically if possible */
 const originalAlert = window.alert;
-window.alert = function(message) {
+window.alert = function (message) {
   if (typeof message === 'string' && message.toLowerCase().includes('error')) {
     window.showToast(message, 'error');
   } else if (typeof message === 'string' && message.toLowerCase().includes('success')) {
@@ -1715,7 +1734,7 @@ function initTheme() {
 }
 initTheme();
 
-window.toggleTheme = function() {
+window.toggleTheme = function () {
   if (document.documentElement.getAttribute('data-theme') === 'dark') {
     document.documentElement.removeAttribute('data-theme');
     localStorage.setItem('mindfuels_theme', 'light');
@@ -1732,17 +1751,17 @@ document.addEventListener('mousemove', (e) => {
   if (window.innerWidth < 1024) return;
   const card = e.target.closest('.product-card');
   if (!card) return;
-  
+
   const rect = card.getBoundingClientRect();
   const x = e.clientX - rect.left; // x position within the element.
   const y = e.clientY - rect.top;  // y position within the element.
-  
+
   const centerX = rect.width / 2;
   const centerY = rect.height / 2;
-  
+
   const rotateX = ((y - centerY) / centerY) * -5; // max 5 deg
   const rotateY = ((x - centerX) / centerX) * 5;  // max 5 deg
-  
+
   card.style.transform = `translateY(-5px) scale(1.02) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
 });
 
@@ -1761,11 +1780,11 @@ document.addEventListener('mouseout', (e) => {
    ============================================================ */
 function initPrefetcher() {
   const prefetchCache = new Set();
-  
+
   function prefetchUrl(url) {
     if (prefetchCache.has(url)) return;
     prefetchCache.add(url);
-    
+
     const link = document.createElement('link');
     link.rel = 'prefetch';
     link.href = url;
@@ -1775,7 +1794,7 @@ function initPrefetcher() {
   document.addEventListener('mouseover', (e) => {
     const target = e.target.closest('a');
     if (!target || !target.href) return;
-    
+
     const url = target.href;
     // Only prefetch internal HTTP(S) links
     if (url.startsWith(window.location.origin) && !url.includes('#')) {
@@ -1804,17 +1823,17 @@ if (document.readyState === 'loading') {
 /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    PINCODE CHECKER LOGIC
 â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-window.checkPincode = function() {
+window.checkPincode = function () {
   const pincode = document.getElementById('pincodeInput').value;
   const resultDiv = document.getElementById('pincodeResult');
-  
+
   if (!pincode || pincode.length !== 6 || isNaN(pincode)) {
     resultDiv.innerHTML = '<span class="error">Please enter a valid 6-digit pincode.</span>';
     return;
   }
 
   resultDiv.innerHTML = 'Checking...';
-  
+
   // Simulate API call
   setTimeout(() => {
     // Basic simulation: if pincode starts with 1-4, it's deliverable
@@ -1845,3 +1864,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   URL OPTIMIZATION (Strip .html extensions)
+   Makes internal links look cleaner (e.g., /products instead of /products.html).
+   Note: Requires server support for extensionless URLs.
+───────────────────────────────────────────────────────────────────────────── */
+(function stripHTMLExtensions() {
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a');
+    if (link && link.href && link.href.endsWith('.html') && link.origin === window.location.origin) {
+      // Allow the click but optionally modify history if needed
+      // For static site hosting like GitHub Pages/Hostinger, we often just want the code to be clean
+    }
+  });
+
+  // Clean all links on load
+  document.querySelectorAll('a').forEach(a => {
+    try {
+      const url = new URL(a.href, window.location.origin);
+      if (url.pathname.endsWith('.html') && url.origin === window.location.origin) {
+        if (!url.pathname.endsWith('index.html')) {
+          a.setAttribute('data-original-href', a.href);
+          a.href = a.href.replace('.html', '');
+        }
+      }
+    } catch (e) { }
+  });
+})();
